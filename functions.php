@@ -11,7 +11,7 @@
     Copyright 2011-2012 Cool Dude 2k - http://idb.berlios.de/
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
 
-    $FileInfo: functions.php - Last Update: 01/04/2012 Ver. 2.0.0 RC 8 - Author: cooldude2k $
+    $FileInfo: functions.php - Last Update: 01/04/2012 Ver. 2.0.0 RC 9 - Author: cooldude2k $
 */
 
 /*
@@ -251,32 +251,32 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(113, 50);
-	imagefilledrectangle($upc_img, 0, 0, 113, 50, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(113, 62);
+	imagefilledrectangle($upc_img, 0, 0, 113, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	imagestring($upc_img, 2, 2, 37, $upc_matches[1], $text_color);
-	imagestring($upc_img, 2, 22, 37, $upc_matches[2], $text_color);
-	imagestring($upc_img, 2, 61, 37, $upc_matches[3], $text_color);
-	imagestring($upc_img, 2, 106, 37, $upc_matches[4], $text_color);
-	imageline($upc_img, 0, 0, 0, 37, $alt_text_color);
-	imageline($upc_img, 1, 0, 1, 37, $alt_text_color);
-	imageline($upc_img, 2, 0, 2, 37, $alt_text_color);
-	imageline($upc_img, 3, 0, 3, 37, $alt_text_color);
-	imageline($upc_img, 4, 0, 4, 37, $alt_text_color);
-	imageline($upc_img, 5, 0, 5, 37, $alt_text_color);
-	imageline($upc_img, 6, 0, 6, 37, $alt_text_color);
-	imageline($upc_img, 7, 0, 7, 37, $alt_text_color);
-	imageline($upc_img, 8, 0, 8, 37, $alt_text_color);
-	imageline($upc_img, 9, 0, 9, 41, $text_color);
-	imageline($upc_img, 10, 0, 10, 41, $alt_text_color);
-	imageline($upc_img, 11, 0, 11, 41, $text_color);
+	imagestring($upc_img, 2, 2, 47, $upc_matches[1], $text_color);
+	imagestring($upc_img, 2, 22, 47, $upc_matches[2], $text_color);
+	imagestring($upc_img, 2, 61, 47, $upc_matches[3], $text_color);
+	imagestring($upc_img, 2, 106, 47, $upc_matches[4], $text_color);
+	imageline($upc_img, 0, 10, 0, 47, $alt_text_color);
+	imageline($upc_img, 1, 10, 1, 47, $alt_text_color);
+	imageline($upc_img, 2, 10, 2, 47, $alt_text_color);
+	imageline($upc_img, 3, 10, 3, 47, $alt_text_color);
+	imageline($upc_img, 4, 10, 4, 47, $alt_text_color);
+	imageline($upc_img, 5, 10, 5, 47, $alt_text_color);
+	imageline($upc_img, 6, 10, 6, 47, $alt_text_color);
+	imageline($upc_img, 7, 10, 7, 47, $alt_text_color);
+	imageline($upc_img, 8, 10, 8, 47, $alt_text_color);
+	imageline($upc_img, 9, 10, 9, 51, $text_color);
+	imageline($upc_img, 10, 10, 10, 51, $alt_text_color);
+	imageline($upc_img, 11, 10, 11, 51, $text_color);
 	$NumZero = 0; $LineStart = 12;
 	while ($NumZero < count($LeftDigit)) {
-		if($NumZero!=0) { $LineSize = 37; }
-		if($NumZero==0) { $LineSize = 41; }
+		if($NumZero!=0) { $LineSize = 47; }
+		if($NumZero==0) { $LineSize = 51; }
 		$left_text_color = array(0, 0, 0, 0, 0, 0, 0);
 		if($LeftDigit[$NumZero]==0) { 
 		$left_text_color = array(0, 0, 0, 1, 1, 0, 1); }
@@ -299,50 +299,50 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		if($LeftDigit[$NumZero]==9) {
 		$left_text_color = array(0, 0, 0, 1, 0, 1, 1); }
 		if($left_text_color[0]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[0]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		++$NumZero; }
-	imageline($upc_img, 54, 0, 54, 41, $alt_text_color);
-	imageline($upc_img, 55, 0, 55, 41, $text_color);
-	imageline($upc_img, 56, 0, 56, 41, $alt_text_color);
-	imageline($upc_img, 57, 0, 57, 41, $text_color);
-	imageline($upc_img, 58, 0, 58, 41, $alt_text_color);
+	imageline($upc_img, 54, 10, 54, 51, $alt_text_color);
+	imageline($upc_img, 55, 10, 55, 51, $text_color);
+	imageline($upc_img, 56, 10, 56, 51, $alt_text_color);
+	imageline($upc_img, 57, 10, 57, 51, $text_color);
+	imageline($upc_img, 58, 10, 58, 51, $alt_text_color);
 	$NumZero = 0; $LineStart = 59;
 	while ($NumZero < count($RightDigit)) {
-		if($NumZero!=5) { $LineSize = 37; }
-		if($NumZero==5) { $LineSize = 41; }
+		if($NumZero!=5) { $LineSize = 47; }
+		if($NumZero==5) { $LineSize = 51; }
 		$right_text_color = array(0, 0, 0, 0, 0, 0, 0);
 		if($RightDigit[$NumZero]==0) { 
 		$right_text_color = array(1, 1, 1, 0, 0, 1, 0); }
@@ -365,61 +365,61 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		if($RightDigit[$NumZero]==9) { 
 		$right_text_color = array(1, 1, 1, 0, 1, 0, 0); }
 		if($right_text_color[0]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[0]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		++$NumZero; }
-	imageline($upc_img, 101, 0, 101, 41, $text_color);
-	imageline($upc_img, 102, 0, 102, 41, $alt_text_color);
-	imageline($upc_img, 103, 0, 103, 41, $text_color);
-	imageline($upc_img, 104, 0, 104, 37, $alt_text_color);
-	imageline($upc_img, 105, 0, 105, 37, $alt_text_color);
-	imageline($upc_img, 106, 0, 106, 37, $alt_text_color);
-	imageline($upc_img, 107, 0, 107, 37, $alt_text_color);
-	imageline($upc_img, 108, 0, 108, 37, $alt_text_color);
-	imageline($upc_img, 109, 0, 109, 37, $alt_text_color);
-	imageline($upc_img, 110, 0, 110, 37, $alt_text_color);
-	imageline($upc_img, 111, 0, 111, 37, $alt_text_color);
-	imageline($upc_img, 112, 0, 112, 37, $alt_text_color);
+	imageline($upc_img, 101, 10, 101, 51, $text_color);
+	imageline($upc_img, 102, 10, 102, 51, $alt_text_color);
+	imageline($upc_img, 103, 10, 103, 51, $text_color);
+	imageline($upc_img, 104, 10, 104, 47, $alt_text_color);
+	imageline($upc_img, 105, 10, 105, 47, $alt_text_color);
+	imageline($upc_img, 106, 10, 106, 47, $alt_text_color);
+	imageline($upc_img, 107, 10, 107, 47, $alt_text_color);
+	imageline($upc_img, 108, 10, 108, 47, $alt_text_color);
+	imageline($upc_img, 109, 10, 109, 47, $alt_text_color);
+	imageline($upc_img, 110, 10, 110, 47, $alt_text_color);
+	imageline($upc_img, 111, 10, 111, 47, $alt_text_color);
+	imageline($upc_img, 112, 10, 112, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(113 * $resize, 50 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 113 * $resize, 50 * $resize, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor(113 * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, 113 * $resize, 62 * $resize, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 50 * $resize, 113, 50); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 50 * $resize, 113, 50); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
@@ -472,30 +472,30 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(67, 50);
-	imagefilledrectangle($upc_img, 0, 0, 67, 50, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(67, 62);
+	imagefilledrectangle($upc_img, 0, 0, 67, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	imagestring($upc_img, 2, 2, 37, $upc_matches[1], $text_color);
-	imagestring($upc_img, 2, 16, 37, $upc_matches[2], $text_color);
-	imagestring($upc_img, 2, 62, 37, $upc_matches[3], $text_color);
-	imageline($upc_img, 0, 0, 0, 37, $alt_text_color);
-	imageline($upc_img, 1, 0, 1, 37, $alt_text_color);
-	imageline($upc_img, 2, 0, 2, 37, $alt_text_color);
-	imageline($upc_img, 3, 0, 3, 37, $alt_text_color);
-	imageline($upc_img, 4, 0, 4, 37, $alt_text_color);
-	imageline($upc_img, 5, 0, 5, 37, $alt_text_color);
-	imageline($upc_img, 6, 0, 6, 37, $alt_text_color);
-	imageline($upc_img, 7, 0, 7, 37, $alt_text_color);
-	imageline($upc_img, 8, 0, 8, 37, $alt_text_color);
-	imageline($upc_img, 9, 0, 9, 41, $text_color);
-	imageline($upc_img, 10, 0, 10, 41, $alt_text_color);
-	imageline($upc_img, 11, 0, 11, 41, $text_color);
+	imagestring($upc_img, 2, 2, 47, $upc_matches[1], $text_color);
+	imagestring($upc_img, 2, 16, 47, $upc_matches[2], $text_color);
+	imagestring($upc_img, 2, 62, 47, $upc_matches[3], $text_color);
+	imageline($upc_img, 0, 10, 0, 47, $alt_text_color);
+	imageline($upc_img, 1, 10, 1, 47, $alt_text_color);
+	imageline($upc_img, 2, 10, 2, 47, $alt_text_color);
+	imageline($upc_img, 3, 10, 3, 47, $alt_text_color);
+	imageline($upc_img, 4, 10, 4, 47, $alt_text_color);
+	imageline($upc_img, 5, 10, 5, 47, $alt_text_color);
+	imageline($upc_img, 6, 10, 6, 47, $alt_text_color);
+	imageline($upc_img, 7, 10, 7, 47, $alt_text_color);
+	imageline($upc_img, 8, 10, 8, 47, $alt_text_color);
+	imageline($upc_img, 9, 10, 9, 51, $text_color);
+	imageline($upc_img, 10, 10, 10, 51, $alt_text_color);
+	imageline($upc_img, 11, 10, 11, 51, $text_color);
 	$NumZero = 0; $LineStart = 12;
 	while ($NumZero < count($LeftDigit)) {
-		$LineSize = 37;
+		$LineSize = 47;
 		$left_text_color = array(0, 0, 0, 0, 0, 0, 0);
 		$left_text_color_odd = array(0, 0, 0, 0, 0, 0, 0);
 		$left_text_color_even = array(0, 0, 0, 0, 0, 0, 0);
@@ -611,62 +611,62 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		if($NumZero==2) { $left_text_color = $left_text_color_even; }
 		if($NumZero==4) { $left_text_color = $left_text_color_even; } }
 		if($left_text_color[0]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[0]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		++$NumZero; }
-	imageline($upc_img, 54, 0, 54, 41, $alt_text_color);
-	imageline($upc_img, 55, 0, 55, 41, $text_color);
-	imageline($upc_img, 56, 0, 56, 41, $alt_text_color);
-	imageline($upc_img, 57, 0, 57, 41, $text_color);
-	imageline($upc_img, 58, 0, 58, 41, $alt_text_color);
-	imageline($upc_img, 59, 0, 59, 41, $text_color);
-	imageline($upc_img, 60, 0, 60, 37, $alt_text_color);
-	imageline($upc_img, 61, 0, 61, 37, $alt_text_color);
-	imageline($upc_img, 62, 0, 62, 37, $alt_text_color);
-	imageline($upc_img, 63, 0, 63, 37, $alt_text_color);
-	imageline($upc_img, 64, 0, 64, 37, $alt_text_color);
-	imageline($upc_img, 65, 0, 65, 37, $alt_text_color);
-	imageline($upc_img, 66, 0, 66, 37, $alt_text_color);
+	imageline($upc_img, 54, 10, 54, 51, $alt_text_color);
+	imageline($upc_img, 55, 10, 55, 51, $text_color);
+	imageline($upc_img, 56, 10, 56, 51, $alt_text_color);
+	imageline($upc_img, 57, 10, 57, 51, $text_color);
+	imageline($upc_img, 58, 10, 58, 51, $alt_text_color);
+	imageline($upc_img, 59, 10, 59, 51, $text_color);
+	imageline($upc_img, 60, 10, 60, 47, $alt_text_color);
+	imageline($upc_img, 61, 10, 61, 47, $alt_text_color);
+	imageline($upc_img, 62, 10, 62, 47, $alt_text_color);
+	imageline($upc_img, 63, 10, 63, 47, $alt_text_color);
+	imageline($upc_img, 64, 10, 64, 47, $alt_text_color);
+	imageline($upc_img, 65, 10, 65, 47, $alt_text_color);
+	imageline($upc_img, 66, 10, 66, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(67 * $resize, 50 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 67 * $resize, 50 * $resize, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor(67 * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, 67 * $resize, 62 * $resize, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 67 * $resize, 50 * $resize, 67, 50); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 67 * $resize, 62 * $resize, 67, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 67 * $resize, 50 * $resize, 67, 50); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 67 * $resize, 62 * $resize, 67, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
@@ -718,32 +718,32 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(113, 50);
-	imagefilledrectangle($upc_img, 0, 0, 113, 50, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(113, 62);
+	imagefilledrectangle($upc_img, 0, 0, 113, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	imagestring($upc_img, 2, 4, 37, $upc_matches[1], $text_color);
-	imagestring($upc_img, 2, 18, 37, $upc_matches[2], $text_color);
-	imagestring($upc_img, 2, 65, 37, $upc_matches[3], $text_color);
-	imageline($upc_img, 0, 0, 0, 37, $alt_text_color);
-	imageline($upc_img, 1, 0, 1, 37, $alt_text_color);
-	imageline($upc_img, 2, 0, 2, 37, $alt_text_color);
-	imageline($upc_img, 3, 0, 3, 37, $alt_text_color);
-	imageline($upc_img, 4, 0, 4, 37, $alt_text_color);
-	imageline($upc_img, 5, 0, 5, 37, $alt_text_color);
-	imageline($upc_img, 6, 0, 6, 37, $alt_text_color);
-	imageline($upc_img, 7, 0, 7, 37, $alt_text_color);
-	imageline($upc_img, 8, 0, 8, 37, $alt_text_color);
-	imageline($upc_img, 9, 0, 9, 37, $alt_text_color);
-	imageline($upc_img, 10, 0, 10, 41, $alt_text_color);
-	imageline($upc_img, 11, 0, 11, 41, $text_color);
-	imageline($upc_img, 12, 0, 12, 41, $alt_text_color);
-	imageline($upc_img, 13, 0, 13, 41, $text_color);
+	imagestring($upc_img, 2, 4, 47, $upc_matches[1], $text_color);
+	imagestring($upc_img, 2, 18, 47, $upc_matches[2], $text_color);
+	imagestring($upc_img, 2, 65, 47, $upc_matches[3], $text_color);
+	imageline($upc_img, 0, 10, 0, 47, $alt_text_color);
+	imageline($upc_img, 1, 10, 1, 47, $alt_text_color);
+	imageline($upc_img, 2, 10, 2, 47, $alt_text_color);
+	imageline($upc_img, 3, 10, 3, 47, $alt_text_color);
+	imageline($upc_img, 4, 10, 4, 47, $alt_text_color);
+	imageline($upc_img, 5, 10, 5, 47, $alt_text_color);
+	imageline($upc_img, 6, 10, 6, 47, $alt_text_color);
+	imageline($upc_img, 7, 10, 7, 47, $alt_text_color);
+	imageline($upc_img, 8, 10, 8, 47, $alt_text_color);
+	imageline($upc_img, 9, 10, 9, 47, $alt_text_color);
+	imageline($upc_img, 10, 10, 10, 51, $alt_text_color);
+	imageline($upc_img, 11, 10, 11, 51, $text_color);
+	imageline($upc_img, 12, 10, 12, 51, $alt_text_color);
+	imageline($upc_img, 13, 10, 13, 51, $text_color);
 	$NumZero = 0; $LineStart = 14;
 	while ($NumZero < count($LeftDigit)) {
-		$LineSize = 37;
+		$LineSize = 47;
 		$left_text_color_l = array(0, 0, 0, 0, 0, 0, 0); 
 		$left_text_color_g = array(1, 1, 1, 1, 1, 1, 1);
 		if($LeftDigit[$NumZero]==0) { 
@@ -814,49 +814,49 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 		if($NumZero==2) { $left_text_color = $left_text_color_g; }
 		if($NumZero==4) { $left_text_color = $left_text_color_g; } }
 		if($left_text_color[0]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[0]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		++$NumZero; }
-	imageline($upc_img, 56, 0, 56, 41, $alt_text_color);
-	imageline($upc_img, 57, 0, 57, 41, $text_color);
-	imageline($upc_img, 58, 0, 58, 41, $alt_text_color);
-	imageline($upc_img, 59, 0, 59, 41, $text_color);
-	imageline($upc_img, 60, 0, 60, 41, $alt_text_color);
+	imageline($upc_img, 56, 10, 56, 51, $alt_text_color);
+	imageline($upc_img, 57, 10, 57, 51, $text_color);
+	imageline($upc_img, 58, 10, 58, 51, $alt_text_color);
+	imageline($upc_img, 59, 10, 59, 51, $text_color);
+	imageline($upc_img, 60, 10, 60, 51, $alt_text_color);
 	$NumZero = 0; $LineStart = 61;
 	while ($NumZero < count($RightDigit)) {
-		$LineSize = 37;
+		$LineSize = 47;
 		$right_text_color = array(0, 0, 0, 0, 0, 0, 0);
 		if($RightDigit[$NumZero]==0) { 
 		$right_text_color = array(1, 1, 1, 0, 0, 1, 0); }
@@ -879,59 +879,59 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 		if($RightDigit[$NumZero]==9) { 
 		$right_text_color = array(1, 1, 1, 0, 1, 0, 0); }
 		if($right_text_color[0]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[0]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		++$NumZero; }
-	imageline($upc_img, 103, 0, 103, 41, $text_color);
-	imageline($upc_img, 104, 0, 104, 41, $alt_text_color);
-	imageline($upc_img, 105, 0, 105, 41, $text_color);
-	imageline($upc_img, 106, 0, 106, 37, $alt_text_color);
-	imageline($upc_img, 107, 0, 107, 37, $alt_text_color);
-	imageline($upc_img, 108, 0, 108, 37, $alt_text_color);
-	imageline($upc_img, 109, 0, 109, 37, $alt_text_color);
-	imageline($upc_img, 110, 0, 110, 37, $alt_text_color);
-	imageline($upc_img, 111, 0, 111, 37, $alt_text_color);
-	imageline($upc_img, 112, 0, 112, 37, $alt_text_color);
+	imageline($upc_img, 103, 10, 103, 51, $text_color);
+	imageline($upc_img, 104, 10, 104, 51, $alt_text_color);
+	imageline($upc_img, 105, 10, 105, 51, $text_color);
+	imageline($upc_img, 106, 10, 106, 47, $alt_text_color);
+	imageline($upc_img, 107, 10, 107, 47, $alt_text_color);
+	imageline($upc_img, 108, 10, 108, 47, $alt_text_color);
+	imageline($upc_img, 109, 10, 109, 47, $alt_text_color);
+	imageline($upc_img, 110, 10, 110, 47, $alt_text_color);
+	imageline($upc_img, 111, 10, 111, 47, $alt_text_color);
+	imageline($upc_img, 112, 10, 112, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(113 * $resize, 50 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 113, 50, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor(113 * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, 113, 62, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 50 * $resize, 113, 50); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 50 * $resize, 113, 50); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
@@ -985,29 +985,29 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(81, 50);
-	imagefilledrectangle($upc_img, 0, 0, 81, 50, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(81, 62);
+	imagefilledrectangle($upc_img, 0, 0, 81, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	imagestring($upc_img, 2, 12, 37, $LeftLeftDigit, $text_color);
-	imagestring($upc_img, 2, 25, 37, $LeftRightDigit, $text_color);
-	imagestring($upc_img, 2, 45, 37, $RightLeftDigit, $text_color);
-	imagestring($upc_img, 2, 58, 37, $RightRightDigit, $text_color);
-	imageline($upc_img, 0, 0, 0, 37, $alt_text_color);
-	imageline($upc_img, 1, 0, 1, 37, $alt_text_color);
-	imageline($upc_img, 2, 0, 2, 37, $alt_text_color);
-	imageline($upc_img, 3, 0, 3, 37, $alt_text_color);
-	imageline($upc_img, 4, 0, 4, 37, $alt_text_color);
-	imageline($upc_img, 5, 0, 5, 37, $alt_text_color);
-	imageline($upc_img, 6, 0, 6, 37, $alt_text_color);
-	imageline($upc_img, 7, 0, 7, 41, $text_color);
-	imageline($upc_img, 8, 0, 8, 41, $alt_text_color);
-	imageline($upc_img, 9, 0, 9, 41, $text_color);
+	imagestring($upc_img, 2, 12, 47, $LeftLeftDigit, $text_color);
+	imagestring($upc_img, 2, 25, 47, $LeftRightDigit, $text_color);
+	imagestring($upc_img, 2, 45, 47, $RightLeftDigit, $text_color);
+	imagestring($upc_img, 2, 58, 47, $RightRightDigit, $text_color);
+	imageline($upc_img, 0, 10, 0, 47, $alt_text_color);
+	imageline($upc_img, 1, 10, 1, 47, $alt_text_color);
+	imageline($upc_img, 2, 10, 2, 47, $alt_text_color);
+	imageline($upc_img, 3, 10, 3, 47, $alt_text_color);
+	imageline($upc_img, 4, 10, 4, 47, $alt_text_color);
+	imageline($upc_img, 5, 10, 5, 47, $alt_text_color);
+	imageline($upc_img, 6, 10, 6, 47, $alt_text_color);
+	imageline($upc_img, 7, 10, 7, 51, $text_color);
+	imageline($upc_img, 8, 10, 8, 51, $alt_text_color);
+	imageline($upc_img, 9, 10, 9, 51, $text_color);
 	$NumZero = 0; $LineStart = 10;
 	while ($NumZero < count($LeftDigit)) {
-		$LineSize = 37;
+		$LineSize = 47;
 		$left_text_color_l = array(0, 0, 0, 0, 0, 0, 0); 
 		$left_text_color_g = array(1, 1, 1, 1, 1, 1, 1);
 		if($LeftDigit[$NumZero]==0) { 
@@ -1078,49 +1078,49 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		if($NumZero==2) { $left_text_color = $left_text_color_g; }
 		if($NumZero==4) { $left_text_color = $left_text_color_g; } }
 		if($left_text_color[0]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[0]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($left_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($left_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		++$NumZero; }
-	imageline($upc_img, 38, 0, 38, 41, $alt_text_color);
-	imageline($upc_img, 39, 0, 39, 41, $text_color);
-	imageline($upc_img, 40, 0, 40, 41, $alt_text_color);
-	imageline($upc_img, 41, 0, 41, 41, $text_color);
-	imageline($upc_img, 42, 0, 42, 41, $alt_text_color);
+	imageline($upc_img, 38, 10, 38, 51, $alt_text_color);
+	imageline($upc_img, 39, 10, 39, 51, $text_color);
+	imageline($upc_img, 40, 10, 40, 51, $alt_text_color);
+	imageline($upc_img, 41, 10, 41, 51, $text_color);
+	imageline($upc_img, 42, 10, 42, 51, $alt_text_color);
 	$NumZero = 0; $LineStart = 43;
 	while ($NumZero < count($RightDigit)) {
-		$LineSize = 37;
+		$LineSize = 47;
 		$right_text_color = array(0, 0, 0, 0, 0, 0, 0);
 		if($RightDigit[$NumZero]==0) { 
 		$right_text_color = array(1, 1, 1, 0, 0, 1, 0); }
@@ -1143,59 +1143,59 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		if($RightDigit[$NumZero]==9) { 
 		$right_text_color = array(1, 1, 1, 0, 1, 0, 0); }
 		if($right_text_color[0]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[0]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		if($right_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
 		if($right_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 0, $LineStart, $LineSize, $alt_text_color); }
+		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
 		++$NumZero; }
-	imageline($upc_img, 71, 0, 71, 41, $text_color);
-	imageline($upc_img, 72, 0, 72, 41, $alt_text_color);
-	imageline($upc_img, 73, 0, 73, 41, $text_color);
-	imageline($upc_img, 74, 0, 74, 37, $alt_text_color);
-	imageline($upc_img, 75, 0, 75, 37, $alt_text_color);
-	imageline($upc_img, 76, 0, 76, 37, $alt_text_color);
-	imageline($upc_img, 77, 0, 77, 37, $alt_text_color);
-	imageline($upc_img, 78, 0, 78, 37, $alt_text_color);
-	imageline($upc_img, 79, 0, 79, 37, $alt_text_color);
-	imageline($upc_img, 80, 0, 80, 37, $alt_text_color);
+	imageline($upc_img, 71, 10, 71, 51, $text_color);
+	imageline($upc_img, 72, 10, 72, 51, $alt_text_color);
+	imageline($upc_img, 73, 10, 73, 51, $text_color);
+	imageline($upc_img, 74, 10, 74, 47, $alt_text_color);
+	imageline($upc_img, 75, 10, 75, 47, $alt_text_color);
+	imageline($upc_img, 76, 10, 76, 47, $alt_text_color);
+	imageline($upc_img, 77, 10, 77, 47, $alt_text_color);
+	imageline($upc_img, 78, 10, 78, 47, $alt_text_color);
+	imageline($upc_img, 79, 10, 79, 47, $alt_text_color);
+	imageline($upc_img, 80, 10, 80, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(81 * $resize, 50 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 81, 50, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor(81 * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, 81, 62, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 81 * $resize, 50 * $resize, 81, 50); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 81 * $resize, 62 * $resize, 81, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 81 * $resize, 50 * $resize, 81, 50); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 81 * $resize, 62 * $resize, 81, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {

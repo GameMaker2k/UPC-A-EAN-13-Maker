@@ -11,7 +11,7 @@
     Copyright 2011-2012 Cool Dude 2k - http://idb.berlios.de/
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
 
-    $FileInfo: upc.php - Last Update: 01/04/2012 Ver. 2.0.0 RC 8 - Author: cooldude2k $
+    $FileInfo: upc.php - Last Update: 01/04/2012 Ver. 2.0.0 RC 9 - Author: cooldude2k $
 */
 
 @ob_start();
@@ -20,7 +20,7 @@ $url_style = 0;
 $url_file = "upc.php";
 $appname = htmlspecialchars("UPC Tester");
 $appmaker = htmlspecialchars("Game Maker 2k");
-$appver = array(2,0,0,"RC 8");
+$appver = array(2,0,0,"RC 9");
 @header("Content-Type: text/html; charset=UTF-8");
 @header("Content-Language: en");
 if(!isset($_SERVER['HTTP_USER_AGENT'])) {
