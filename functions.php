@@ -11,7 +11,7 @@
     Copyright 2011-2012 Cool Dude 2k - http://idb.berlios.de/
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
 
-    $FileInfo: functions.php - Last Update: 01/14/2012 Ver. 2.0.0 RC 10 - Author: cooldude2k $
+    $FileInfo: functions.php - Last Update: 01/17/2012 Ver. 2.0.0 RC 11 - Author: cooldude2k $
 */
 
 /*
@@ -190,34 +190,34 @@ function convert_upca_to_upce($upc) {
 	$upce = null;
 	if(preg_match("/0(\d{2})00000(\d{3})(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1].$upc_matches[2]."0";
-	$upce = $upce.$upc_matches[3]; }
+	$upce = $upce.$upc_matches[3]; return $upce; }
 	if(preg_match("/0(\d{2})10000(\d{3})(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1].$upc_matches[2]."1";
-	$upce = $upce.$upc_matches[3]; }
+	$upce = $upce.$upc_matches[3]; return $upce; }
 	if(preg_match("/0(\d{2})20000(\d{3})(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1].$upc_matches[2]."2";
-	$upce = $upce.$upc_matches[3]; }
+	$upce = $upce.$upc_matches[3]; return $upce; }
 	if(preg_match("/0(\d{3})00000(\d{2})(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1].$upc_matches[2]."3";
-	$upce = $upce.$upc_matches[3]; }
+	$upce = $upce.$upc_matches[3]; return $upce; }
 	if(preg_match("/0(\d{4})00000(\d{1})(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1].$upc_matches[2]."4";
-	$upce = $upce.$upc_matches[3]; }
+	$upce = $upce.$upc_matches[3]; return $upce; }
 	if(preg_match("/0(\d{5})00005(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1]."5";
-	$upce = $upce.$upc_matches[2]; }
+	$upce = $upce.$upc_matches[2]; return $upce; }
 	if(preg_match("/0(\d{5})00006(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1]."6";
-	$upce = $upce.$upc_matches[2]; }
+	$upce = $upce.$upc_matches[2]; return $upce; }
 	if(preg_match("/0(\d{5})00007(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1]."7";
-	$upce = $upce.$upc_matches[2]; }
+	$upce = $upce.$upc_matches[2]; return $upce; }
 	if(preg_match("/0(\d{5})00008(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1]."8";
-	$upce = $upce.$upc_matches[2]; }
+	$upce = $upce.$upc_matches[2]; return $upce; }
 	if(preg_match("/0(\d{5})00009(\d{1})/", $upc, $upc_matches)) {
 	$upce = "0".$upc_matches[1]."9";
-	$upce = $upce.$upc_matches[2]; }
+	$upce = $upce.$upc_matches[2]; return $upce; }
 	if($upce==null) { return false; }
 	return $upce; }
 function convert_ean13_to_upce($upc) {

@@ -11,7 +11,7 @@
     Copyright 2011-2012 Cool Dude 2k - http://idb.berlios.de/
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
 
-    $FileInfo: upc.php - Last Update: 01/14/2012 Ver. 2.0.0 RC 10 - Author: cooldude2k $
+    $FileInfo: upc.php - Last Update: 01/17/2012 Ver. 2.0.0 RC 11 - Author: cooldude2k $
 */
 
 @ob_start();
@@ -20,7 +20,7 @@ $url_style = 0;
 $url_file = "upc.php";
 $appname = htmlspecialchars("UPC Tester");
 $appmaker = htmlspecialchars("Game Maker 2k");
-$appver = array(2,0,0,"RC 10");
+$appver = array(2,0,0,"RC 11");
 @header("Content-Type: text/html; charset=UTF-8");
 @header("Content-Language: en");
 if(!isset($_SERVER['HTTP_USER_AGENT'])) {
@@ -59,11 +59,17 @@ if(isset($_GET['upc'])&&strlen($_GET['upc'])==7) {
   $_GET['upc'] = $_GET['upc'].validate_upce($_GET['upc'],true); }
 if(isset($_GET['upc'])&&strlen($_GET['upc'])==11) {
   $_GET['upc'] = $_GET['upc'].validate_upca($_GET['upc'],true); }
+$addontitle = " ".$appver[0].".".$appver[1].".".$appver[2]." ".$appver[3];
+  if(isset($_GET['act'])&&$_GET['act']!==null&&$_GET['act']!=="") {
+  if(validate_upca($_GET['upc'])&&strlen($_GET['upc'])==8) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
+  if(validate_ean8($_GET['upc'])&&strlen($_GET['upc'])==8) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
+  if(validate_upca($_GET['upc'])&&strlen($_GET['upc'])==12) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
+  if(validate_upca($_GET['upc'])&&strlen($_GET['upc'])==13) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); } }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
-  <title> <?php echo $appname; ?> </title>
+  <title> <?php echo $appname.$addontitle; ?> </title>
   <meta name="generator" content="<?php echo $appname; ?>" />
   <meta name="author" content="<?php echo $appmaker; ?>" />
   <meta name="keywords" content="<?php echo $appname; ?>" />
