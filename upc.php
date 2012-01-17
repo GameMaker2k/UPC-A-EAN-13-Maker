@@ -18,7 +18,7 @@
 $website_url = "http://localhost/upc/";
 $url_style = 0;
 $url_file = "upc.php";
-$appname = htmlspecialchars("UPC Tester");
+$appname = htmlspecialchars("UPC/EAN Barcode Generator");
 $appmaker = htmlspecialchars("Game Maker 2k");
 $appver = array(2,0,0,"RC 11");
 @header("Content-Type: text/html; charset=UTF-8");
@@ -59,7 +59,7 @@ if(isset($_GET['upc'])&&strlen($_GET['upc'])==7) {
   $_GET['upc'] = $_GET['upc'].validate_upce($_GET['upc'],true); }
 if(isset($_GET['upc'])&&strlen($_GET['upc'])==11) {
   $_GET['upc'] = $_GET['upc'].validate_upca($_GET['upc'],true); }
-  $addontitle = " ".$appver[0].".".$appver[1].".".$appver[2]." ".$appver[3];
+  $addontitle = null;
   if(isset($_GET['upc'])&&$_GET['upc']!==null&&$_GET['upc']!=="") {
   if(validate_barcode($_GET['upc'])&&
   (strlen($_GET['upc'])==8||strlen($_GET['upc'])==12||strlen($_GET['upc'])==13)) { 
