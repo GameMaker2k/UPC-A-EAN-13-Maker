@@ -59,12 +59,13 @@ if(isset($_GET['upc'])&&strlen($_GET['upc'])==7) {
   $_GET['upc'] = $_GET['upc'].validate_upce($_GET['upc'],true); }
 if(isset($_GET['upc'])&&strlen($_GET['upc'])==11) {
   $_GET['upc'] = $_GET['upc'].validate_upca($_GET['upc'],true); }
-$addontitle = " ".$appver[0].".".$appver[1].".".$appver[2]." ".$appver[3];
-  if(isset($_GET['act'])&&$_GET['act']!==null&&$_GET['act']!=="") {
-  if(validate_upca($_GET['upc'])&&strlen($_GET['upc'])==8) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
-  if(validate_ean8($_GET['upc'])&&strlen($_GET['upc'])==8) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
-  if(validate_upca($_GET['upc'])&&strlen($_GET['upc'])==12) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
-  if(validate_upca($_GET['upc'])&&strlen($_GET['upc'])==13) { $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); } }
+  $addontitle = " ".$appver[0].".".$appver[1].".".$appver[2]." ".$appver[3];
+  if(isset($_GET['upc'])&&$_GET['upc']!==null&&$_GET['upc']!=="") {
+  if(validate_barcode($_GET['upc'])&&
+  (strlen($_GET['upc'])==8||strlen($_GET['upc'])==12||strlen($_GET['upc'])==13)) { 
+  $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
+  if(validate_ean8($_GET['upc'])&&strlen($_GET['upc'])==8) { 
+  $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); } }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
