@@ -718,8 +718,8 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(113, 62);
-	imagefilledrectangle($upc_img, 0, 0, 113, 62, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(115, 62);
+	imagefilledrectangle($upc_img, 0, 0, 115, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
@@ -925,13 +925,13 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imageline($upc_img, 111, 10, 111, 47, $alt_text_color);
 	imageline($upc_img, 112, 10, 112, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(113 * $resize, 62 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 113, 62, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor(115 * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, 115, 62, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 115 * $resize, 62 * $resize, 115, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 115 * $resize, 62 * $resize, 115, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
@@ -985,8 +985,8 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(81, 62);
-	imagefilledrectangle($upc_img, 0, 0, 81, 62, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(83, 62);
+	imagefilledrectangle($upc_img, 0, 0, 83, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
@@ -1189,13 +1189,13 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imageline($upc_img, 79, 10, 79, 47, $alt_text_color);
 	imageline($upc_img, 80, 10, 80, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(81 * $resize, 62 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 81, 62, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor(83 * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, 83, 62, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 81 * $resize, 62 * $resize, 81, 62); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 83 * $resize, 62 * $resize, 83, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 81 * $resize, 62 * $resize, 81, 62); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 83 * $resize, 62 * $resize, 83, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
