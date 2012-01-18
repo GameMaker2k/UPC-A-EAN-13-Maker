@@ -1224,8 +1224,8 @@ function create_barcode($upc,$imgtype="png",$outputimage=true,$resize=1,$resizet
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(!isset($resize)||!is_numeric($resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
-	if(strlen($upc)==8) { return create_upce($upc,$imgtype,$outputimage,$resize,$outfile); }
-	if(strlen($upc)==12) { return create_upca($upc,$imgtype,$outputimage,$resize,$outfile); }
-	if(strlen($upc)==13) { return create_ean13($upc,$imgtype,$outputimage,$resize,$outfile); } 
+	if(strlen($upc)==8) { return create_upce($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
+	if(strlen($upc)==12) { return create_upca($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
+	if(strlen($upc)==13) { return create_ean13($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); } 
 	return false; }
 ?>
