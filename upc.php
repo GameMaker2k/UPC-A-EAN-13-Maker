@@ -48,7 +48,7 @@ require("./cuecat.php");
 if(!isset($_GET['act'])) { $_GET['act'] = "view"; }
 if($_GET['act']!="upca"&&$_GET['act']!="upce"&&
 	$_GET['act']!="ean13"&&$_GET['act']!="ean8"&&
-	$_GET['act']!="view") { $_GET['act'] = "view"; }
+	$_GET['act']!="view"&&$_GET['act']!="barcode") { $_GET['act'] = "view"; }
 if($_GET['act']=="upca"||$_GET['act']=="upce"||$_GET['act']=="ean13"||$_GET['act']=="barcode") {
 	if(!isset($_GET['resize'])||!is_numeric($_GET['resize'])||$_GET['resize']<1) { $_GET['resize'] = 1; }
 	create_barcode($_GET['upc'],$_GET['imgtype'],true,$_GET['resize']); }

@@ -10,5 +10,5 @@
 #RewriteRule   ^viewean8/([0-9]{7,8})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean8&upc=$1&resize=$2&imgtype=$3
 #RewriteRule   ^viewean13/([0-9]{12,13})\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&imgtype=$2
 #RewriteRule   ^viewean13/([0-9]{12,13})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&resize=$2&imgtype=$3
-#RewriteRule   ^viewbarcode/([0-9]{7,13})\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&imgtype=$2
+#RewriteRule   ^viewbarcode/([0-9]{7,13})\.(gif|png|xbm|wbmp)$    index.php?act=barcode&upc=$1&imgtype=$2
 #RewriteRule   ^viewbarcode/([0-9]{7,13})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=barcode&upc=$1&resize=$2&imgtype=$3
