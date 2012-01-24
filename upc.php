@@ -59,6 +59,8 @@ if(isset($_GET['upc'])&&strlen($_GET['upc'])==7) {
   $_GET['upc'] = $_GET['upc'].validate_upce($_GET['upc'],true); }
 if(isset($_GET['upc'])&&strlen($_GET['upc'])==11) {
   $_GET['upc'] = $_GET['upc'].validate_upca($_GET['upc'],true); }
+if(isset($_GET['upc'])&&strlen($_GET['upc'])==12&&validate_upca($_GET['upc'])===false) {
+  $_GET['upc'] = $_GET['upc'].validate_ean13($_GET['upc'],true); }
   $addontitle = null;
   if(isset($_GET['upc'])&&$_GET['upc']!==null&&$_GET['upc']!=="") {
   if(validate_barcode($_GET['upc'])&&
