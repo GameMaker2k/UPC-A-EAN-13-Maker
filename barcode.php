@@ -11,7 +11,7 @@
     Copyright 2011-2012 Cool Dude 2k - http://idb.berlios.de/
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
 
-    $FileInfo: barcode.php - Last Update: 01/17/2012 Ver. 2.0.0 RC 11 - Author: cooldude2k $
+    $FileInfo: barcode.php - Last Update: 01/17/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
 */
 
 require("./upc.php");

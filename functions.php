@@ -11,7 +11,7 @@
     Copyright 2011-2012 Cool Dude 2k - http://idb.berlios.de/
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
 
-    $FileInfo: functions.php - Last Update: 01/17/2012 Ver. 2.0.0 RC 11 - Author: cooldude2k $
+    $FileInfo: functions.php - Last Update: 01/17/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
 */
 
 /*
@@ -223,9 +223,10 @@ function convert_upca_to_upce($upc) {
 function convert_ean13_to_upce($upc) {
 	return convert_upca_to_upce(convert_ean13_to_upca($upc)); }
 function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_upca($upc); }
 	if(strlen($upc)==13) { $upc = convert_ean13_to_upca($upc); }
-	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }
 	if(strlen($upc)>12||strlen($upc)<12) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
@@ -445,9 +446,10 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imagedestroy($upc_img); 
 	return true; }
 function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==12) { $upc = convert_upca_to_upce($upc); }
 	if(strlen($upc)==13) { $upc = convert_ean13_to_upce($upc); }
-	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==7) { $upc = $upc.validate_upce($upc,true); }
 	if(strlen($upc)>8||strlen($upc)<8) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
@@ -692,9 +694,9 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imagedestroy($upc_img); 
 	return true; }
 function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_ean13($upc); }
 	if(strlen($upc)==12) { $upc = convert_upca_to_ean13($upc); }
-	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==12) { $upc = "0".$upc; }
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
@@ -958,6 +960,7 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	return true; }
 function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==7) { $upc = $upc.validate_ean8($upc,true); }
 	if(strlen($upc)>8||strlen($upc)<8) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
@@ -1224,8 +1227,10 @@ function create_barcode($upc,$imgtype="png",$outputimage=true,$resize=1,$resizet
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
-	if(strlen($upc)==8) { return create_upce($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
-	if(strlen($upc)==12) { return create_upca($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
+	if(strlen($upc)==7||strlen($upc)==8) { 
+		return create_upce($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
+	if(strlen($upc)==11||strlen($upc)==12) { 
+		return create_upca($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
 	if(strlen($upc)==13) { return create_ean13($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); } 
 	return false; }
 ?>

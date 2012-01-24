@@ -1,12 +1,14 @@
 #RewriteEngine on
 #RewriteBase   /upc/
-#RewriteRule   ^view/([0-9]+)\.(htm|html|php)$    index.php?act=view&upc=$1
-#RewriteRule   ^view/([0-9]+)\.([0-9]*[\.]?[0-9])\.(htm|html|php)$    index.php?act=view&upc=$1&resize=$2
-#RewriteRule   ^viewupca/([0-9]+)\.(gif|png|xbm|wbmp)$    index.php?act=upca&upc=$1&imgtype=$2
-#RewriteRule   ^viewupca/([0-9]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=upca&upc=$1&resize=$2&imgtype=$3
-#RewriteRule   ^viewupce/([0-9]+)\.(gif|png|xbm|wbmp)$    index.php?act=upce&upc=$1&imgtype=$2
-#RewriteRule   ^viewupce/([0-9]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=upce&upc=$1&resize=$2&imgtype=$3
-#RewriteRule   ^viewean8/([0-9]+)\.(gif|png|xbm|wbmp)$    index.php?act=ean8&upc=$1&imgtype=$2
-#RewriteRule   ^viewean8/([0-9]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean8&upc=$1&resize=$2&imgtype=$3
-#RewriteRule   ^viewean13/([0-9]+)\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&imgtype=$2
-#RewriteRule   ^viewean13/([0-9]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^view/([0-9]{7,13})\.(htm|html|php)$    index.php?act=view&upc=$1
+#RewriteRule   ^view/([0-9]{7,13})\.([0-9]*[\.]?[0-9])\.(htm|html|php)$    index.php?act=view&upc=$1&resize=$2
+#RewriteRule   ^viewupca/([0-9]{11,12})\.(gif|png|xbm|wbmp)$    index.php?act=upca&upc=$1&imgtype=$2
+#RewriteRule   ^viewupca/([0-9]{11,12})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=upca&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewupce/([0-9]{7,8})\.(gif|png|xbm|wbmp)$    index.php?act=upce&upc=$1&imgtype=$2
+#RewriteRule   ^viewupce/([0-9]{7,8})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=upce&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewean8/([0-9]{7,8})\.(gif|png|xbm|wbmp)$    index.php?act=ean8&upc=$1&imgtype=$2
+#RewriteRule   ^viewean8/([0-9]{7,8})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean8&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewean13/([0-9]{12,13})\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&imgtype=$2
+#RewriteRule   ^viewean13/([0-9]{12,13})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewbarcode/([0-9]{7,13})\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&imgtype=$2
+#RewriteRule   ^viewbarcode/([0-9]{7,13})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=barcode&upc=$1&resize=$2&imgtype=$3
