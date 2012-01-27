@@ -223,7 +223,7 @@ function convert_upca_to_upce($upc) {
 	return $upce; }
 function convert_ean13_to_upce($upc) {
 	return convert_upca_to_upce(convert_ean13_to_upca($upc)); }
-function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_upca($upc); }
 	if(strlen($upc)==13) { $upc = convert_ean13_to_upca($upc); }
@@ -262,7 +262,8 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imagestring($upc_img, 2, 2, 47, $upc_matches[1], $text_color);
 	imagestring($upc_img, 2, 22, 47, $upc_matches[2], $text_color);
 	imagestring($upc_img, 2, 61, 47, $upc_matches[3], $text_color);
-	imagestring($upc_img, 2, 106, 47, $upc_matches[4], $text_color);
+	if($hidecd!==true) {
+	imagestring($upc_img, 2, 106, 47, $upc_matches[4], $text_color); }
 	imageline($upc_img, 0, 10, 0, 47, $alt_text_color);
 	imageline($upc_img, 1, 10, 1, 47, $alt_text_color);
 	imageline($upc_img, 2, 10, 2, 47, $alt_text_color);
@@ -446,7 +447,7 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imagewbmp($upc_img,$outfile); } }
 	imagedestroy($upc_img); 
 	return true; }
-function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==12) { $upc = convert_upca_to_upce($upc); }
 	if(strlen($upc)==13) { $upc = convert_ean13_to_upce($upc); }
@@ -483,7 +484,8 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
 	imagestring($upc_img, 2, 2, 47, $upc_matches[1], $text_color);
 	imagestring($upc_img, 2, 16, 47, $upc_matches[2], $text_color);
-	imagestring($upc_img, 2, 62, 47, $upc_matches[3], $text_color);
+	if($hidecd!==true) {
+	imagestring($upc_img, 2, 62, 47, $upc_matches[3], $text_color); }
 	imageline($upc_img, 0, 10, 0, 47, $alt_text_color);
 	imageline($upc_img, 1, 10, 1, 47, $alt_text_color);
 	imageline($upc_img, 2, 10, 2, 47, $alt_text_color);
@@ -694,7 +696,7 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imagewbmp($upc_img,$outfile); } }
 	imagedestroy($upc_img); 
 	return true; }
-function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_ean13($upc); }
 	if(strlen($upc)==12) { $upc = convert_upca_to_ean13($upc); }
@@ -959,7 +961,7 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imagewbmp($upc_img,$outfile); } }
 	imagedestroy($upc_img); 
 	return true; }
-function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==7) { $upc = $upc.validate_ean8($upc,true); }
 	if(strlen($upc)>8||strlen($upc)<8) { return false; }
@@ -1224,14 +1226,14 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imagewbmp($upc_img,$outfile); } }
 	imagedestroy($upc_img); 
 	return true; }
-function create_barcode($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL) {
+function create_barcode($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
 	if(strlen($upc)==7||strlen($upc)==8) { 
-		return create_upce($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
+		return create_upce($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile,$hidecd); }
 	if(strlen($upc)==11||strlen($upc)==12) { 
-		return create_upca($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); }
-	if(strlen($upc)==13) { return create_ean13($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile); } 
+		return create_upca($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile,$hidecd); }
+	if(strlen($upc)==13) { return create_ean13($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile,$hidecd); } 
 	return false; }
 ?>
