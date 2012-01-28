@@ -158,20 +158,33 @@ function decodePart(str) {
 	}
 	return result;
 }
+function validate_str_size(str) {
+if(str==null||str=='') {
+	alert("You need to enter a UPC/EAN!");
+	return false; }
+if(str.length==0) {
+	alert("You need to enter a UPC/EAN!");
+	return false; }
+kittyCode();
+<?php if($url_style==1) { ?>
+location.href='<?php echo $website_url; ?>view/'+document.upcform.upc.value+'.htm';
+<?php } if($url_style==0) { ?>
+location.href='<?php echo $website_url.$url_file; ?>?act=view&amp;upc='+document.upcform.upc.value;
+<?php } ?>
+return true; }
 //-->
 </script>
  </head>
 
  <body>
-  <?php ?>
-  <form method="get" id="upcform" name="upcform" action="<?php echo $website_url.$url_file; ?>?act=view"<?php if($url_style==1) { ?> onsubmit="location.href='<?php echo $website_url; ?>view/'+document.upcform.upc.value+'.htm'; return false;"<?php } if($url_style==0) { ?> onsubmit="location.href='<?php echo $website_url.$url_file; ?>?act=view&amp;upc='+document.upcform.upc.value; return false;"<?php } ?>>
+  <form method="get" id="upcform" name="upcform" action="<?php echo $website_url.$url_file; ?>?act=view" onsubmit="validate_str_size(document.upcform.upc.value); return false;">
   <label for="upc">Enter UPC:</label><br />
   <?php if(isset($_GET['upc'])) { ?>
   <input type="text" id="upc" name="upc" value="<?php echo htmlspecialchars($_GET['upc'], ENT_QUOTES); ?>" /><br />
   <?php } if(!isset($_GET['upc'])) { ?>
   <input type="text" id="upc" name="upc" /><br />
   <?php } ?>
-  <input type="submit" value="Get UPC"<?php if($url_style==1) { ?> onclick="location.href='<?php echo $website_url; ?>view/'+document.upcform.upc.value+'.htm'; return false;"<?php } if($url_style==0) { ?> onclick="location.href='<?php echo $website_url.$url_file; ?>?act=view&amp;upc='+document.upcform.upc.value; return false;"<?php } ?> /> <button type="submit" onclick="kittyCode(); <?php if($url_style==1) { ?>location.href='<?php echo $website_url; ?>view/'+document.upcform.upc.value+'.htm'; return false;<?php } if($url_style==0) { ?>location.href='<?php echo $website_url.$url_file; ?>?act=view&amp;upc='+document.upcform.upc.value;<?php } ?>">CueCat Decode</button>
+  <input type="submit" value="Get UPC" onclick="validate_str_size(document.upcform.upc.value); return false;" /> <button type="submit" onclick="validate_str_size(document.upcform.upc.value); return false;">CueCat Decode</button>
   <?php if(isset($_GET['upc'])) { ?>
   <br /><br />
   <?php } ?>
