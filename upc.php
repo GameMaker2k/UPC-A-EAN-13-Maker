@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upc.php - Last Update: 01/24/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
+    $FileInfo: upc.php - Last Update: 01/28/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
 */
 
 @ob_start();
@@ -45,7 +45,6 @@ function version_info($proname,$subver,$ver,$supver,$reltype,$svnver,$showsvn) {
 	return $return_var; }
 $appversion = version_info($appname,$appver[0],$appver[1],$appver[2],$appver[3]." Ver.",null,false);
 require("./functions.php");
-require("./cuecat.php");
 if(!isset($_GET['act'])) { $_GET['act'] = "view"; }
 if($_GET['act']!="upca"&&$_GET['act']!="upce"&&
 	$_GET['act']!="ean13"&&$_GET['act']!="ean8"&&
