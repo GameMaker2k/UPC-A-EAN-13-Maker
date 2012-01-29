@@ -55,10 +55,10 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imagestring($upc_img, 2, $LineTxtStart, 50, $ArrayDigit[1], $text_color);
 	$LineTxtStart += 9;
 	++$NumTxtZero; }
-	imagerectangle($upc_img, 0, 0, 169, 51, $text_color);
-	imagerectangle($upc_img, 1, 1, 168, 50, $text_color);
-	imagerectangle($upc_img, 2, 2, 167, 49, $text_color);
-	imagerectangle($upc_img, 3, 3, 166, 48, $text_color);
+	imagerectangle($upc_img, 0, 0, 43 + $upc_size_add, 51, $text_color);
+	imagerectangle($upc_img, 1, 1, 42 + $upc_size_add, 50, $text_color);
+	imagerectangle($upc_img, 2, 2, 41 + $upc_size_add, 49, $text_color);
+	imagerectangle($upc_img, 3, 3, 40 + $upc_size_add, 48, $text_color);
 	imageline($upc_img, 4, 4, 4, 47, $alt_text_color);
 	imageline($upc_img, 5, 4, 5, 47, $alt_text_color);
 	imageline($upc_img, 6, 4, 6, 47, $alt_text_color);
