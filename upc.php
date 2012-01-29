@@ -196,7 +196,7 @@ return true; }
   $addresizeimg = null;
   if($url_style==1&&$_GET['resize']>1) { $addresizeimg = ".".urlencode($_GET['resize']); }
   if($url_style==0&&$_GET['resize']>1) { $addresizeimg = "&amp;resize=".urlencode($_GET['resize']); }
-  $upca_code = null; $upce_code = null; $ean8_code = null; $ean13_code = null;
+  $upca_code = null; $upce_code = null; $ean8_code = null; $ean13_code = null; $itf14_code = null;
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==8) {
   $upce_code = $_GET['upc']; 
   $upca_code = convert_upce_to_upca($_GET['upc']);
