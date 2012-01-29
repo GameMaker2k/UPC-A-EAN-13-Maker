@@ -40,6 +40,23 @@ http://en.wikipedia.org/wiki/Interleaved_2_of_5
 http://www.gs1au.org/assets/documents/info/user_manuals/barcode_technical_details/ITF_14_Barcode_Structure.pdf
 */
 
+// str_split for php 4 by rlpvandenberg at hotmail dot com
+// http://us2.php.net/manual/en/function.str-split.php#79921
+if(!function_exists('str_split')) {
+function str_split($text, $split = 1){
+    //place each character of the string into and array
+    $array = array();
+    for ($i=0; $i < strlen($text); $i++){
+        $key = "";
+        for ($j = 0; $j < $split; $j++){
+            $key .= $text[$i+$j]; 
+        }
+        $i = $i + $j - 1;
+        array_push($array, $key);
+    }
+    return $array;
+} }
+
 // Code for validating UPC/EAN by Kazuki Przyborowski
 require("./inc/validate.php");
 // Code for converting UPC/EAN by Kazuki Przyborowski
