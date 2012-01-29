@@ -46,35 +46,27 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-
 	$ArrayDigit = str_split($upc_matches[1]);
 	imagestring($upc_img, 2, 23, 50, $ArrayDigit[0], $text_color);
 	imagestring($upc_img, 2, 32, 50, $ArrayDigit[1], $text_color);
-
 	$ArrayDigit = str_split($upc_matches[2]);
 	imagestring($upc_img, 2, 41, 50, $ArrayDigit[0], $text_color);
 	imagestring($upc_img, 2, 50, 50, $ArrayDigit[1], $text_color);
-
 	$ArrayDigit = str_split($upc_matches[3]);
 	imagestring($upc_img, 2, 59, 50, $ArrayDigit[0], $text_color);
 	imagestring($upc_img, 2, 68, 50, $ArrayDigit[1], $text_color);
-
 	$ArrayDigit = str_split($upc_matches[4]);
 	imagestring($upc_img, 2, 77, 50, $ArrayDigit[0], $text_color);
 	imagestring($upc_img, 2, 86, 50, $ArrayDigit[1], $text_color);
-
 	$ArrayDigit = str_split($upc_matches[5]);
 	imagestring($upc_img, 2, 95, 50, $ArrayDigit[0], $text_color);
 	imagestring($upc_img, 2, 104, 50, $ArrayDigit[1], $text_color);
-
 	$ArrayDigit = str_split($upc_matches[6]);
 	imagestring($upc_img, 2, 113, 50, $ArrayDigit[0], $text_color);
 	imagestring($upc_img, 2, 122, 50, $ArrayDigit[1], $text_color);
-
 	$ArrayDigit = str_split($upc_matches[7]);
 	imagestring($upc_img, 2, 131, 50, $ArrayDigit[0], $text_color);
 	imagestring($upc_img, 2, 140, 50, $ArrayDigit[1], $text_color);
-
 	imagerectangle($upc_img, 0, 0, 168, 51, $text_color);
 	imagerectangle($upc_img, 1, 1, 167, 50, $text_color);
 	imagerectangle($upc_img, 2, 2, 166, 49, $text_color);
