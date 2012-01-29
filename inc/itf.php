@@ -23,7 +23,6 @@ if ($File3Name=="itf.php"||$File3Name=="/itf.php") {
 function create_itf($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc) % 2) { return false; }
-	if(strlen($upc) < 6) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
@@ -245,12 +244,12 @@ function create_itf($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype=
 	imageline($upc_img, 39 + $upc_size_add, 4, 39 + $upc_size_add, 47, $alt_text_color);
 	if($resize>1) {
 	$new_upc_img = imagecreatetruecolor((39 + $upc_size_add) * $resize, 62 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, (39 + $upc_size_add), 62, 0xFFFFFF);
+	imagefilledrectangle($new_upc_img, 0, 0, (39 + $upc_size_add) * $resize, 62 * $resize, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 169 * $resize, 62 * $resize, 169, 62); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, (39 + $upc_size_add) * $resize, 62 * $resize, (39 + $upc_size_add), 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 169 * $resize, 62 * $resize, 169, 62); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, (39 + $upc_size_add) * $resize, 62 * $resize, (39 + $upc_size_add), 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
