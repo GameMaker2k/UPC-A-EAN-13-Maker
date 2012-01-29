@@ -16,7 +16,8 @@
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
-	require("./index.php");
+	chdir("../");
+	require("./upc.php");
 	exit(); }
 
 function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {

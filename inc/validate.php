@@ -16,7 +16,8 @@
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
-	require("./index.php");
+	chdir("../");
+	require("./upc.php");
 	exit(); }
 
 function validate_upca($upc,$return_check=false) {

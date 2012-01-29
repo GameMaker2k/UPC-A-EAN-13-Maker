@@ -16,7 +16,8 @@
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="convert.php"||$File3Name=="/convert.php") {
-	require("./index.php");
+	chdir("../");
+	require("./upc.php");
 	exit(); }
 
 function convert_upce_to_upca($upc) {

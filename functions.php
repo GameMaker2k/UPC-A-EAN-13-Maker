@@ -16,7 +16,8 @@
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="functions.php"||$File3Name=="/functions.php") {
-	require("./index.php");
+	chdir("../");
+	require("./upc.php");
 	exit(); }
 
 /*
@@ -34,16 +35,30 @@ http://www.adams1.com/upccode.html
 http://www.documentmedia.com/Media/PublicationsArticles/QuietZone.pdf
 http://zxing.org/w/decode.jspx
 http://code.google.com/p/zxing/
+http://www.terryburton.co.uk/barcodewriter/generator/
+http://en.wikipedia.org/wiki/Interleaved_2_of_5
+http://www.gs1au.org/assets/documents/info/user_manuals/barcode_technical_details/ITF_14_Barcode_Structure.pdf
 */
 
+// Code for validating UPC/EAN by Kazuki Przyborowski
 require("./inc/validate.php");
+// Code for converting UPC/EAN by Kazuki Przyborowski
 require("./inc/convert.php");
+// Code for making UPC-A by Kazuki Przyborowski
 require("./inc/upca.php");
+// Code for making UPC-E by Kazuki Przyborowski
 require("./inc/upce.php");
+// Code for making EAN-13 by Kazuki Przyborowski
 require("./inc/ean13.php");
+// Code for making EAN-8 by Kazuki Przyborowski
 require("./inc/ean8.php");
+// Code for making Interleaved 2 of 5 by Kazuki Przyborowski
+require("./inc/itf.php");
+// Code for making ITF-14 by Kazuki Przyborowski
 require("./inc/itf14.php");
+// Code for decoding CueCat codes by Neil McNab
 require("./inc/cuecat.php");
+// Shortcut Codes by Kazuki Przyborowski
 function validate_barcode($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==8) { return validate_upce($upc,$return_check); }

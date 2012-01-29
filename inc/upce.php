@@ -16,7 +16,8 @@
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="upce.php"||$File3Name=="/upce.php") {
-	require("./index.php");
+	chdir("../");
+	require("./upc.php");
 	exit(); }
 
 function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {

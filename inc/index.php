@@ -15,5 +15,5 @@
     $FileInfo: index.php - Last Update: 01/24/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
 */
 
-require("../upc.php");
+require("./upc.php");
 ?>

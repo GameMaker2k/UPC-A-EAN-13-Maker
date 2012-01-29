@@ -56,7 +56,11 @@ use the scheme below to translate each digit into its output
 
 */
 
-include_once('upc.php');
+$File3Name = basename($_SERVER['SCRIPT_NAME']);
+if ($File3Name=="cuecat.php"||$File3Name=="/cuecat.php") {
+	chdir("../");
+	require("./upc.php");
+	exit(); }
 
 function cuecat_decode($ccstr) {
 	$ccparts = explode(".", $ccstr);

@@ -12,22 +12,24 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: itf14.php - Last Update: 01/28/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
+    $FileInfo: itf.php - Last Update: 01/28/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
-if ($File3Name=="itf14.php"||$File3Name=="/itf14.php") {
+if ($File3Name=="itf.php"||$File3Name=="/itf.php") {
 	chdir("../");
 	require("./upc.php");
 	exit(); }
 
-function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
+function create_itf($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
-	if(strlen($upc)>14||strlen($upc)<14) { return false; }
+	if(strlen($upc) % 2) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
-	preg_match("/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/", $upc, $upc_matches);
+	$upc_matches = str_split($upc, 2);
+	$upc_size_add = count($upc_matches) * 18;
 	if(count($upc_matches)<=0) { return false; }
+	//$ITF14Digits = str_split($upc_matches[1]);
 	if($imgtype=="png") {
 	if($outputimage==true) {
 	header("Content-Type: image/png"); } }
@@ -40,37 +42,24 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(169, 62);
-	imagefilledrectangle($upc_img, 0, 0, 169, 62, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(39 + $upc_size_add, 62);
+	imagefilledrectangle($upc_img, 0, 0, 39 + $upc_size_add, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	$ArrayDigit = str_split($upc_matches[1]);
-	imagestring($upc_img, 2, 23, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 32, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[2]);
-	imagestring($upc_img, 2, 41, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 50, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[3]);
-	imagestring($upc_img, 2, 59, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 68, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[4]);
-	imagestring($upc_img, 2, 77, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 86, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[5]);
-	imagestring($upc_img, 2, 95, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 104, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[6]);
-	imagestring($upc_img, 2, 113, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 122, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[7]);
-	imagestring($upc_img, 2, 131, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 140, 50, $ArrayDigit[1], $text_color);
-	imagerectangle($upc_img, 0, 0, 168, 51, $text_color);
-	imagerectangle($upc_img, 1, 1, 167, 50, $text_color);
-	imagerectangle($upc_img, 2, 2, 166, 49, $text_color);
-	imagerectangle($upc_img, 3, 3, 165, 48, $text_color);
+	$NumTxtZero = 0; $LineTxtStart = 23;
+	while ($NumTxtZero < count($upc_matches)) {
+	$ArrayDigit = str_split($upc_matches[$NumTxtZero]);
+	imagestring($upc_img, 2, $LineTxtStart, 50, $ArrayDigit[0], $text_color);
+	$LineTxtStart += 9;
+	imagestring($upc_img, 2, $LineTxtStart, 50, $ArrayDigit[1], $text_color);
+	$LineTxtStart += 9;
+	++$NumTxtZero; }
+	imageline($upc_img, 0, 4, 0, 47, $alt_text_color);
+	imageline($upc_img, 1, 4, 1, 47, $alt_text_color);
+	imageline($upc_img, 2, 4, 2, 47, $alt_text_color);
+	imageline($upc_img, 3, 4, 3, 47, $alt_text_color);
 	imageline($upc_img, 4, 4, 4, 47, $alt_text_color);
 	imageline($upc_img, 5, 4, 5, 47, $alt_text_color);
 	imageline($upc_img, 6, 4, 6, 47, $alt_text_color);
@@ -80,16 +69,12 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imageline($upc_img, 10, 4, 10, 47, $alt_text_color);
 	imageline($upc_img, 11, 4, 11, 47, $alt_text_color);
 	imageline($upc_img, 12, 4, 12, 47, $alt_text_color);
-	imageline($upc_img, 13, 4, 13, 47, $alt_text_color);
+	imageline($upc_img, 13, 4, 13, 47, $text_color);
 	imageline($upc_img, 14, 4, 14, 47, $alt_text_color);
-	imageline($upc_img, 15, 4, 15, 47, $alt_text_color);
+	imageline($upc_img, 15, 4, 15, 47, $text_color);
 	imageline($upc_img, 16, 4, 16, 47, $alt_text_color);
-	imageline($upc_img, 17, 4, 17, 47, $text_color);
-	imageline($upc_img, 18, 4, 18, 47, $alt_text_color);
-	imageline($upc_img, 19, 4, 19, 47, $text_color);
-	imageline($upc_img, 20, 4, 20, 47, $alt_text_color);
-	$NumZero = 1; $LineStart = 21; $LineSize = 47;
-	while ($NumZero < 8) {
+	$NumZero = 0; $LineStart = 17; $LineSize = 47;
+	while ($NumZero < count($upc_matches)) {
 		$ArrayDigit = str_split($upc_matches[$NumZero]);
 		$left_text_color = array(0, 0, 1, 1, 0);
 		if($ArrayDigit[0]==0) {
@@ -234,32 +219,32 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color);
 		$LineStart += 1; }
 		++$NumZero; }
-	imageline($upc_img, 147, 4, 147, 47, $text_color);
-	imageline($upc_img, 148, 4, 148, 47, $text_color);
-	imageline($upc_img, 149, 4, 149, 47, $text_color);
-	imageline($upc_img, 150, 4, 150, 47, $alt_text_color);
-	imageline($upc_img, 151, 4, 151, 47, $text_color);
-	imageline($upc_img, 148, 4, 148, 47, $alt_text_color);
-	imageline($upc_img, 149, 4, 149, 47, $alt_text_color);
-	imageline($upc_img, 150, 4, 150, 47, $alt_text_color);
-	imageline($upc_img, 151, 4, 151, 47, $alt_text_color);
-	imageline($upc_img, 152, 4, 152, 47, $alt_text_color);
-	imageline($upc_img, 153, 4, 153, 47, $alt_text_color);
-	imageline($upc_img, 154, 4, 154, 47, $alt_text_color);
-	imageline($upc_img, 155, 4, 155, 47, $alt_text_color);
-	imageline($upc_img, 156, 4, 156, 47, $alt_text_color);
-	imageline($upc_img, 157, 4, 157, 47, $alt_text_color);
-	imageline($upc_img, 158, 4, 158, 47, $alt_text_color);
-	imageline($upc_img, 159, 4, 159, 47, $alt_text_color);
-	imageline($upc_img, 160, 4, 160, 47, $alt_text_color);
-	imageline($upc_img, 161, 4, 161, 47, $alt_text_color);
-	imageline($upc_img, 162, 4, 162, 47, $alt_text_color);
-	imageline($upc_img, 163, 4, 163, 47, $alt_text_color);
-	imageline($upc_img, 164, 4, 164, 47, $alt_text_color);
-	imageline($upc_img, 165, 4, 165, 47, $alt_text_color);
+	imageline($upc_img, 17 + $upc_size_add, 4, 17 + $upc_size_add, 47, $text_color);
+	imageline($upc_img, 18 + $upc_size_add, 4, 18 + $upc_size_add, 47, $text_color);
+	imageline($upc_img, 19 + $upc_size_add, 4, 19 + $upc_size_add, 47, $text_color);
+	imageline($upc_img, 20 + $upc_size_add, 4, 20 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 21 + $upc_size_add, 4, 21 + $upc_size_add, 47, $text_color);
+	imageline($upc_img, 22 + $upc_size_add, 4, 22 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 23 + $upc_size_add, 4, 23 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 24 + $upc_size_add, 4, 24 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 25 + $upc_size_add, 4, 25 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 26 + $upc_size_add, 4, 26 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 27 + $upc_size_add, 4, 27 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 28 + $upc_size_add, 4, 28 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 29 + $upc_size_add, 4, 29 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 30 + $upc_size_add, 4, 30 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 31 + $upc_size_add, 4, 31 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 32 + $upc_size_add, 4, 32 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 33 + $upc_size_add, 4, 33 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 34 + $upc_size_add, 4, 34 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 35 + $upc_size_add, 4, 35 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 36 + $upc_size_add, 4, 36 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 37 + $upc_size_add, 4, 37 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 38 + $upc_size_add, 4, 38 + $upc_size_add, 47, $alt_text_color);
+	imageline($upc_img, 39 + $upc_size_add, 4, 39 + $upc_size_add, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(169 * $resize, 62 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 169, 62, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor((39 + $upc_size_add) * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, (39 + $upc_size_add), 62, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
 	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 169 * $resize, 62 * $resize, 169, 62); }
