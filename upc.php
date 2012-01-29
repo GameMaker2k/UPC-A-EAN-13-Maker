@@ -197,6 +197,12 @@ return true; }
   if($url_style==1&&$_GET['resize']>1) { $addresizeimg = ".".urlencode($_GET['resize']); }
   if($url_style==0&&$_GET['resize']>1) { $addresizeimg = "&amp;resize=".urlencode($_GET['resize']); }
   $upca_code = null; $upce_code = null; $ean8_code = null; $ean13_code = null; $itf14_code = null;
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==14) {
+  $itf14_code = $_GET['upc'];
+  if(preg_match("/^0(\d{13})/", $itf14_code, $upc_matches)) {
+  $ean13_code = convert_itf14_to_ean13($_GET['upc']);
+  $upca_code = convert_itf14_to_upca($_GET['upc']);
+  $upce_code = convert_itf14_to_upce($_GET['upc']); } }
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==8) {
   $upce_code = $_GET['upc']; 
   $upca_code = convert_upce_to_upca($_GET['upc']);
