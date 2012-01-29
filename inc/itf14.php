@@ -26,7 +26,8 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
-	preg_match("/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/", $upc, $upc_matches);
+	$upc_matches = str_split($upc, 2);
+	$upc_size_add = count($upc_matches) * 18;
 	if(count($upc_matches)<=0) { return false; }
 	if($imgtype=="png") {
 	if($outputimage==true) {
@@ -40,37 +41,24 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(169, 62);
-	imagefilledrectangle($upc_img, 0, 0, 169, 62, 0xFFFFFF);
+	$upc_img = imagecreatetruecolor(170, 62);
+	imagefilledrectangle($upc_img, 0, 0, 170, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	$ArrayDigit = str_split($upc_matches[1]);
-	imagestring($upc_img, 2, 23, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 32, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[2]);
-	imagestring($upc_img, 2, 41, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 50, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[3]);
-	imagestring($upc_img, 2, 59, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 68, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[4]);
-	imagestring($upc_img, 2, 77, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 86, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[5]);
-	imagestring($upc_img, 2, 95, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 104, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[6]);
-	imagestring($upc_img, 2, 113, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 122, 50, $ArrayDigit[1], $text_color);
-	$ArrayDigit = str_split($upc_matches[7]);
-	imagestring($upc_img, 2, 131, 50, $ArrayDigit[0], $text_color);
-	imagestring($upc_img, 2, 140, 50, $ArrayDigit[1], $text_color);
-	imagerectangle($upc_img, 0, 0, 168, 51, $text_color);
-	imagerectangle($upc_img, 1, 1, 167, 50, $text_color);
-	imagerectangle($upc_img, 2, 2, 166, 49, $text_color);
-	imagerectangle($upc_img, 3, 3, 165, 48, $text_color);
+	$NumTxtZero = 0; $LineTxtStart = 23;
+	while ($NumTxtZero < count($upc_matches)) {
+	$ArrayDigit = str_split($upc_matches[$NumTxtZero]);
+	imagestring($upc_img, 2, $LineTxtStart, 50, $ArrayDigit[0], $text_color);
+	$LineTxtStart += 9;
+	imagestring($upc_img, 2, $LineTxtStart, 50, $ArrayDigit[1], $text_color);
+	$LineTxtStart += 9;
+	++$NumTxtZero; }
+	imagerectangle($upc_img, 0, 0, 169, 51, $text_color);
+	imagerectangle($upc_img, 1, 1, 168, 50, $text_color);
+	imagerectangle($upc_img, 2, 2, 167, 49, $text_color);
+	imagerectangle($upc_img, 3, 3, 166, 48, $text_color);
 	imageline($upc_img, 4, 4, 4, 47, $alt_text_color);
 	imageline($upc_img, 5, 4, 5, 47, $alt_text_color);
 	imageline($upc_img, 6, 4, 6, 47, $alt_text_color);
@@ -88,8 +76,8 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imageline($upc_img, 18, 4, 18, 47, $alt_text_color);
 	imageline($upc_img, 19, 4, 19, 47, $text_color);
 	imageline($upc_img, 20, 4, 20, 47, $alt_text_color);
-	$NumZero = 1; $LineStart = 21; $LineSize = 47;
-	while ($NumZero < 8) {
+	$NumZero = 0; $LineStart = 21; $LineSize = 47;
+	while ($NumZero < count($upc_matches)) {
 		$ArrayDigit = str_split($upc_matches[$NumZero]);
 		$left_text_color = array(0, 0, 1, 1, 0);
 		if($ArrayDigit[0]==0) {
@@ -239,10 +227,6 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imageline($upc_img, 149, 4, 149, 47, $text_color);
 	imageline($upc_img, 150, 4, 150, 47, $alt_text_color);
 	imageline($upc_img, 151, 4, 151, 47, $text_color);
-	imageline($upc_img, 148, 4, 148, 47, $alt_text_color);
-	imageline($upc_img, 149, 4, 149, 47, $alt_text_color);
-	imageline($upc_img, 150, 4, 150, 47, $alt_text_color);
-	imageline($upc_img, 151, 4, 151, 47, $alt_text_color);
 	imageline($upc_img, 152, 4, 152, 47, $alt_text_color);
 	imageline($upc_img, 153, 4, 153, 47, $alt_text_color);
 	imageline($upc_img, 154, 4, 154, 47, $alt_text_color);
@@ -258,13 +242,13 @@ function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imageline($upc_img, 164, 4, 164, 47, $alt_text_color);
 	imageline($upc_img, 165, 4, 165, 47, $alt_text_color);
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(169 * $resize, 62 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 169, 62, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor(170 * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, 170, 62, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 169 * $resize, 62 * $resize, 169, 62); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 170 * $resize, 62 * $resize, 170, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 169 * $resize, 62 * $resize, 169, 62); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 170 * $resize, 62 * $resize, 170, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
