@@ -48,12 +48,12 @@ function create_itf($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype=
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	$NumTxtZero = 0; $LineTxtStart = 23;
+	$NumTxtZero = 0; $LineTxtStart = 20;
 	while ($NumTxtZero < count($upc_matches)) {
 	$ArrayDigit = str_split($upc_matches[$NumTxtZero]);
-	imagestring($upc_img, 2, $LineTxtStart, 50, $ArrayDigit[0], $text_color);
+	imagestring($upc_img, 2, $LineTxtStart, 48, $ArrayDigit[0], $text_color);
 	$LineTxtStart += 9;
-	imagestring($upc_img, 2, $LineTxtStart, 50, $ArrayDigit[1], $text_color);
+	imagestring($upc_img, 2, $LineTxtStart, 48, $ArrayDigit[1], $text_color);
 	$LineTxtStart += 9;
 	++$NumTxtZero; }
 	imageline($upc_img, 0, 4, 0, 47, $alt_text_color);
