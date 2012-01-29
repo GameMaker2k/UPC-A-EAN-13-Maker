@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upc.php - Last Update: 01/28/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
+    $FileInfo: upc.php - Last Update: 01/28/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
 */
 
 @ob_start();
@@ -22,7 +22,7 @@ $url_file = "upc.php";
 $appname = htmlspecialchars("UPC/EAN Barcode Generator");
 $appmakerurl = "https://github.com/KazukiPrzyborowski/UPC-A-EAN-13-Maker";
 $appmaker = htmlspecialchars("Game Maker 2k");
-$appver = array(2,0,0,"RC 12");
+$appver = array(2,0,5,"RC 1");
 @header("Content-Type: text/html; charset=UTF-8");
 @header("Content-Language: en");
 if(!isset($_SERVER['HTTP_USER_AGENT'])) {
@@ -48,8 +48,9 @@ require("./functions.php");
 if(!isset($_GET['act'])) { $_GET['act'] = "view"; }
 if($_GET['act']!="upca"&&$_GET['act']!="upce"&&
 	$_GET['act']!="ean13"&&$_GET['act']!="ean8"&&
-	$_GET['act']!="view"&&$_GET['act']!="barcode") { $_GET['act'] = "view"; }
-if($_GET['act']=="upca"||$_GET['act']=="upce"||$_GET['act']=="ean13"||$_GET['act']=="barcode") {
+	$_GET['act']!="itf14"&&$_GET['act']!="view"&&
+	$_GET['act']!="barcode") { $_GET['act'] = "view"; }
+if($_GET['act']=="upca"||$_GET['act']=="upce"||$_GET['act']=="ean13"||$_GET['act']=="itf14"||$_GET['act']=="barcode") {
 	if(!isset($_GET['resize'])||!is_numeric($_GET['resize'])||$_GET['resize']<1) { $_GET['resize'] = 1; }
 	create_barcode($_GET['upc'],$_GET['imgtype'],true,$_GET['resize']); }
 if($_GET['act']=="ean8") {
@@ -70,6 +71,8 @@ if(isset($_GET['upc'])&&strlen($_GET['upc'])==12&&validate_upca($_GET['upc'])===
   (strlen($_GET['upc'])==8||strlen($_GET['upc'])==12||strlen($_GET['upc'])==13)) { 
   $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
   if(validate_ean8($_GET['upc'])&&strlen($_GET['upc'])==8) { 
+  $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); }
+  if(strlen($_GET['upc'])==14) { 
   $addontitle = " - ".htmlspecialchars($_GET['upc'], ENT_QUOTES); } }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -209,6 +212,8 @@ return true; }
   $upce_code = convert_ean13_to_upce($_GET['upc']); } }
   if(isset($upce_code)&&strlen($upce_code)==8) {
   $ean8_code = $upce_code; }
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==14) {
+  $itf14_code = $_GET['upc']; }
   if(isset($_GET['upc'])) { ?>
   <table style="vertical-align: middle; width: 50%;">
   <?php if($upce_code!=null&&validate_upce($upce_code)===true) { ?>
@@ -219,11 +224,13 @@ return true; }
   <tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">EAN-13: <?php if($url_style==0) { ?><a href="<?php echo $website_url.$url_file; ?>?act=view&amp;upc=<?php echo urlencode($ean13_code); ?>"><?php } if($url_style==1) { ?><a href="<?php echo $website_url; ?>view/<?php echo urlencode($ean13_code); ?>.htm"><?php } ?><?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?></a></td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">&nbsp;</td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td style="text-align: center; vertical-align: middle; width: 25%;"><?php if($url_style==0) { ?><a href="<?php echo $website_url.$url_file; ?>?act=ean13&amp;upc=<?php echo urlencode($ean13_code); ?>&amp;imgtype=png<?php echo $addresizeimg; ?>"><img style="border: 0px;" src="<?php echo $website_url.$url_file; ?>?act=ean13&amp;upc=<?php echo urlencode($ean13_code); ?>&amp;imgtype=png<?php echo $addresizeimg; ?>" alt="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> PNG" title="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> PNG" /></a></td><td style="text-align: center; vertical-align: middle; width: 25%;"><a href="<?php echo $website_url.$url_file; ?>?act=ean13&amp;upc=<?php echo urlencode($ean13_code); ?>&amp;imgtype=gif<?php echo $addresizeimg; ?>"><img style="border: 0px;" src="<?php echo $website_url.$url_file; ?>?act=ean13&amp;upc=<?php echo urlencode($ean13_code); ?>&amp;imgtype=gif<?php echo $addresizeimg; ?>" alt="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> GIF" title="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> GIF" /></a></td></tr><?php } if($url_style==1) { ?><a href="<?php echo $website_url; ?>viewean13/<?php echo urlencode($ean13_code); ?><?php echo $addresizeimg; ?>.png"><img style="border: 0px;" src="<?php echo $website_url; ?>viewean13/<?php echo urlencode($ean13_code); ?><?php echo $addresizeimg; ?>.png" alt="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> PNG" title="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> PNG" /></a></td><td style="text-align: center; vertical-align: middle; width: 25%;"><a href="<?php echo $website_url; ?>viewean13/<?php echo urlencode($ean13_code); ?><?php echo $addresizeimg; ?>.gif"><img style="border: 0px;" src="<?php echo $website_url; ?>viewean13/<?php echo urlencode($ean13_code); ?><?php echo $addresizeimg; ?>.gif" alt="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> GIF" title="<?php echo htmlspecialchars($ean13_code, ENT_QUOTES); ?> GIF" /></a></td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">&nbsp;</td></tr><?php } ?>
   <?php echo "\n"; } if($ean8_code!=null&&validate_ean8($ean8_code)===true) { ?>
   <tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">EAN-8: <?php if($url_style==0) { ?><a href="<?php echo $website_url.$url_file; ?>?act=view&amp;upc=<?php echo urlencode($ean8_code); ?>"><?php } if($url_style==1) { ?><a href="<?php echo $website_url; ?>view/<?php echo urlencode($ean8_code); ?>.htm"><?php } ?><?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?></a></td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">&nbsp;</td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td style="text-align: center; vertical-align: middle; width: 25%;"><?php if($url_style==0) { ?><a href="<?php echo $website_url.$url_file; ?>?act=ean8&amp;upc=<?php echo urlencode($ean8_code); ?>&amp;imgtype=png<?php echo $addresizeimg; ?>"><img style="border: 0px;" src="<?php echo $website_url.$url_file; ?>?act=ean8&amp;upc=<?php echo urlencode($ean8_code); ?>&amp;imgtype=png<?php echo $addresizeimg; ?>" alt="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> PNG" title="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> PNG" /></a></td><td style="text-align: center; vertical-align: middle; width: 25%;"><a href="<?php echo $website_url.$url_file; ?>?act=ean8&amp;upc=<?php echo urlencode($ean8_code); ?>&amp;imgtype=gif<?php echo $addresizeimg; ?>"><img style="border: 0px;" src="<?php echo $website_url.$url_file; ?>?act=ean8&amp;upc=<?php echo urlencode($ean8_code); ?>&amp;imgtype=gif<?php echo $addresizeimg; ?>" alt="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> GIF" title="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> GIF" /></a></td></tr><?php } if($url_style==1) { ?><a href="<?php echo $website_url; ?>viewean8/<?php echo urlencode($ean8_code); ?><?php echo $addresizeimg; ?>.png"><img style="border: 0px;" src="<?php echo $website_url; ?>viewean8/<?php echo urlencode($ean8_code); ?><?php echo $addresizeimg; ?>.png" alt="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> PNG" title="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> PNG" /></a></td><td style="text-align: center; vertical-align: middle; width: 25%;"><a href="<?php echo $website_url; ?>viewean8/<?php echo urlencode($ean8_code); ?><?php echo $addresizeimg; ?>.gif"><img style="border: 0px;" src="<?php echo $website_url; ?>viewean8/<?php echo urlencode($ean8_code); ?><?php echo $addresizeimg; ?>.gif" alt="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> GIF" title="<?php echo htmlspecialchars($ean8_code, ENT_QUOTES); ?> GIF" /></a></td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">&nbsp;</td></tr><?php } ?>
+  <?php echo "\n"; } if($itf14_code!=null) { ?>
+  <tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">ITF-14: <?php if($url_style==0) { ?><a href="<?php echo $website_url.$url_file; ?>?act=view&amp;upc=<?php echo urlencode($itf14_code); ?>"><?php } if($url_style==1) { ?><a href="<?php echo $website_url; ?>view/<?php echo urlencode($itf14_code); ?>.htm"><?php } ?><?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?></a></td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">&nbsp;</td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td style="text-align: center; vertical-align: middle; width: 25%;"><?php if($url_style==0) { ?><a href="<?php echo $website_url.$url_file; ?>?act=itf14&amp;upc=<?php echo urlencode($itf14_code); ?>&amp;imgtype=png<?php echo $addresizeimg; ?>"><img style="border: 0px;" src="<?php echo $website_url.$url_file; ?>?act=itf14&amp;upc=<?php echo urlencode($itf14_code); ?>&amp;imgtype=png<?php echo $addresizeimg; ?>" alt="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> PNG" title="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> PNG" /></a></td><td style="text-align: center; vertical-align: middle; width: 25%;"><a href="<?php echo $website_url.$url_file; ?>?act=itf14&amp;upc=<?php echo urlencode($itf14_code); ?>&amp;imgtype=gif<?php echo $addresizeimg; ?>"><img style="border: 0px;" src="<?php echo $website_url.$url_file; ?>?act=itf14&amp;upc=<?php echo urlencode($itf14_code); ?>&amp;imgtype=gif<?php echo $addresizeimg; ?>" alt="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> GIF" title="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> GIF" /></a></td></tr><?php } if($url_style==1) { ?><a href="<?php echo $website_url; ?>viewitf14/<?php echo urlencode($itf14_code); ?><?php echo $addresizeimg; ?>.png"><img style="border: 0px;" src="<?php echo $website_url; ?>viewitf14/<?php echo urlencode($itf14_code); ?><?php echo $addresizeimg; ?>.png" alt="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> PNG" title="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> PNG" /></a></td><td style="text-align: center; vertical-align: middle; width: 25%;"><a href="<?php echo $website_url; ?>viewitf14/<?php echo urlencode($itf14_code); ?><?php echo $addresizeimg; ?>.gif"><img style="border: 0px;" src="<?php echo $website_url; ?>viewitf14/<?php echo urlencode($itf14_code); ?><?php echo $addresizeimg; ?>.gif" alt="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> GIF" title="<?php echo htmlspecialchars($itf14_code, ENT_QUOTES); ?> GIF" /></a></td></tr><?php echo "\n  "; ?><tr style="text-align: center; vertical-align: middle; width: 50%;"><td colspan="2" style="text-align: left; vertical-align: middle; width: 50%;">&nbsp;</td></tr><?php } ?>
   <?php echo "\n"; } ?>
   </table>
-  <div>&nbsp;<br />&nbsp;</div>
-  <address><?php echo "<a href=\"".$appmakerurl."\" title=\"".$appname." by ".$appmaker."\">".$appname."</a> ".$appver[3]." Ver. ".$appver[0].".".$appver[1].".".$appver[2]; ?></address>
   <?php } ?>
+  <div>&nbsp;<br />&nbsp;</div>
+  <address><?php echo "<a href=\"".$appmakerurl."\" title=\"".$appname." by ".$appmaker."\">".$appname."</a> Ver. ".$appver[0].".".$appver[1].".".$appver[2]." ".$appver[3]; ?></address>
  </body>
 </html>
 <?php } ?>

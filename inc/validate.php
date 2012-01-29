@@ -12,8 +12,12 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: validate.php - Last Update: 01/28/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
+    $FileInfo: validate.php - Last Update: 01/28/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
 */
+$File3Name = basename($_SERVER['SCRIPT_NAME']);
+if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
+	require("./index.php");
+	exit(); }
 
 function validate_upca($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }

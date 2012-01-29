@@ -12,8 +12,12 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upca.php - Last Update: 01/28/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
+    $FileInfo: upca.php - Last Update: 01/28/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
 */
+$File3Name = basename($_SERVER['SCRIPT_NAME']);
+if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
+	require("./index.php");
+	exit(); }
 
 function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }

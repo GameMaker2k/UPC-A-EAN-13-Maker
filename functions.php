@@ -12,8 +12,12 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: functions.php - Last Update: 01/28/2012 Ver. 2.0.0 RC 12 - Author: cooldude2k $
+    $FileInfo: functions.php - Last Update: 01/28/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
 */
+$File3Name = basename($_SERVER['SCRIPT_NAME']);
+if ($File3Name=="functions.php"||$File3Name=="/functions.php") {
+	require("./index.php");
+	exit(); }
 
 /*
 UPC Resources and Info
@@ -38,6 +42,7 @@ require("./inc/upca.php");
 require("./inc/upce.php");
 require("./inc/ean13.php");
 require("./inc/ean8.php");
+require("./inc/itf14.php");
 require("./inc/cuecat.php");
 function validate_barcode($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
@@ -54,5 +59,6 @@ function create_barcode($upc,$imgtype="png",$outputimage=true,$resize=1,$resizet
 	if(strlen($upc)==11||strlen($upc)==12) { 
 		return create_upca($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile,$hidecd); }
 	if(strlen($upc)==13) { return create_ean13($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile,$hidecd); } 
+	if(strlen($upc)==14) { return create_itf14($upc,$imgtype,$outputimage,$resize,$resizetype,$outfile,$hidecd); } 
 	return false; }
 ?>
