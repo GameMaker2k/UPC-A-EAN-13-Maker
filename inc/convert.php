@@ -57,6 +57,14 @@ function convert_upca_to_ean13($upc) {
 	if(strlen($upc)==12) { $ean13 = "0".$upc; }
 	if(strlen($upc)==13) { $ean13 = $upc; }
 	return $ean13; }
+function convert_ean13_to_itf14($upc) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }
+	if(strlen($upc)==12) { $upc = "0".$upc; }
+	if(strlen($upc)>14||strlen($upc)<13) { return false; }
+	if(strlen($upc)==13) { $itf14 = "0".$upc; }
+	if(strlen($upc)==14) { $itf14 = $upc; }
+	return $itf14; }
 function convert_upce_to_ean13($upc) {
 	return convert_upca_to_ean13(convert_upce_to_upca($upc)); }
 function convert_ean13_to_upca($upc) {
@@ -66,6 +74,13 @@ function convert_ean13_to_upca($upc) {
 	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) {
 	$upca = $upc_matches[1]; }
 	return $upca; }
+function convert_itf14_to_ean13($upc) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==13) { $upc = "0".$upc; }
+	if(strlen($upc)>14||strlen($upc)<14) { return false; }
+	if(preg_match("/^0(\d{13})/", $upc, $upc_matches)) {
+	$ean13 = $upc_matches[1]; }
+	return $ean13; }
 function convert_upca_to_upce($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }

@@ -200,16 +200,19 @@ return true; }
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==8) {
   $upce_code = $_GET['upc']; 
   $upca_code = convert_upce_to_upca($_GET['upc']);
-  $ean13_code = convert_upce_to_ean13($_GET['upc']); }
+  $ean13_code = convert_upce_to_ean13($_GET['upc']); 
+  $itf14_code =  convert_ean13_to_itf14($ean13_code); }
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==12) {
   $upca_code = $_GET['upc'];
   $upce_code = convert_upca_to_upce($_GET['upc']);
-  $ean13_code = convert_upca_to_ean13($_GET['upc']); }
+  $ean13_code = convert_upca_to_ean13($_GET['upc']); 
+  $itf14_code =  convert_ean13_to_itf14($ean13_code); }
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==13) {
   $ean13_code = $_GET['upc']; 
   if(preg_match("/^0(\d{12})/", $ean13_code, $upc_matches)&&$upca_code==null) {
   $upca_code = convert_ean13_to_upca($_GET['upc']);
-  $upce_code = convert_ean13_to_upce($_GET['upc']); } }
+  $upce_code = convert_ean13_to_upce($_GET['upc']); } 
+  $itf14_code =  convert_ean13_to_itf14($ean13_code); }
   if(isset($upce_code)&&strlen($upce_code)==8) {
   $ean8_code = $upce_code; }
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==14) {
