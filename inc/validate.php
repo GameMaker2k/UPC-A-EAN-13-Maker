@@ -24,9 +24,9 @@ function validate_upca($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>12||strlen($upc)<11) { return false; }
 	if(strlen($upc)==11) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==12) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	$OddSum = ($upc_matches[1] + $upc_matches[3] + $upc_matches[5] + $upc_matches[7] + $upc_matches[9] + $upc_matches[11]) * 3;
 	$EvenSum = $upc_matches[2] + $upc_matches[4] + $upc_matches[6] + $upc_matches[8] + $upc_matches[10];
 	$AllSum = $OddSum + $EvenSum;
@@ -42,9 +42,9 @@ function validate_ean13($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>13||strlen($upc)<12) { return false; }
 	if(strlen($upc)==12) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==13) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	$EvenSum = ($upc_matches[2] + $upc_matches[4] + $upc_matches[6] + $upc_matches[8] + $upc_matches[10] + $upc_matches[12]) * 3;
 	$OddSum = $upc_matches[1] + $upc_matches[3] + $upc_matches[5] + $upc_matches[7] + $upc_matches[9] + $upc_matches[11];
 	$AllSum = $OddSum + $EvenSum;
@@ -56,13 +56,31 @@ function validate_ean13($upc,$return_check=false) {
 	if($CheckSum==$upc_matches[13]) { return true; } }
 	if($return_check==true) { return $CheckSum; }
 	if(strlen($upc)==12) { return $CheckSum; } }
+function validate_itf14($upc,$return_check=false) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)>14||strlen($upc)<13) { return false; }
+	if(strlen($upc)==13) {
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	if(strlen($upc)==14) {
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	$EvenSum = $upc_matches[2] + $upc_matches[4] + $upc_matches[6] + $upc_matches[8] + $upc_matches[10] + $upc_matches[12];
+	$OddSum = ($upc_matches[1] + $upc_matches[3] + $upc_matches[5] + $upc_matches[7] + $upc_matches[9] + $upc_matches[11] + $upc_matches[13]) * 3;
+	$AllSum = $OddSum + $EvenSum;
+	$CheckSum = $AllSum % 10;
+	if($CheckSum>0) {
+	$CheckSum = 10 - $CheckSum; }
+	if($return_check==false&&strlen($upc)==14) {
+	if($CheckSum!=$upc_matches[14]) { return false; }
+	if($CheckSum==$upc_matches[14]) { return true; } }
+	if($return_check==true) { return $CheckSum; }
+	if(strlen($upc)==13) { return $CheckSum; } }
 function validate_ean8($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>8||strlen($upc)<7) { return false; }
 	if(strlen($upc)==7) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==8) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	$EvenSum = ($upc_matches[1] + $upc_matches[3] + $upc_matches[5] + $upc_matches[7]) * 3;
 	$OddSum = $upc_matches[2] + $upc_matches[4] + $upc_matches[6];
 	$AllSum = $OddSum + $EvenSum;
@@ -79,11 +97,11 @@ function validate_upce($upc,$return_check=false) {
 	if(strlen($upc)>8||strlen($upc)<7) { return false; }
 	if(!preg_match("/^0/", $upc)) { return false; }
 	$CheckDigit = null;
-	if(strlen($upc)==8&&preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches)) {
-	preg_match("/(\d{7})(\d{1})/", $upc, $upc_matches);
+	if(strlen($upc)==8&&preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches)) {
+	preg_match("/^(\d{7})(\d{1})/", $upc, $upc_matches);
 	$CheckDigit = $upc_matches[2]; }
-	if(preg_match("/(\d{1})(\d{5})([0-3])/", $upc, $upc_matches)) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches);
+	if(preg_match("/^(\d{1})(\d{5})([0-3])/", $upc, $upc_matches)) {
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches);
 	if($upc_matches[7]==0) {
 	$OddSum = (0 + $upc_matches[3] + 0 + 0 + $upc_matches[4] + $upc_matches[6]) * 3;
 	$EvenSum = $upc_matches[2] + 0 + 0 + 0 + $upc_matches[5]; }
@@ -96,8 +114,8 @@ function validate_upce($upc,$return_check=false) {
 	if($upc_matches[7]==3) {
 	$OddSum = (0 + $upc_matches[3] + 0 + 0 + 0 + $upc_matches[6]) * 3;
 	$EvenSum = $upc_matches[2] + $upc_matches[4] + 0 + 0 + $upc_matches[5]; } }
-	if(preg_match("/(\d{1})(\d{5})([4-9])/", $upc, $upc_matches)) {
-	preg_match("/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches);
+	if(preg_match("/^(\d{1})(\d{5})([4-9])/", $upc, $upc_matches)) {
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches);
 	if($upc_matches[7]==4) {
 	$OddSum = (0 + $upc_matches[3] + $upc_matches[5] + 0 + 0 + $upc_matches[6]) * 3;
 	$EvenSum = $upc_matches[2] + $upc_matches[4] + 0 + 0 + 0; }

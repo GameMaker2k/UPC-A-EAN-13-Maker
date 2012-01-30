@@ -81,6 +81,7 @@ function validate_barcode($upc,$return_check=false) {
 	if(strlen($upc)==8) { return validate_upce($upc,$return_check); }
 	if(strlen($upc)==12) { return validate_upca($upc,$return_check); }
 	if(strlen($upc)==13) { return validate_ean13($upc,$return_check); } 
+	if(strlen($upc)==14) { return validate_itf14($upc,$return_check); } 
 	return false; }
 function create_barcode($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
