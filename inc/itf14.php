@@ -22,7 +22,8 @@ if ($File3Name=="itf14.php"||$File3Name=="/itf14.php") {
 
 function create_itf14($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
-	if(strlen($upc)>14||strlen($upc)<14) { return false; }
+	if(strlen($upc) % 2) { return false; }
+	if(strlen($upc) < 6) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
