@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: validate.php - Last Update: 01/28/2012 Ver. 2.0.5 RC 1 - Author: cooldude2k $
+    $FileInfo: validate.php - Last Update: 02/02/2012 Ver. 2.1.0 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
