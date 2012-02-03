@@ -49,11 +49,11 @@ function create_code39($upc,$imgtype="png",$outputimage=true,$resize=1,$resizety
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($upc_img, 255, 255, 255);
-	$NumTxtZero = 0; $LineTxtStart = 25;
-	imagestring($upc_img, 2, 8, 48, "*", $text_color);
+	$NumTxtZero = 0; $LineTxtStart = 30;
+	imagestring($upc_img, 2, 14, 48, "*", $text_color);
 	while ($NumTxtZero < count($upc_matches)) {
 	imagestring($upc_img, 2, $LineTxtStart, 48, $upc_matches[$NumTxtZero], $text_color);
-	$LineTxtStart += 17;
+	$LineTxtStart += 16;
 	++$NumTxtZero; }
 	imagestring($upc_img, 2, $LineTxtStart, 48, "*", $text_color);
 	imageline($upc_img, 0, 4, 0, 47, $alt_text_color);
