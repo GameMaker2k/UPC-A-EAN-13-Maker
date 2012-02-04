@@ -30,7 +30,7 @@ function create_code93($upc,$imgtype="png",$outputimage=true,$resize=1,$resizety
 	$upc = strtoupper($upc);
 	$upc_matches = str_split($upc);
 	if(count($upc_matches)<=0) { return false; }
-	$Code93Array = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "-", ".", " ", "$", "/", "+", "%"/*, "($)", "(%)", "(/)", "(+)"*/);
+	$Code93Array = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "-", ".", " ", "$", "/", "+", "%", "($)", "(%)", "(/)", "(+)");
 	$Code93Values = array_flip($Code93Array);
 	$upc_reverse = array_reverse($upc_matches);
 	$upc_print = $upc_matches;
@@ -178,14 +178,14 @@ function create_code93($upc,$imgtype="png",$outputimage=true,$resize=1,$resizety
 		$left_text_color = array(1, 0, 1, 1, 1, 0, 1, 1, 0); }
 		if($upc_matches[$NumZero]=="%") {
 		$left_text_color = array(1, 1, 0, 1, 0, 1, 1, 1, 0); }
-//		if($upc_matches[$NumZero]=="($)") {
-//		$left_text_color = array(1, 0, 0, 1, 0, 0, 1, 1, 0); }
-//		if($upc_matches[$NumZero]=="(%)") {
-//		$left_text_color = array(1, 1, 1, 0, 1, 1, 0, 1, 0); }
-//		if($upc_matches[$NumZero]=="(/)") {
-//		$left_text_color = array(1, 1, 1, 0, 1, 0, 1, 1, 0); }
-//		if($upc_matches[$NumZero]=="(+)") {
-//		$left_text_color = array(1, 0, 0, 1, 1, 0, 0, 1, 0); }
+		if($upc_matches[$NumZero]=="($)") {
+		$left_text_color = array(1, 0, 0, 1, 0, 0, 1, 1, 0); }
+		if($upc_matches[$NumZero]=="(%)") {
+		$left_text_color = array(1, 1, 1, 0, 1, 1, 0, 1, 0); }
+		if($upc_matches[$NumZero]=="(/)") {
+		$left_text_color = array(1, 1, 1, 0, 1, 0, 1, 1, 0); }
+		if($upc_matches[$NumZero]=="(+)") {
+		$left_text_color = array(1, 0, 0, 1, 1, 0, 0, 1, 0); }
 		$InnerUPCNum = 0;
 		while ($InnerUPCNum < count($left_text_color)) {
 		if($left_text_color[$InnerUPCNum]==1) {
