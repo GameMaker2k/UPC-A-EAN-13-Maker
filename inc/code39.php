@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: code39.php - Last Update: 02/03/2012 Ver. 2.1.2 RC 1 - Author: cooldude2k $
+    $FileInfo: code39.php - Last Update: 02/03/2012 Ver. 2.1.5 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="code39.php"||$File3Name=="/code39.php") {
@@ -170,186 +170,29 @@ function create_code39($upc,$imgtype="png",$outputimage=true,$resize=1,$resizety
 		$left_text_color = array(0, 3, 0, 2, 0, 3, 0, 3, 0); }
 		if($upc_matches[$NumZero]=="%") {
 		$left_text_color = array(0, 2, 0, 3, 0, 3, 0, 3, 0); }
-		if($left_text_color[0]==1) {
+		$InnerUPCNum = 0;
+		while ($InnerUPCNum < count($left_text_color)) {
+		if($left_text_color[$InnerUPCNum]==1) {
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
 		$LineStart += 1; 
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
 		$LineStart += 1; 
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
 		$LineStart += 1; }
-		if($left_text_color[0]==0) {
+		if($left_text_color[$InnerUPCNum]==0) {
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
 		$LineStart += 1; }
-		if($left_text_color[0]==3) {
+		if($left_text_color[$InnerUPCNum]==3) {
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
 		$LineStart += 1; 
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
 		$LineStart += 1; 
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
 		$LineStart += 1; }
-		if($left_text_color[0]==2) {
+		if($left_text_color[$InnerUPCNum]==2) {
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
 		$LineStart += 1; }
-		if($left_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[1]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[1]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[2]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[2]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1;
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1;}
-		if($left_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[3]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1;
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1;}
-		if($left_text_color[3]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[4]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[4]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[5]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[5]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[6]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[6]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[7]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[7]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[7]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[7]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[8]==1) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[8]==0) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $text_color); 
-		$LineStart += 1; }
-		if($left_text_color[8]==3) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; 
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
-		if($left_text_color[8]==2) {
-		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
-		$LineStart += 1; }
+		++$InnerUPCNum; }
 		imageline($upc_img, $LineStart, 4, $LineStart, $LineSize, $alt_text_color); 
 		$LineStart += 1; 
 		++$NumZero; }

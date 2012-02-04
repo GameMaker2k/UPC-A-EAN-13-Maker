@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: ean13.php - Last Update: 02/03/2012 Ver. 2.1.2 RC 1 - Author: cooldude2k $
+    $FileInfo: ean13.php - Last Update: 02/03/2012 Ver. 2.1.5 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="ean13.php"||$File3Name=="/ean13.php") {
@@ -142,41 +142,14 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 		if($NumZero==1) { $left_text_color = $left_text_color_g; }
 		if($NumZero==2) { $left_text_color = $left_text_color_g; }
 		if($NumZero==4) { $left_text_color = $left_text_color_g; } }
-		if($left_text_color[0]==1) {
+		$InnerUPCNum = 0;
+		while ($InnerUPCNum < count($left_text_color)) {
+		if($left_text_color[$InnerUPCNum]==1) {
 		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($left_text_color[0]==0) {
+		if($left_text_color[$InnerUPCNum]==0) {
 		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
-		if($left_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($left_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($left_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($left_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($left_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($left_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($left_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($left_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($left_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($left_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($left_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($left_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
+		++$InnerUPCNum; }
 		++$NumZero; }
 	imageline($upc_img, 56, 10, 56, 51, $alt_text_color);
 	imageline($upc_img, 57, 10, 57, 51, $text_color);
@@ -207,41 +180,14 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 		$right_text_color = array(1, 0, 0, 1, 0, 0, 0); }
 		if($RightDigit[$NumZero]==9) { 
 		$right_text_color = array(1, 1, 1, 0, 1, 0, 0); }
-		if($right_text_color[0]==1) {
+		$InnerUPCNum = 0;
+		while ($InnerUPCNum < count($right_text_color)) {
+		if($right_text_color[$InnerUPCNum]==1) {
 		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($right_text_color[0]==0) {
+		if($right_text_color[$InnerUPCNum]==0) {
 		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
 		$LineStart += 1;
-		if($right_text_color[1]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($right_text_color[1]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($right_text_color[2]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($right_text_color[2]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($right_text_color[3]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($right_text_color[3]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($right_text_color[4]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($right_text_color[4]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($right_text_color[5]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($right_text_color[5]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
-		if($right_text_color[6]==1) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $text_color); }
-		if($right_text_color[6]==0) {
-		imageline($upc_img, $LineStart, 10, $LineStart, $LineSize, $alt_text_color); }
-		$LineStart += 1;
+		++$InnerUPCNum; }
 		++$NumZero; }
 	imageline($upc_img, 103, 10, 103, 51, $text_color);
 	imageline($upc_img, 104, 10, 104, 51, $alt_text_color);
