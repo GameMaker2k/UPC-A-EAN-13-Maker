@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: functions.php - Last Update: 02/02/2012 Ver. 2.1.0 RC 1 - Author: cooldude2k $
+    $FileInfo: functions.php - Last Update: 02/03/2012 Ver. 2.1.2 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="functions.php"||$File3Name=="/functions.php") {
@@ -73,8 +73,10 @@ require("./inc/ean8.php");
 require("./inc/itf.php");
 // Code for making ITF-14 by Kazuki Przyborowski
 require("./inc/itf14.php");
-// Code for making ITF-14 by Kazuki Przyborowski
+// Code for making Code 39 by Kazuki Przyborowski
 require("./inc/code39.php");
+// Code for making Code 93 by Kazuki Przyborowski
+require("./inc/code93.php");
 // Code for decoding CueCat codes by Neil McNab
 require("./inc/cuecat.php");
 // Shortcut Codes by Kazuki Przyborowski
