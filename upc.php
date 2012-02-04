@@ -49,6 +49,7 @@ if(!isset($_GET['act'])) { $_GET['act'] = "view"; }
 if($_GET['act']!="upca"&&$_GET['act']!="upce"&&
 	$_GET['act']!="ean13"&&$_GET['act']!="ean8"&&
 	$_GET['act']!="itf"&&$_GET['act']!="itf14"&&
+	$_GET['act']!="code39"&&$_GET['act']!="code93"&&
 	$_GET['act']!="view"&&$_GET['act']!="barcode") { $_GET['act'] = "view"; }
 if($_GET['act']=="upca"||$_GET['act']=="upce"||
 	$_GET['act']=="ean13"||$_GET['act']=="barcode") {
@@ -60,6 +61,12 @@ if($_GET['act']=="itf") {
 if($_GET['act']=="itf14") {
 	if(!isset($_GET['resize'])||!is_numeric($_GET['resize'])||$_GET['resize']<1) { $_GET['resize'] = 1; }
 	create_itf14($_GET['upc'],$_GET['imgtype'],true,$_GET['resize']); }
+if($_GET['act']=="code39") {
+	if(!isset($_GET['resize'])||!is_numeric($_GET['resize'])||$_GET['resize']<1) { $_GET['resize'] = 1; }
+	create_code39($_GET['upc'],$_GET['imgtype'],true,$_GET['resize']); }
+if($_GET['act']=="code93") {
+	if(!isset($_GET['resize'])||!is_numeric($_GET['resize'])||$_GET['resize']<1) { $_GET['resize'] = 1; }
+	create_code93($_GET['upc'],$_GET['imgtype'],true,$_GET['resize']); }
 if($_GET['act']=="ean8") {
 	if(!isset($_GET['resize'])||!is_numeric($_GET['resize'])||$_GET['resize']<1) { $_GET['resize'] = 1; }
 	create_ean8($_GET['upc'],$_GET['imgtype'],true,$_GET['resize']); }

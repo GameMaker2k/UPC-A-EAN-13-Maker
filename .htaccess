@@ -10,9 +10,13 @@
 #RewriteRule   ^viewean8/([0-9]{7,8})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean8&upc=$1&resize=$2&imgtype=$3
 #RewriteRule   ^viewean13/([0-9]{12,13})\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&imgtype=$2
 #RewriteRule   ^viewean13/([0-9]{12,13})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=ean13&upc=$1&resize=$2&imgtype=$3
-#RewriteRule   ^viewitf14/([0-9]*)\.(gif|png|xbm|wbmp)$    index.php?act=itf14&upc=$1&imgtype=$2
-#RewriteRule   ^viewitf14/([0-9]*)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=itf14&upc=$1&resize=$2&imgtype=$3
-#RewriteRule   ^viewitf/([0-9]*)\.(gif|png|xbm|wbmp)$    index.php?act=itf&upc=$1&imgtype=$2
-#RewriteRule   ^viewitf/([0-9]*)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=itf&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewitf14/([0-9]+)\.(gif|png|xbm|wbmp)$    index.php?act=itf14&upc=$1&imgtype=$2
+#RewriteRule   ^viewitf14/([0-9]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=itf14&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewitf/([0-9]+)\.(gif|png|xbm|wbmp)$    index.php?act=itf&upc=$1&imgtype=$2
+#RewriteRule   ^viewitf/([0-9]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=itf&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewcode39/([0-9a-zA-Z\-\.\$\/\+%\ ]+)\.(gif|png|xbm|wbmp)$    index.php?act=code39&upc=$1&imgtype=$2
+#RewriteRule   ^viewcode39/([0-9a-zA-Z\-\.\$\/\+%\ ]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=code39&upc=$1&resize=$2&imgtype=$3
+#RewriteRule   ^viewcode93/([0-9a-zA-Z\-\.\$\/\+%\ ]+)\.(gif|png|xbm|wbmp)$    index.php?act=code93&upc=$1&imgtype=$2
+#RewriteRule   ^viewcode93/([0-9a-zA-Z\-\.\$\/\+%\ ]+)\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=code93&upc=$1&resize=$2&imgtype=$3
 #RewriteRule   ^viewbarcode/([0-9]{7,14})\.(gif|png|xbm|wbmp)$    index.php?act=barcode&upc=$1&imgtype=$2
 #RewriteRule   ^viewbarcode/([0-9]{7,14})\.([0-9]*[\.]?[0-9])\.(gif|png|xbm|wbmp)$    index.php?act=barcode&upc=$1&resize=$2&imgtype=$3
