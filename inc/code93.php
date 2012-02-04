@@ -168,7 +168,7 @@ function create_code93($upc,$imgtype="png",$outputimage=true,$resize=1,$resizety
 		$left_text_color = array(1, 0, 0, 1, 0, 1, 1, 1, 0); }
 		if($upc_matches[$NumZero]==".") {
 		$left_text_color = array(1, 1, 1, 0, 1, 0, 1, 0, 0); }
-		if($upc_matches[$NumZero]=="SPACE") {
+		if($upc_matches[$NumZero]==" ") {
 		$left_text_color = array(1, 1, 1, 0, 1, 0, 0, 1, 0); }
 		if($upc_matches[$NumZero]=="$") {
 		$left_text_color = array(1, 1, 1, 0, 0, 1, 0, 1, 0); }
