@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upca.php - Last Update: 02/05/2012 Ver. 2.1.7 RC 1 - Author: cooldude2k $
+    $FileInfo: upca.php - Last Update: 02/05/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
@@ -21,14 +21,22 @@ if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
 	exit(); }
 
 function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
+	if(!isset($upc)) { return false; }
+	$upc_pieces = null; $supplement = null;
+	if(strlen($upc)==15) { $upc_pieces = explode(" ", $upc); }
+	if(strlen($upc)==16) { $upc_pieces = explode(" ", $upc); }
+	if(strlen($upc)==18) { $upc_pieces = explode(" ", $upc); }
+	if(strlen($upc)==19) { $upc_pieces = explode(" ", $upc); }
+	if(count($upc_pieces)>1) { $upc = $upc_pieces[0]; $supplement = $upc_pieces[1]; }
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(isset($supplement)&&!is_numeric($supplement)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_upca($upc); }
 	if(strlen($upc)==13) { $upc = convert_ean13_to_upca($upc); }
 	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }
 	if(strlen($upc)>12||strlen($upc)<12) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
-	if(validate_upca($upc)===false) { return false; }
+	//if(validate_upca($upc)===false) { return false; }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
 	preg_match("/(\d{1})(\d{5})(\d{5})(\d{1})/", $upc, $upc_matches);
 	if(count($upc_matches)<=0) { return false; }
@@ -50,8 +58,11 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(113, 62);
-	imagefilledrectangle($upc_img, 0, 0, 113, 62, 0xFFFFFF);
+	$addonsize = 0;
+	if(strlen($supplement)==2) { $addonsize = 29; }
+	if(strlen($supplement)==5) { $addonsize = 56; }
+	$upc_img = imagecreatetruecolor(113 + $addonsize, 62);
+	imagefilledrectangle($upc_img, 0, 0, 113 + $addonsize, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
@@ -158,14 +169,16 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imageline($upc_img, 110, 10, 110, 47, $alt_text_color);
 	imageline($upc_img, 111, 10, 111, 47, $alt_text_color);
 	imageline($upc_img, 112, 10, 112, 47, $alt_text_color);
+	if(strlen($supplement)==2) { create_ean2($supplement,113,$upc_img); }
+	if(strlen($supplement)==5) { create_ean2($supplement,113,$upc_img); }
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(113 * $resize, 62 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 113 * $resize, 62 * $resize, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor((113 + $addonsize) * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, (113 + $addonsize) * $resize, 62 * $resize, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, (113 + $addonsize) * $resize, 62 * $resize, 113 + $addonsize, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 113 * $resize, 62 * $resize, 113, 62); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, (113 + $addonsize) * $resize, 62 * $resize, 113 + $addonsize, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
