@@ -36,7 +36,7 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
-	//if(validate_ean13($upc)===false) { return false; }
+	if(validate_ean13($upc)===false) { return false; }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
 	preg_match("/(\d{1})(\d{6})(\d{6})/", $upc, $upc_matches);
 	if(count($upc_matches)<=0) { return false; }

@@ -36,7 +36,7 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if(strlen($upc)>12||strlen($upc)<12) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
-	//if(validate_upca($upc)===false) { return false; }
+	if(validate_upca($upc)===false) { return false; }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
 	preg_match("/(\d{1})(\d{5})(\d{5})(\d{1})/", $upc, $upc_matches);
 	if(count($upc_matches)<=0) { return false; }
