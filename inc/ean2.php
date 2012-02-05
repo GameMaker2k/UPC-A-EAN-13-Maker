@@ -145,5 +145,4 @@ function create_ean2($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imagewbmp($upc_img,$outfile); } }
 	imagedestroy($upc_img); 
 	return true; }
-create_ean2("53");
 ?>
