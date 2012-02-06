@@ -23,11 +23,10 @@ if ($File3Name=="ean13.php"||$File3Name=="/ean13.php") {
 function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)) { return false; }
 	$upc_pieces = null; $supplement = null;
-	if(strlen($upc)==15) { $upc_pieces = explode(" ", $upc); }
-	if(strlen($upc)==16) { $upc_pieces = explode(" ", $upc); }
-	if(strlen($upc)==18) { $upc_pieces = explode(" ", $upc); }
-	if(strlen($upc)==19) { $upc_pieces = explode(" ", $upc); }
-	if(count($upc_pieces)>1) { $upc = $upc_pieces[0]; $supplement = $upc_pieces[1]; }
+	if(preg_match("/([0-9]+) ([0-9]{2})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
+	if(preg_match("/([0-9]+) ([0-9]{5})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(isset($supplement)&&!is_numeric($supplement)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_ean13($upc); }
@@ -210,8 +209,10 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imageline($upc_img, 110, 10, 110, 47, $alt_text_color);
 	imageline($upc_img, 111, 10, 111, 47, $alt_text_color);
 	imageline($upc_img, 112, 10, 112, 47, $alt_text_color);
-	if(strlen($supplement)==2) { create_ean2($supplement,113,$upc_img); }
-	if(strlen($supplement)==5) { create_ean5($supplement,113,$upc_img); }
+	imageline($upc_img, 113, 10, 113, 47, $alt_text_color);
+	imageline($upc_img, 114, 10, 114, 47, $alt_text_color);
+	if(strlen($supplement)==2) { create_ean2($supplement,115,$upc_img); }
+	if(strlen($supplement)==5) { create_ean5($supplement,115,$upc_img); }
 	if($resize>1) {
 	$new_upc_img = imagecreatetruecolor((115 + $addonsize) * $resize, 62 * $resize);
 	imagefilledrectangle($new_upc_img, 0, 0, (115 + $addonsize), 62, 0xFFFFFF);

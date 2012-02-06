@@ -21,6 +21,12 @@ if ($File3Name=="upce.php"||$File3Name=="/upce.php") {
 	exit(); }
 
 function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
+	if(!isset($upc)) { return false; }
+	$upc_pieces = null; $supplement = null;
+	if(preg_match("/([0-9]+) ([0-9]{2})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
+	if(preg_match("/([0-9]+) ([0-9]{5})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==12) { $upc = convert_upca_to_upce($upc); }
 	if(strlen($upc)==13) { $upc = convert_ean13_to_upce($upc); }
@@ -49,8 +55,11 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if($imgtype=="wbmp") {
 	if($outputimage==true) {
 	header("Content-Type: image/vnd.wap.wbmp"); } }
-	$upc_img = imagecreatetruecolor(69, 62);
-	imagefilledrectangle($upc_img, 0, 0, 69, 62, 0xFFFFFF);
+	$addonsize = 0;
+	if(strlen($supplement)==2) { $addonsize = 29; }
+	if(strlen($supplement)==5) { $addonsize = 56; }
+	$upc_img = imagecreatetruecolor(69 + $addonsize, 62);
+	imagefilledrectangle($upc_img, 0, 0, 69 + $addonsize, 62, 0xFFFFFF);
 	imageinterlace($upc_img, true);
 	$background_color = imagecolorallocate($upc_img, 255, 255, 255);
 	$text_color = imagecolorallocate($upc_img, 0, 0, 0);
@@ -210,14 +219,18 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imageline($upc_img, 64, 10, 64, 47, $alt_text_color);
 	imageline($upc_img, 65, 10, 65, 47, $alt_text_color);
 	imageline($upc_img, 66, 10, 66, 47, $alt_text_color);
+	imageline($upc_img, 67, 10, 67, 47, $alt_text_color);
+	imageline($upc_img, 68, 10, 68, 47, $alt_text_color);
+	if(strlen($supplement)==2) { create_ean2($supplement,69,$upc_img); }
+	if(strlen($supplement)==5) { create_ean5($supplement,69,$upc_img); }
 	if($resize>1) {
-	$new_upc_img = imagecreatetruecolor(69 * $resize, 62 * $resize);
-	imagefilledrectangle($new_upc_img, 0, 0, 69 * $resize, 62 * $resize, 0xFFFFFF);
+	$new_upc_img = imagecreatetruecolor((69 + $addonsize) * $resize, 62 * $resize);
+	imagefilledrectangle($new_upc_img, 0, 0, (69 + $addonsize) * $resize, 62 * $resize, 0xFFFFFF);
 	imageinterlace($new_upc_img, true);
 	if($resizetype=="resize") {
-	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, 69 * $resize, 62 * $resize, 69, 62); }
+	imagecopyresized($new_upc_img, $upc_img, 0, 0, 0, 0, (69 + $addonsize) * $resize, 62 * $resize, 69 + $addonsize, 62); }
 	if($resizetype=="resample") {
-	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, 69 * $resize, 62 * $resize, 69, 62); }
+	imagecopyresampled($new_upc_img, $upc_img, 0, 0, 0, 0, (69 + $addonsize) * $resize, 62 * $resize, 69 + $addonsize, 62); }
 	imagedestroy($upc_img); 
 	$upc_img = $new_upc_img; }
 	if($imgtype=="png") {
