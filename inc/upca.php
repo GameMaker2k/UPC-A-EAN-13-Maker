@@ -170,7 +170,7 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imageline($upc_img, 111, 10, 111, 47, $alt_text_color);
 	imageline($upc_img, 112, 10, 112, 47, $alt_text_color);
 	if(strlen($supplement)==2) { create_ean2($supplement,113,$upc_img); }
-	if(strlen($supplement)==5) { create_ean2($supplement,113,$upc_img); }
+	if(strlen($supplement)==5) { create_ean5($supplement,113,$upc_img); }
 	if($resize>1) {
 	$new_upc_img = imagecreatetruecolor((113 + $addonsize) * $resize, 62 * $resize);
 	imagefilledrectangle($new_upc_img, 0, 0, (113 + $addonsize) * $resize, 62 * $resize, 0xFFFFFF);

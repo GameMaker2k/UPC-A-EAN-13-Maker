@@ -28,10 +28,6 @@ function create_ean5($upc,$offsetadd,$imgres) {
 	$LeftDigit = str_split($upc_matches[1]);
 	$CheckSum = ($LeftDigit[0] * 3) + ($LeftDigit[1] * 9) + ($LeftDigit[2] * 3) + ($LeftDigit[3] * 9) + ($LeftDigit[4] * 3);
 	$CheckSum = $CheckSum % 10;
-	$imgres = imagecreatetruecolor(48, 62);
-	imagefilledrectangle($imgres, 0, 0, 48, 62, 0xFFFFFF);
-	imageinterlace($imgres, true);
-	$background_color = imagecolorallocate($imgres, 255, 255, 255);
 	$text_color = imagecolorallocate($imgres, 0, 0, 0);
 	$alt_text_color = imagecolorallocate($imgres, 255, 255, 255);
 	imagestring($imgres, 2, 7 + $offsetadd, 47, $LeftDigit[0], $text_color);
