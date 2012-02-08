@@ -31,7 +31,8 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if(isset($supplement)&&!is_numeric($supplement)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_ean13($upc); }
 	if(strlen($upc)==12) { $upc = convert_upca_to_ean13($upc); }
-	if(strlen($upc)==12) { $upc = "0".$upc; }
+	if(strlen($upc)==12&&validate_upca($upc)===true) { $upc = "0".$upc; }
+	if(strlen($upc)==12&&validate_upca($upc)===false) { $upc = $upc.validate_ean13($upc,true); }
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
