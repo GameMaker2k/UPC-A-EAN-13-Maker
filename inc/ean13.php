@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: ean13.php - Last Update: 02/05/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: ean13.php - Last Update: 02/08/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="ean13.php"||$File3Name=="/ean13.php") {
@@ -36,7 +36,8 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
-	if(validate_ean13($upc)===false) { return false; }
+	if(validate_ean13($upc)===false) { preg_match("/^(\d{12})/", $upc, $pre_matches); 
+	$upc = $pre_matches[1].validate_ean13($pre_matches[1],true); }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
 	preg_match("/(\d{1})(\d{6})(\d{6})/", $upc, $upc_matches);
 	if(count($upc_matches)<=0) { return false; }

@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upca.php - Last Update: 02/05/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: upca.php - Last Update: 02/08/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
@@ -35,7 +35,8 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	if(strlen($upc)>12||strlen($upc)<12) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
 	if($resizetype!="resample"&&$resizetype!="resize") { $resizetype = "resize"; }
-	if(validate_upca($upc)===false) { return false; }
+	if(validate_upca($upc)===false) { preg_match("/^(\d{11})/", $upc, $pre_matches); 
+	$upc = $pre_matches[1].validate_upca($pre_matches[1],true); }
 	if($imgtype!="png"&&$imgtype!="gif"&&$imgtype!="xbm"&&$imgtype!="wbmp") { $imgtype = "png"; }
 	preg_match("/(\d{1})(\d{5})(\d{5})(\d{1})/", $upc, $upc_matches);
 	if(count($upc_matches)<=0) { return false; }
