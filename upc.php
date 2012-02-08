@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upc.php - Last Update: 02/05/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: upc.php - Last Update: 02/08/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 
 @ob_start();
@@ -70,6 +70,15 @@ if($_GET['act']=="code93") {
 if($_GET['act']=="ean8") {
 	if(!isset($_GET['resize'])||!is_numeric($_GET['resize'])||$_GET['resize']<1) { $_GET['resize'] = 1; }
 	create_ean8($_GET['upc'],$_GET['imgtype'],true,$_GET['resize']); }
+if(validate_ean8($_GET['upc'])===false&&validate_upce($_GET['upc'])===false&&
+	strlen($_GET['upc'])==8) { preg_match("/^(\d{7})/", $_GET['upc'], $pre_matches); 
+	$_GET['upc'] = $pre_matches[1].validate_upce($pre_matches[1],true); }
+if(validate_upca($_GET['upc'])===false&&
+	strlen($_GET['upc'])==12) { preg_match("/^(\d{12})/", $_GET['upc'], $pre_matches); 
+	$_GET['upc'] = $pre_matches[1].validate_upca($pre_matches[1],true); }
+if(validate_ean13($_GET['upc'])===false&&
+	strlen($_GET['upc'])==13) { preg_match("/^(\d{13})/", $_GET['upc'], $pre_matches); 
+	$_GET['upc'] = $pre_matches[1].validate_ean13($pre_matches[1],true); }
 if($_GET['act']=="view") {
 if(isset($_GET['upc'])&&!is_numeric($_GET['upc'])) {
   $_GET['upc'] = cuecat_decode($_GET['upc']); }
