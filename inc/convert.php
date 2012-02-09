@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: convert.php - Last Update: 02/05/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: convert.php - Last Update: 02/09/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="convert.php"||$File3Name=="/convert.php") {
@@ -68,6 +68,10 @@ function convert_ean13_to_itf14($upc) {
 	return $itf14; }
 function convert_upce_to_ean13($upc) {
 	return convert_upca_to_ean13(convert_upce_to_upca($upc)); }
+function convert_upce_to_itf14($upc) {
+	return convert_ean13_to_itf14(convert_upce_to_ean13($upc)); }
+function convert_upca_to_itf14($upc) {
+	return convert_ean13_to_itf14(convert_upca_to_ean13($upc)); }
 function convert_ean13_to_upca($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==12) { $upc = "0".$upc; }
