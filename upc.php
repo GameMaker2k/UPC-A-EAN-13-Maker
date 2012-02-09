@@ -46,6 +46,7 @@ function version_info($proname,$subver,$ver,$supver,$reltype,$svnver,$showsvn) {
 $appversion = version_info($appname,$appver[0],$appver[1],$appver[2],$appver[3]." Ver.",null,false);
 require("./functions.php");
 if(!isset($_GET['act'])) { $_GET['act'] = "view"; }
+if(!isset($_GET['upc'])) { $_GET['upc'] = null; }
 if($_GET['act']!="upca"&&$_GET['act']!="upce"&&
 	$_GET['act']!="ean13"&&$_GET['act']!="ean8"&&
 	$_GET['act']!="itf"&&$_GET['act']!="itf14"&&
@@ -74,10 +75,10 @@ if(validate_ean8($_GET['upc'])===false&&validate_upce($_GET['upc'])===false&&
 	strlen($_GET['upc'])==8) { preg_match("/^(\d{7})/", $_GET['upc'], $pre_matches); 
 	$_GET['upc'] = $pre_matches[1].validate_upce($pre_matches[1],true); }
 if(validate_upca($_GET['upc'])===false&&
-	strlen($_GET['upc'])==12) { preg_match("/^(\d{12})/", $_GET['upc'], $pre_matches); 
+	strlen($_GET['upc'])==12) { preg_match("/^(\d{11})/", $_GET['upc'], $pre_matches); 
 	$_GET['upc'] = $pre_matches[1].validate_upca($pre_matches[1],true); }
 if(validate_ean13($_GET['upc'])===false&&
-	strlen($_GET['upc'])==13) { preg_match("/^(\d{13})/", $_GET['upc'], $pre_matches); 
+	strlen($_GET['upc'])==13) { preg_match("/^(\d{12})/", $_GET['upc'], $pre_matches); 
 	$_GET['upc'] = $pre_matches[1].validate_ean13($pre_matches[1],true); }
 if($_GET['act']=="view") {
 if(isset($_GET['upc'])&&!is_numeric($_GET['upc'])) {
