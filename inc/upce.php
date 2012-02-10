@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upce.php - Last Update: 02/08/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: upce.php - Last Update: 02/09/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="upce.php"||$File3Name=="/upce.php") {
@@ -78,9 +78,9 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imageline($upc_img, 6, 10, 6, 47, $alt_text_color);
 	imageline($upc_img, 7, 10, 7, 47, $alt_text_color);
 	imageline($upc_img, 8, 10, 8, 47, $alt_text_color);
-	imageline($upc_img, 9, 10, 9, 51, $text_color);
-	imageline($upc_img, 10, 10, 10, 51, $alt_text_color);
-	imageline($upc_img, 11, 10, 11, 51, $text_color);
+	imageline($upc_img, 9, 10, 9, 53, $text_color);
+	imageline($upc_img, 10, 10, 10, 53, $alt_text_color);
+	imageline($upc_img, 11, 10, 11, 53, $text_color);
 	$NumZero = 0; $LineStart = 12;
 	while ($NumZero < count($LeftDigit)) {
 		$LineSize = 47;
@@ -207,12 +207,12 @@ function create_upce($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		$LineStart += 1;
 		++$InnerUPCNum; }
 		++$NumZero; }
-	imageline($upc_img, 54, 10, 54, 51, $alt_text_color);
-	imageline($upc_img, 55, 10, 55, 51, $text_color);
-	imageline($upc_img, 56, 10, 56, 51, $alt_text_color);
-	imageline($upc_img, 57, 10, 57, 51, $text_color);
-	imageline($upc_img, 58, 10, 58, 51, $alt_text_color);
-	imageline($upc_img, 59, 10, 59, 51, $text_color);
+	imageline($upc_img, 54, 10, 54, 53, $alt_text_color);
+	imageline($upc_img, 55, 10, 55, 53, $text_color);
+	imageline($upc_img, 56, 10, 56, 53, $alt_text_color);
+	imageline($upc_img, 57, 10, 57, 53, $text_color);
+	imageline($upc_img, 58, 10, 58, 53, $alt_text_color);
+	imageline($upc_img, 59, 10, 59, 53, $text_color);
 	imageline($upc_img, 60, 10, 60, 47, $alt_text_color);
 	imageline($upc_img, 61, 10, 61, 47, $alt_text_color);
 	imageline($upc_img, 62, 10, 62, 47, $alt_text_color);

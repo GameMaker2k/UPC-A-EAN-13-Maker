@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: ean13.php - Last Update: 02/08/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: ean13.php - Last Update: 02/09/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="ean13.php"||$File3Name=="/ean13.php") {
@@ -78,10 +78,10 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 	imageline($upc_img, 7, 10, 7, 47, $alt_text_color);
 	imageline($upc_img, 8, 10, 8, 47, $alt_text_color);
 	imageline($upc_img, 9, 10, 9, 47, $alt_text_color);
-	imageline($upc_img, 10, 10, 10, 51, $alt_text_color);
-	imageline($upc_img, 11, 10, 11, 51, $text_color);
-	imageline($upc_img, 12, 10, 12, 51, $alt_text_color);
-	imageline($upc_img, 13, 10, 13, 51, $text_color);
+	imageline($upc_img, 10, 10, 10, 53, $alt_text_color);
+	imageline($upc_img, 11, 10, 11, 53, $text_color);
+	imageline($upc_img, 12, 10, 12, 53, $alt_text_color);
+	imageline($upc_img, 13, 10, 13, 53, $text_color);
 	$NumZero = 0; $LineStart = 14;
 	while ($NumZero < count($LeftDigit)) {
 		$LineSize = 47;
@@ -163,11 +163,11 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 		$LineStart += 1;
 		++$InnerUPCNum; }
 		++$NumZero; }
-	imageline($upc_img, 56, 10, 56, 51, $alt_text_color);
-	imageline($upc_img, 57, 10, 57, 51, $text_color);
-	imageline($upc_img, 58, 10, 58, 51, $alt_text_color);
-	imageline($upc_img, 59, 10, 59, 51, $text_color);
-	imageline($upc_img, 60, 10, 60, 51, $alt_text_color);
+	imageline($upc_img, 56, 10, 56, 53, $alt_text_color);
+	imageline($upc_img, 57, 10, 57, 53, $text_color);
+	imageline($upc_img, 58, 10, 58, 53, $alt_text_color);
+	imageline($upc_img, 59, 10, 59, 53, $text_color);
+	imageline($upc_img, 60, 10, 60, 53, $alt_text_color);
 	$NumZero = 0; $LineStart = 61;
 	while ($NumZero < count($RightDigit)) {
 		$LineSize = 47;
@@ -201,9 +201,9 @@ function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetyp
 		$LineStart += 1;
 		++$InnerUPCNum; }
 		++$NumZero; }
-	imageline($upc_img, 103, 10, 103, 51, $text_color);
-	imageline($upc_img, 104, 10, 104, 51, $alt_text_color);
-	imageline($upc_img, 105, 10, 105, 51, $text_color);
+	imageline($upc_img, 103, 10, 103, 53, $text_color);
+	imageline($upc_img, 104, 10, 104, 53, $alt_text_color);
+	imageline($upc_img, 105, 10, 105, 53, $text_color);
 	imageline($upc_img, 106, 10, 106, 47, $alt_text_color);
 	imageline($upc_img, 107, 10, 107, 47, $alt_text_color);
 	imageline($upc_img, 108, 10, 108, 47, $alt_text_color);

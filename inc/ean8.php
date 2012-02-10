@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: ean8.php - Last Update: 02/08/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: ean8.php - Last Update: 02/09/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="ean8.php"||$File3Name=="/ean8.php") {
@@ -77,9 +77,9 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imageline($upc_img, 4, 10, 4, 47, $alt_text_color);
 	imageline($upc_img, 5, 10, 5, 47, $alt_text_color);
 	imageline($upc_img, 6, 10, 6, 47, $alt_text_color);
-	imageline($upc_img, 7, 10, 7, 51, $text_color);
-	imageline($upc_img, 8, 10, 8, 51, $alt_text_color);
-	imageline($upc_img, 9, 10, 9, 51, $text_color);
+	imageline($upc_img, 7, 10, 7, 53, $text_color);
+	imageline($upc_img, 8, 10, 8, 53, $alt_text_color);
+	imageline($upc_img, 9, 10, 9, 53, $text_color);
 	$NumZero = 0; $LineStart = 10;
 	while ($NumZero < count($LeftDigit)) {
 		$LineSize = 47;
@@ -161,11 +161,11 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		$LineStart += 1;
 		++$InnerUPCNum; }
 		++$NumZero; }
-	imageline($upc_img, 38, 10, 38, 51, $alt_text_color);
-	imageline($upc_img, 39, 10, 39, 51, $text_color);
-	imageline($upc_img, 40, 10, 40, 51, $alt_text_color);
-	imageline($upc_img, 41, 10, 41, 51, $text_color);
-	imageline($upc_img, 42, 10, 42, 51, $alt_text_color);
+	imageline($upc_img, 38, 10, 38, 53, $alt_text_color);
+	imageline($upc_img, 39, 10, 39, 53, $text_color);
+	imageline($upc_img, 40, 10, 40, 53, $alt_text_color);
+	imageline($upc_img, 41, 10, 41, 53, $text_color);
+	imageline($upc_img, 42, 10, 42, 53, $alt_text_color);
 	$NumZero = 0; $LineStart = 43;
 	while ($NumZero < count($RightDigit)) {
 		$LineSize = 47;
@@ -199,9 +199,9 @@ function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		$LineStart += 1;
 		++$InnerUPCNum; }
 		++$NumZero; }
-	imageline($upc_img, 71, 10, 71, 51, $text_color);
-	imageline($upc_img, 72, 10, 72, 51, $alt_text_color);
-	imageline($upc_img, 73, 10, 73, 51, $text_color);
+	imageline($upc_img, 71, 10, 71, 53, $text_color);
+	imageline($upc_img, 72, 10, 72, 53, $alt_text_color);
+	imageline($upc_img, 73, 10, 73, 53, $text_color);
 	imageline($upc_img, 74, 10, 74, 47, $alt_text_color);
 	imageline($upc_img, 75, 10, 75, 47, $alt_text_color);
 	imageline($upc_img, 76, 10, 76, 47, $alt_text_color);

@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upca.php - Last Update: 02/08/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: upca.php - Last Update: 02/09/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
@@ -81,13 +81,13 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 	imageline($upc_img, 6, 10, 6, 47, $alt_text_color);
 	imageline($upc_img, 7, 10, 7, 47, $alt_text_color);
 	imageline($upc_img, 8, 10, 8, 47, $alt_text_color);
-	imageline($upc_img, 9, 10, 9, 51, $text_color);
-	imageline($upc_img, 10, 10, 10, 51, $alt_text_color);
-	imageline($upc_img, 11, 10, 11, 51, $text_color);
+	imageline($upc_img, 9, 10, 9, 53, $text_color);
+	imageline($upc_img, 10, 10, 10, 53, $alt_text_color);
+	imageline($upc_img, 11, 10, 11, 53, $text_color);
 	$NumZero = 0; $LineStart = 12;
 	while ($NumZero < count($LeftDigit)) {
 		if($NumZero!=0) { $LineSize = 47; }
-		if($NumZero==0) { $LineSize = 51; }
+		if($NumZero==0) { $LineSize = 53; }
 		$left_text_color = array(0, 0, 0, 0, 0, 0, 0);
 		if($LeftDigit[$NumZero]==0) { 
 		$left_text_color = array(0, 0, 0, 1, 1, 0, 1); }
@@ -118,15 +118,15 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		$LineStart += 1;
 		++$InnerUPCNum; }
 		++$NumZero; }
-	imageline($upc_img, 54, 10, 54, 51, $alt_text_color);
-	imageline($upc_img, 55, 10, 55, 51, $text_color);
-	imageline($upc_img, 56, 10, 56, 51, $alt_text_color);
-	imageline($upc_img, 57, 10, 57, 51, $text_color);
-	imageline($upc_img, 58, 10, 58, 51, $alt_text_color);
+	imageline($upc_img, 54, 10, 54, 53, $alt_text_color);
+	imageline($upc_img, 55, 10, 55, 53, $text_color);
+	imageline($upc_img, 56, 10, 56, 53, $alt_text_color);
+	imageline($upc_img, 57, 10, 57, 53, $text_color);
+	imageline($upc_img, 58, 10, 58, 53, $alt_text_color);
 	$NumZero = 0; $LineStart = 59;
 	while ($NumZero < count($RightDigit)) {
 		if($NumZero!=5) { $LineSize = 47; }
-		if($NumZero==5) { $LineSize = 51; }
+		if($NumZero==5) { $LineSize = 53; }
 		$right_text_color = array(0, 0, 0, 0, 0, 0, 0);
 		if($RightDigit[$NumZero]==0) { 
 		$right_text_color = array(1, 1, 1, 0, 0, 1, 0); }
@@ -157,9 +157,9 @@ function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype
 		$LineStart += 1;
 		++$InnerUPCNum; }
 		++$NumZero; }
-	imageline($upc_img, 101, 10, 101, 51, $text_color);
-	imageline($upc_img, 102, 10, 102, 51, $alt_text_color);
-	imageline($upc_img, 103, 10, 103, 51, $text_color);
+	imageline($upc_img, 101, 10, 101, 53, $text_color);
+	imageline($upc_img, 102, 10, 102, 53, $alt_text_color);
+	imageline($upc_img, 103, 10, 103, 53, $text_color);
 	imageline($upc_img, 104, 10, 104, 47, $alt_text_color);
 	imageline($upc_img, 105, 10, 105, 47, $alt_text_color);
 	imageline($upc_img, 106, 10, 106, 47, $alt_text_color);
