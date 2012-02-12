@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: gs1_prefix.php - Last Update: 02/11/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: gs1_prefix.php - Last Update: 02/12/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="gs1_prefix.php"||$File3Name=="/gs1_prefix.php") {
@@ -23,15 +23,18 @@ if ($File3Name=="gs1_prefix.php"||$File3Name=="/gs1_prefix.php") {
 // Get GS1 Prefix for EAN-13 EAN-9 barcodes
 // Source: http://en.wikipedia.org/wiki/List_of_GS1_country_codes
 function get_gs1_prefix($upc) {
+	if(preg_match("/^([0-9]{12})$/", $upc, $fix_ean)) { $upc = "0".$upc; }
 	if(preg_match("/^0([0-9]{3}[0-9]{10})$/", $upc, $fix_ean)) { $upc = $fix_ean[1]; }
 	if(!preg_match("/^([0-9]{3}[0-9]{5}|[0-9]{3}[0-9]{10})$/", $upc)) { return false; }
-	if(preg_match("/^(0[0-1][0-9])/", $upc)) { return "U.S. and Canada"; }
+	if(preg_match("/^([0-9]{3}[0-9]{10})$/", $upc)&&validate_ean13($upc)===false) { return false; }
+	if(preg_match("/^([0-9]{3}[0-9]{5})$/", $upc)&&validate_ean8($upc)===false) { return false; }
+	if(preg_match("/^(0[0-1][0-9])/", $upc)) { return "United States and Canada"; }
 	if(preg_match("/^(02[0-9])/", $upc)) { return "Restricted distribution"; }
-	if(preg_match("/^(03[0-9])/", $upc)) { return "U.S. drugs"; }
+	if(preg_match("/^(03[0-9])/", $upc)) { return "United States drugs"; }
 	if(preg_match("/^(04[0-9])/", $upc)) { return "Restricted distribution"; }
 	if(preg_match("/^(05[0-9])/", $upc)) { return "Coupons"; }
-	if(preg_match("/^(0[6-9][0-9])/", $upc)) { return "U.S. and Canada"; }
-	if(preg_match("/^(1[0-3][0-9])/", $upc)) { return "U.S."; }
+	if(preg_match("/^(0[6-9][0-9])/", $upc)) { return "United States and Canada"; }
+	if(preg_match("/^(1[0-3][0-9])/", $upc)) { return "United States"; }
 	if(preg_match("/^(2[0-9][0-9])/", $upc)) { return "Restricted distribution"; }
 	if(preg_match("/^(3[0-7][0-9])/", $upc)) { return "France and Monaco"; }
 	if(preg_match("/^(380)/", $upc)) { return "Bulgaria"; }
