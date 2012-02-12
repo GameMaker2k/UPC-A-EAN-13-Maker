@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: functions.php - Last Update: 02/05/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: functions.php - Last Update: 02/11/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="functions.php"||$File3Name=="/functions.php") {
@@ -61,6 +61,8 @@ function str_split($text, $split = 1){
 require("./inc/validate.php");
 // Code for converting UPC/EAN by Kazuki Przyborowski
 require("./inc/convert.php");
+// Code for getting GS1 Prefix EAN-8/EAN-13/ITF-14 by Kazuki Przyborowski
+require("./inc/gs1_prefix.php");
 // Code for making EAN-2 supplement by Kazuki Przyborowski
 require("./inc/ean2.php");
 // Code for making EAN-5 supplement by Kazuki Przyborowski
