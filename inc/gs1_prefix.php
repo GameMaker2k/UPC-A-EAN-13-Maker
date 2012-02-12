@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: gs1_prefix.php - Last Update: 02/12/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: gs1_prefix.php - Last Update: 02/12/2012 Ver. 2.2.2 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="gs1_prefix.php"||$File3Name=="/gs1_prefix.php") {
@@ -154,5 +154,44 @@ function get_gs1_prefix($upc) {
 	if(preg_match("/^(980)/", $upc)) { return "Refund receipts"; }
 	if(preg_match("/^(98[1-3])/", $upc)) { return "Common Currency Coupons"; }
 	if(preg_match("/^(99[0-9])/", $upc)) { return "Coupons"; }
+	// Reserved for future use
+	if(preg_match("/^(1[4-9][0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(381|382|384|386|388)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(39[0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(44[1-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(472|473|483)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(51[0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(52[1-7])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(53[2-4])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(53[6-8])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(55[0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(56[1-8])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(58[0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(59[1-3])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(59[5-8])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(602)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(60[5-7])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(610|612|614|617|620|623)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(63[0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(6[5-8][0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(69[6-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(71[0-9]|72[0-8])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(74[7-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(75[1-3])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(75[6-8])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(772|774|776|778)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(78[1-3])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(785|787|788)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(79[1-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(85[1-7])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(86[1-4])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(866)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(88[1-3])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(886|887|889|891|892|895|897|898)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(92[0-9])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(95[2-4])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(956|957|959)/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(96[0-9]|97[0-6])/", $upc)) { return "Reserved for future use"; }
+	if(preg_match("/^(98[4-9])/", $upc)) { return "Reserved for future use"; }
 	return false; }
 ?>

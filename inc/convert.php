@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: convert.php - Last Update: 02/09/2012 Ver. 2.1.7 RC 2 - Author: cooldude2k $
+    $FileInfo: convert.php - Last Update: 02/12/2012 Ver. 2.2.2 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="convert.php"||$File3Name=="/convert.php") {
@@ -134,4 +134,36 @@ function convert_itf14_to_upca($upc) {
 	return convert_ean13_to_upca(convert_itf14_to_ean13($upc)); }
 function convert_itf14_to_upce($upc) {
 	return convert_upca_to_upce(convert_itf14_to_upca($upc)); }
+function convert_any_to_upca($upc) {
+	if(strlen($barcode)==8) { 
+	return convert_upce_to_upca($barcode)."\n"; }
+	if(strlen($barcode)==13) { 
+	return convert_ean13_to_upce($barcode)."\n"; }
+	if(strlen($barcode)==14) { 
+	return convert_itf14_to_upce($barcode)."\n"; }
+	return false; }
+function convert_any_to_upce($upc) {
+	if(strlen($barcode)==12) { 
+	return convert_upca_to_upce($barcode)."\n"; }
+	if(strlen($barcode)==13) { 
+	return convert_ean13_to_upca($barcode)."\n"; }
+	if(strlen($barcode)==14) { 
+	return convert_itf14_to_upca($barcode)."\n"; }
+	return false; }
+function convert_any_to_ean13($upc) {
+	if(strlen($barcode)==8) { 
+	return convert_upce_to_ean13($barcode)."\n"; }
+	if(strlen($barcode)==12) { 
+	return convert_upca_to_ean13($barcode)."\n"; }
+	if(strlen($barcode)==14) { 
+	return convert_itf14_to_ean13($barcode)."\n"; }
+	return false; }
+function convert_any_to_itf14($upc) {
+	if(strlen($barcode)==8) { 
+	return convert_upce_to_itf14($barcode)."\n"; }
+	if(strlen($barcode)==12) { 
+	return convert_upca_to_itf14($barcode)."\n"; }
+	if(strlen($barcode)==13) { 
+	return convert_ean13_to_itf14($barcode)."\n"; }
+	return false; }
 ?>
