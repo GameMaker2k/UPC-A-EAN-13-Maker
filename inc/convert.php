@@ -170,16 +170,18 @@ function convert_isbn10_to_isbn13($upc) {
 	$upc = str_replace("-", "", $upc);
 	$upc = str_replace(" ", "", $upc);
 	if(validate_isbn10($upc)===false) { return false; }
-	return "978".$upc; }
+	if(strlen($upc)>9) { preg_match("/^(\d{9})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	$isbn13 = "978".$upc.validate_ean13("978".$upc,true); 
+	return $isbn13; }
 function convert_isbn13_to_isbn10($upc) {
 	$upc = str_replace("-", "", $upc);
 	$upc = str_replace(" ", "", $upc);
 	if(validate_ean13($upc)===false) { return false; }
-	if(!preg_match("/^978(\d{10})/", $upc, $upc_matches)) {
+	if(!preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
 	return false; }
-	if(preg_match("/^978(\d{10})/", $upc, $upc_matches)) {
-	$ean13 = $upc_matches[1]; }
-	return $ean13; }
+	if(preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
+	$isbn10 = $upc_matches[1].validate_isbn10($upc_matches[1],true); }
+	return $isbn10; }
 function convert_isbn10_to_ean13($upc) {
 	return convert_isbn10_to_isbn13($upc); }
 function convert_ean13_to_isbn10($upc) {

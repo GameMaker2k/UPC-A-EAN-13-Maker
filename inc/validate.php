@@ -168,7 +168,7 @@ function validate_isbn10($upc,$return_check=false) {
 	$upc = str_replace(" ", "", $upc);
 	if(!isset($upc)) { return false; }
 	if(strlen($upc)>10||strlen($upc)<9) { return false; }
-	if(strlen($upc)>10) { preg_match("/^(\d{10})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	if(strlen($upc)>10) { preg_match("/^(\d{9})(\d{1}|X{1})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
 	if(strlen($upc)==9) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==10) {
@@ -179,8 +179,8 @@ function validate_isbn10($upc,$return_check=false) {
 	++$CheckSum; }
 	if($CheckSum==10) { $CheckSum = "X"; }
 	if($return_check==false&&strlen($upc)==10) {
-	if($CheckSum!=$upc_matches[12]) { return false; }
-	if($CheckSum==$upc_matches[12]) { return true; } }
+	if($CheckSum!=$upc_matches[10]) { return false; }
+	if($CheckSum==$upc_matches[10]) { return true; } }
 	if($return_check==true) { return $CheckSum; } 
 	if(strlen($upc)==9) { return $CheckSum; } }
 function fix_isbn10_checksum($upc) {
@@ -188,4 +188,14 @@ function fix_isbn10_checksum($upc) {
 	$upc = str_replace(" ", "", $upc);
 	if(strlen($upc)>9) { preg_match("/^(\d{9})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	return $upc.validate_isbn10($upc,true); }
+function validate_isbn13($upc,$return_check=false) {
+	if(!preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
+	return validate_ean13($upc,$return_check); } }
+function fix_isbn13_checksum($upc) {
+	if(!preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
+	return fix_ean13_checksum($upc); } }
 ?>
