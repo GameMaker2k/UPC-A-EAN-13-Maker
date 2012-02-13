@@ -23,6 +23,7 @@ if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
 function validate_upca($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>12||strlen($upc)<11) { return false; }
+	if(strlen($upc)>12) { preg_match("/^(\d{12})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	if(strlen($upc)==11) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==12) {
@@ -38,8 +39,12 @@ function validate_upca($upc,$return_check=false) {
 	if($CheckSum==$upc_matches[12]) { return true; } }
 	if($return_check==true) { return $CheckSum; } 
 	if(strlen($upc)==11) { return $CheckSum; } }
+function fix_upca_checksum($upc) {
+	if(strlen($upc)>11) { preg_match("/^(\d{11})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	return $upc.validate_upca($upc,true); }
 function validate_ean13($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)>13) { preg_match("/^(\d{13})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	if(strlen($upc)>13||strlen($upc)<12) { return false; }
 	if(strlen($upc)==12) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
@@ -56,8 +61,12 @@ function validate_ean13($upc,$return_check=false) {
 	if($CheckSum==$upc_matches[13]) { return true; } }
 	if($return_check==true) { return $CheckSum; }
 	if(strlen($upc)==12) { return $CheckSum; } }
+function fix_ean13_checksum($upc) {
+	if(strlen($upc)>12) { preg_match("/^(\d{12})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	return $upc.validate_ean13($upc,true); }
 function validate_itf14($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)>14) { preg_match("/^(\d{14})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	if(strlen($upc)>14||strlen($upc)<13) { return false; }
 	if(strlen($upc)==13) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
@@ -74,8 +83,12 @@ function validate_itf14($upc,$return_check=false) {
 	if($CheckSum==$upc_matches[14]) { return true; } }
 	if($return_check==true) { return $CheckSum; }
 	if(strlen($upc)==13) { return $CheckSum; } }
+function fix_itf14_checksum($upc) {
+	if(strlen($upc)>13) { preg_match("/^(\d{13})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	return $upc.validate_itf14($upc,true); }
 function validate_ean8($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)>8) { preg_match("/^(\d{8})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	if(strlen($upc)>8||strlen($upc)<7) { return false; }
 	if(strlen($upc)==7) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
@@ -92,8 +105,12 @@ function validate_ean8($upc,$return_check=false) {
 	if($CheckSum==$upc_matches[8]) { return true; } }
 	if($return_check==true) { return $CheckSum; }
 	if(strlen($upc)==7) { return $CheckSum; } }
+function fix_ean8_checksum($upc) {
+	if(strlen($upc)>7) { preg_match("/^(\d{7})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	return $upc.validate_ean8($upc,true); }
 function validate_upce($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)>8) { preg_match("/^(\d{8})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	if(strlen($upc)>8||strlen($upc)<7) { return false; }
 	if(!preg_match("/^0/", $upc)) { return false; }
 	$CheckDigit = null;
@@ -143,4 +160,7 @@ function validate_upce($upc,$return_check=false) {
 	if($CheckSum==$CheckDigit) { return true; } }
 	if($return_check==true) { return $CheckSum; } 
 	if(strlen($upc)==7) { return $CheckSum; } }
+function fix_upce_checksum($upc) {
+	if(strlen($upc)>7) { preg_match("/^(\d{7})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	return $upc.validate_upce($upc,true); }
 ?>
