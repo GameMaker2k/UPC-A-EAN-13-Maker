@@ -76,19 +76,19 @@ function convert_ean13_to_upca($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==12) { $upc = "0".$upc; }
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
-	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) {
-	$upca = $upc_matches[1]; }
 	if(!preg_match("/^0(\d{12})/", $upc, $upc_matches)) {
 	return false; }
+	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) {
+	$upca = $upc_matches[1]; }
 	return $upca; }
 function convert_itf14_to_ean13($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==13) { $upc = "0".$upc; }
 	if(strlen($upc)>14||strlen($upc)<14) { return false; }
-	if(preg_match("/^0(\d{13})/", $upc, $upc_matches)) {
-	$ean13 = $upc_matches[1]; }
 	if(!preg_match("/^0(\d{13})/", $upc, $upc_matches)) {
 	return false; }
+	if(preg_match("/^0(\d{13})/", $upc, $upc_matches)) {
+	$ean13 = $upc_matches[1]; }
 	return $ean13; }
 function convert_upca_to_upce($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
@@ -166,4 +166,26 @@ function convert_any_to_itf14($upc) {
 	if(strlen($barcode)==13) { 
 	return convert_ean13_to_itf14($barcode)."\n"; }
 	return false; }
+function convert_isbn10_to_isbn13($upc) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	if(validate_isbn10($upc)===false) { return false; }
+	return "978".$upc; }
+function convert_isbn13_to_isbn10($upc) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	if(validate_ean13($upc)===false) { return false; }
+	if(!preg_match("/^978(\d{10})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^978(\d{10})/", $upc, $upc_matches)) {
+	$ean13 = $upc_matches[1]; }
+	return $ean13; }
+function convert_isbn10_to_ean13($upc) {
+	return convert_isbn10_to_isbn13($upc); }
+function convert_ean13_to_isbn10($upc) {
+	return convert_isbn13_to_isbn10($upc); }
+function convert_isbn10_to_itf14($upc) {
+	return convert_ean13_to_itf14(convert_isbn10_to_isbn13($upc)); }
+function convert_itf14_to_isbn10($upc) {
+	return convert_itf14_to_ean13(convert_isbn13_to_isbn10($upc)); }
 ?>
