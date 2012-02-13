@@ -34,7 +34,7 @@ function create_ean5($upc,$offsetadd,$imgres) {
 	imagestring($imgres, 2, 16 + $offsetadd, 47, $LeftDigit[1], $text_color);
 	imagestring($imgres, 2, 24 + $offsetadd, 47, $LeftDigit[2], $text_color);
 	imagestring($imgres, 2, 32 + $offsetadd, 47, $LeftDigit[3], $text_color);
-	imagestring($imgres, 2, 40 + $offsetadd, 47, $LeftDigit[3], $text_color);
+	imagestring($imgres, 2, 40 + $offsetadd, 47, $LeftDigit[4], $text_color);
 	imageline($imgres, 0 + $offsetadd, 10, 0 + $offsetadd, 47, $alt_text_color);
 	imageline($imgres, 1 + $offsetadd, 10, 1 + $offsetadd, 47, $text_color);
 	imageline($imgres, 2 + $offsetadd, 10, 2 + $offsetadd, 47, $alt_text_color);
