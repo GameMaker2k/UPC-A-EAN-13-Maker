@@ -166,22 +166,23 @@ function fix_upce_checksum($upc) {
 function validate_isbn10($upc,$return_check=false) {
 	$upc = str_replace("-", "", $upc);
 	$upc = str_replace(" ", "", $upc);
-	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(!isset($upc)) { return false; }
 	if(strlen($upc)>10||strlen($upc)<9) { return false; }
 	if(strlen($upc)>10) { preg_match("/^(\d{10})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	if(strlen($upc)==9) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==10) {
-	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1}|X{1})/", $upc, $upc_matches); }
 	$AllSum = ($upc_matches[1] * 10)  + ($upc_matches[2] * 9) + ($upc_matches[3] * 8) + ($upc_matches[4] * 7) + ($upc_matches[5] * 6) + ($upc_matches[6] * 5) + ($upc_matches[7] * 4) + ($upc_matches[8] * 3) + ($upc_matches[9] * 2);
 	$CheckSum = 1;
 	while(($AllSum + ($CheckSum * 1)) % 11) {
 	++$CheckSum; }
-	if($return_check==false&&strlen($upc)==12) {
+	if($CheckSum==10) { $CheckSum = "X"; }
+	if($return_check==false&&strlen($upc)==10) {
 	if($CheckSum!=$upc_matches[12]) { return false; }
 	if($CheckSum==$upc_matches[12]) { return true; } }
 	if($return_check==true) { return $CheckSum; } 
-	if(strlen($upc)==11) { return $CheckSum; } }
+	if(strlen($upc)==9) { return $CheckSum; } }
 function fix_isbn10_checksum($upc) {
 	$upc = str_replace("-", "", $upc);
 	$upc = str_replace(" ", "", $upc);
