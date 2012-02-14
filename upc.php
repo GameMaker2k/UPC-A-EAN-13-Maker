@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: upc.php - Last Update: 02/12/2012 Ver. 2.2.2 RC 1 - Author: cooldude2k $
+    $FileInfo: upc.php - Last Update: 02/13/2012 Ver. 2.2.5 RC 1 - Author: cooldude2k $
 */
 
 @ob_start();
@@ -22,7 +22,7 @@ $url_file = "upc.php";
 $appname = htmlspecialchars("UPC/EAN Barcode Generator");
 $appmakerurl = "https://github.com/KazukiPrzyborowski/UPC-A-EAN-13-Maker";
 $appmaker = htmlspecialchars("Game Maker 2k");
-$appver = array(2,2,2,"RC 1");
+$appver = array(2,2,5,"RC 1");
 $upcdatabase = "http://www.upcdatabase.com/item/%s";
 @header("Content-Type: text/html; charset=UTF-8");
 @header("Content-Language: en");

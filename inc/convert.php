@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: convert.php - Last Update: 02/12/2012 Ver. 2.2.2 RC 1 - Author: cooldude2k $
+    $FileInfo: convert.php - Last Update: 02/13/2012 Ver. 2.2.5 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="convert.php"||$File3Name=="/convert.php") {
@@ -166,6 +166,52 @@ function convert_any_to_itf14($upc) {
 	if(strlen($barcode)==13) { 
 	return convert_ean13_to_itf14($barcode)."\n"; }
 	return false; }
+/*
+ISSN (International Standard Serial Number)
+http://en.wikipedia.org/wiki/International_Standard_Serial_Number
+*/
+function convert_issn8_to_issn13($upc) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	$upc = str_replace("X", "", $upc);
+	if(validate_issn8($upc)===false) { return false; }
+	if(strlen($upc)>7) { preg_match("/^(\d{7})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	$issn13 = "977".$upc."00".validate_ean13("977".$upc."00",true); 
+	return $issn13; }
+function convert_issn13_to_issn8($upc) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	$upc = str_replace("X", "", $upc);
+	if(validate_ean13($upc)===false) { return false; }
+	if(!preg_match("/^977(\d{7})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^977(\d{7})/", $upc, $upc_matches)) {
+	$issn8 = $upc_matches[1].validate_issn8($upc_matches[1],true); }
+	return $issn8; }
+function print_issn8($upc) {
+	if(strlen($upc)>8) { preg_match("/^(\d{8})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>8||strlen($upc)<8) { return false; }
+	if(!preg_match("/^(\d{4})(\d{4})/", $upc, $issn_matches)) {
+	return false; }
+	$issn8 = $issn_matches[1]."-".$issn_matches[2];
+	return $issn8; }
+function print_issn13($upc) {
+	if(strlen($upc)>13) { preg_match("/^(\d{3})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>13||strlen($upc)<13) { return false; }
+	if(!preg_match("/^(\d{3})(\d{4})(\d{4})(\d{2})/", $upc, $issn_matches)) {
+	return false; }
+	$issn13 = $issn_matches[1]."-".$issn_matches[2]."-".$issn_matches[3]."-".$issn_matches[4];
+	return $issn13; }
+function print_convert_issn8_to_issn13($upc) {
+	$issn13 = print_issn13(convert_issn8_to_issn13($upc));
+	return $issn13; }
+function print_convert_issn13_to_issn8($upc) {
+	$issn8 = print_issn8(convert_issn13_to_issn8($upc));
+	return $issn8; }
+/*
+ISBN (International Standard Book Number)
+http://en.wikipedia.org/wiki/ISBN
+*/
 function convert_isbn10_to_isbn13($upc) {
 	$upc = str_replace("-", "", $upc);
 	$upc = str_replace(" ", "", $upc);
@@ -190,4 +236,38 @@ function convert_isbn10_to_itf14($upc) {
 	return convert_ean13_to_itf14(convert_isbn10_to_isbn13($upc)); }
 function convert_itf14_to_isbn10($upc) {
 	return convert_itf14_to_ean13(convert_isbn13_to_isbn10($upc)); }
+function print_isbn10($upc) {
+	if(strlen($upc)>10) { preg_match("/^(\d{9})(\d{1}|X{1})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>10||strlen($upc)<10) { return false; }
+	if(!preg_match("/^(\d{1})(\d{3})(\d{5})(\d{1}|X{1})/", $upc, $isbn_matches) {
+	return false; }
+	$isbn10 = $isbn_matches[1]."-".$isbn_matches[2]."-".$isbn_matches[3]."-".$isbn_matches[4];
+	return $isbn10; }
+function print_isbn13($upc) {
+	if(strlen($upc)>13) { preg_match("/^(\d{3})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>13||strlen($upc)<13) { return false; }
+	if(!preg_match("/^(\d{3})(\d{1})(\d{3})(\d{5})(\d{1})/", $upc, $isbn_matches) {
+	return false; }
+	$isbn13 = $isbn_matches[1]."-".$isbn_matches[2]."-".$isbn_matches[3]."-".$isbn_matches[4]."-".$isbn_matches[5];
+	return $isbn13; }
+function print_convert_isbn10_to_isbn13($upc) {
+	$isbn13 = print_isbn13(convert_isbn10_to_isbn13($upc));
+	return $isbn13; }
+function print_convert_isbn13_to_isbn10($upc) {
+	$isbn10 = print_isbn10(convert_isbn13_to_isbn10($upc));
+	return $isbn10; }
+/*
+ISMN (International Standard Music Number)
+http://en.wikipedia.org/wiki/International_Standard_Music_Number
+*/
+function print_ismn13($upc) {
+	if(!preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
+	if(strlen($upc)>13) { preg_match("/^(\d{13})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>13||strlen($upc)<13) { return false; }
+	if(!preg_match("/^(\d{3})(\d{1})(\d{4})(\d{4})(\d{1})/", $upc, $issn_matches)) {
+	return false; }
+	$ismn13 = $issn_matches[1]."-".$issn_matches[2]."-".$issn_matches[3]."-".$issn_matches[4]."-".$issn_matches[5];
+	return $ismn13; } }
 ?>

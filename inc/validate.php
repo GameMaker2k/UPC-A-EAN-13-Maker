@@ -12,7 +12,7 @@
     Copyright 2011-2012 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2011-2012 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: validate.php - Last Update: 02/12/2012 Ver. 2.2.2 RC 1 - Author: cooldude2k $
+    $FileInfo: validate.php - Last Update: 02/13/2012 Ver. 2.2.5 RC 1 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
 if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
@@ -22,8 +22,8 @@ if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
 
 function validate_upca($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
-	if(strlen($upc)>12||strlen($upc)<11) { return false; }
 	if(strlen($upc)>12) { preg_match("/^(\d{12})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	if(strlen($upc)>12||strlen($upc)<11) { return false; }
 	if(strlen($upc)==11) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==12) {
@@ -163,17 +163,61 @@ function validate_upce($upc,$return_check=false) {
 function fix_upce_checksum($upc) {
 	if(strlen($upc)>7) { preg_match("/^(\d{7})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
 	return $upc.validate_upce($upc,true); }
+/*
+ISSN (International Standard Serial Number)
+http://en.wikipedia.org/wiki/International_Standard_Serial_Number
+*/
+function validate_issn8($upc,$return_check=false) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	$upc = str_replace("X", "", $upc);
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)>8) { preg_match("/^(\d{8})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>8||strlen($upc)<7) { return false; }
+	if(strlen($upc)==7) {
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	if(strlen($upc)==8) {
+	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
+	$AllSum = ($upc_matches[1] * 8) + ($upc_matches[2] * 7) + ($upc_matches[3] * 6) + ($upc_matches[4] * 5) + ($upc_matches[5] * 4) + ($upc_matches[6] * 3) + ($upc_matches[7] * 2);
+	$CheckSum = $AllSum % 11;
+	if($CheckSum>0) {
+	$CheckSum = 11 - $CheckSum; }
+	if($return_check==false&&strlen($upc)==8) {
+	if($CheckSum!=$upc_matches[8]) { return false; }
+	if($CheckSum==$upc_matches[8]) { return true; } }
+	if($return_check==true) { return $CheckSum; } 
+	if(strlen($upc)==7) { return $CheckSum; } }
+function fix_issn8_checksum($upc) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	$upc = str_replace("X", "", $upc);
+	if(strlen($upc)>7) { preg_match("/^(\d{7})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	return $upc.validate_issn8($upc,true); }
+function validate_issn13($upc,$return_check=false) {
+	if(!preg_match("/^977(\d{9})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^977(\d{9})/", $upc, $upc_matches)) {
+	return validate_ean13($upc,$return_check); } }
+function fix_issn13_checksum($upc) {
+	if(!preg_match("/^977(\d{9})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^977(\d{9})/", $upc, $upc_matches)) {
+	return fix_ean13_checksum($upc); } }
+/*
+ISBN (International Standard Book Number)
+http://en.wikipedia.org/wiki/ISBN
+*/
 function validate_isbn10($upc,$return_check=false) {
 	$upc = str_replace("-", "", $upc);
 	$upc = str_replace(" ", "", $upc);
 	if(!isset($upc)) { return false; }
-	if(strlen($upc)>10||strlen($upc)<9) { return false; }
 	if(strlen($upc)>10) { preg_match("/^(\d{9})(\d{1}|X{1})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>10||strlen($upc)<9) { return false; }
 	if(strlen($upc)==9) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches); }
 	if(strlen($upc)==10) {
 	preg_match("/^(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1}|X{1})/", $upc, $upc_matches); }
-	$AllSum = ($upc_matches[1] * 10)  + ($upc_matches[2] * 9) + ($upc_matches[3] * 8) + ($upc_matches[4] * 7) + ($upc_matches[5] * 6) + ($upc_matches[6] * 5) + ($upc_matches[7] * 4) + ($upc_matches[8] * 3) + ($upc_matches[9] * 2);
+	$AllSum = ($upc_matches[1] * 10) + ($upc_matches[2] * 9) + ($upc_matches[3] * 8) + ($upc_matches[4] * 7) + ($upc_matches[5] * 6) + ($upc_matches[6] * 5) + ($upc_matches[7] * 4) + ($upc_matches[8] * 3) + ($upc_matches[9] * 2);
 	$CheckSum = 1;
 	while(($AllSum + ($CheckSum * 1)) % 11) {
 	++$CheckSum; }
@@ -197,5 +241,23 @@ function fix_isbn13_checksum($upc) {
 	if(!preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
 	return false; }
 	if(preg_match("/^978(\d{9})/", $upc, $upc_matches)) {
+	return fix_ean13_checksum($upc); } }
+/*
+ISMN (International Standard Music Number)
+http://en.wikipedia.org/wiki/International_Standard_Music_Number
+*/
+function validate_ismn13($upc,$return_check=false) {
+	if(!preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	return validate_ean13($upc,$return_check); } }
+function fix_ismn13_checksum($upc) {
+	if(!preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
 	return fix_ean13_checksum($upc); } }
 ?>
