@@ -239,14 +239,14 @@ function convert_itf14_to_isbn10($upc) {
 function print_isbn10($upc) {
 	if(strlen($upc)>10) { preg_match("/^(\d{9})(\d{1}|X{1})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
 	if(strlen($upc)>10||strlen($upc)<10) { return false; }
-	if(!preg_match("/^(\d{1})(\d{3})(\d{5})(\d{1}|X{1})/", $upc, $isbn_matches) {
+	if(!preg_match("/^(\d{1})(\d{3})(\d{5})(\d{1}|X{1})/", $upc, $isbn_matches)) {
 	return false; }
 	$isbn10 = $isbn_matches[1]."-".$isbn_matches[2]."-".$isbn_matches[3]."-".$isbn_matches[4];
 	return $isbn10; }
 function print_isbn13($upc) {
 	if(strlen($upc)>13) { preg_match("/^(\d{3})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
-	if(!preg_match("/^(\d{3})(\d{1})(\d{3})(\d{5})(\d{1})/", $upc, $isbn_matches) {
+	if(!preg_match("/^(\d{3})(\d{1})(\d{3})(\d{5})(\d{1})/", $upc, $isbn_matches)) {
 	return false; }
 	$isbn13 = $isbn_matches[1]."-".$isbn_matches[2]."-".$isbn_matches[3]."-".$isbn_matches[4]."-".$isbn_matches[5];
 	return $isbn13; }
