@@ -23,10 +23,10 @@ if ($File3Name=="ean8.php"||$File3Name=="/ean8.php") {
 function create_ean8($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)) { return false; }
 	$upc_pieces = null; $supplement = null;
-	if(preg_match("/([0-9]+) ([0-9]{2})$/", $upc, $upc_pieces)) {
-	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
-	if(preg_match("/([0-9]+) ([0-9]{5})$/", $upc, $upc_pieces)) {
-	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
+	if(preg_match("/([0-9]+)([ |\|]{1})([0-9]{2})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[3]; }
+	if(preg_match("/([0-9]+)([ |\|]){1}([0-9]{5})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[3]; }
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==7) { $upc = $upc.validate_ean8($upc,true); }
 	if(strlen($upc)>8||strlen($upc)<8) { return false; }

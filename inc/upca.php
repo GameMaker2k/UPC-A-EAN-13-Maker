@@ -23,10 +23,10 @@ if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
 function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)) { return false; }
 	$upc_pieces = null; $supplement = null;
-	if(preg_match("/([0-9]+) ([0-9]{2})$/", $upc, $upc_pieces)) {
-	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
-	if(preg_match("/([0-9]+) ([0-9]{5})$/", $upc, $upc_pieces)) {
-	$upc = $upc_pieces[1]; $supplement = $upc_pieces[2]; }
+	if(preg_match("/([0-9]+)([ |\|]{1})([0-9]{2})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[3]; }
+	if(preg_match("/([0-9]+)([ |\|]){1}([0-9]{5})$/", $upc, $upc_pieces)) {
+	$upc = $upc_pieces[1]; $supplement = $upc_pieces[3]; }
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(isset($supplement)&&!is_numeric($supplement)) { return false; }
 	if(strlen($upc)==8) { $upc = convert_upce_to_upca($upc); }
