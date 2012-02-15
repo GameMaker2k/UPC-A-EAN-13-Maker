@@ -194,4 +194,21 @@ function get_gs1_prefix($upc) {
 	if(preg_match("/^(96[0-9]|97[0-6])/", $upc)) { return "Reserved for future use"; }
 	if(preg_match("/^(98[4-9])/", $upc)) { return "Reserved for future use"; }
 	return false; }
+// Get Number System Prefix for UPC-A barcodes
+// Source: http://www.morovia.com/education/symbology/upc-a.asp
+// Source: http://www.computalabel.com/aboutupc.htm
+function get_upca_ns($upc) {
+	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) { $upc = $upc_matches[1]; }
+	if(!preg_match("/^([0-9]{12})$/", $upc, $fix_ean)) { return false; }
+	if(preg_match("/^(0)/", $upc)) { return "Regular UPC"; }
+	if(preg_match("/^(1)/", $upc)) { return "Reserved"; }
+	if(preg_match("/^(2)/", $upc)) { return "Variable Weight Items"; }
+	if(preg_match("/^(3)/", $upc)) { return "Drug/Health Items"; }
+	if(preg_match("/^(4)/", $upc)) { return "In-store use"; }
+	if(preg_match("/^(5)/", $upc)) { return "Coupons"; }
+	if(preg_match("/^(6)/", $upc)) { return "Regular UPC"; }
+	if(preg_match("/^(7)/", $upc)) { return "Regular UPC"; }
+	if(preg_match("/^(8)/", $upc)) { return "Reserved"; }
+	if(preg_match("/^(9)/", $upc)) { return "Reserved"; }
+	return false; }
 ?>
