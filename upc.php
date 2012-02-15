@@ -194,7 +194,7 @@ kittyCode();
 <?php if($url_style==1) { ?>
 location.href='<?php echo $website_url; ?>view/'+document.upcform.upc.value+'.htm';
 <?php } if($url_style==0) { ?>
-location.href='<?php echo $website_url.$url_file; ?>?act=view&amp;upc='+document.upcform.upc.value;
+location.href='<?php echo $website_url.$url_file; ?>?act=view&upc='+document.upcform.upc.value;
 <?php } ?>
 return true; }
 //-->
