@@ -25,6 +25,7 @@ function convert_upce_to_upca($upc) {
 	if(strlen($upc)==7) { $upc = $upc.validate_upce($upc,true); }
 	if(strlen($upc)>8||strlen($upc)<8) { return false; }
 	if(!preg_match("/^0/", $upc)) { return false; }
+	if(validate_upce($upc)===false) { return false; }
 	if(preg_match("/0(\d{5})([0-3])(\d{1})/", $upc, $upc_matches)) {
 	$upce_test = preg_match("/0(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/", $upc, $upc_matches);
 	if($upce_test==false) { return false; }
@@ -55,6 +56,7 @@ function convert_upca_to_ean13($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }
 	if(strlen($upc)>13||strlen($upc)<12) { return false; }
+	if(validate_upca($upc)===false) { return false; }
 	if(strlen($upc)==12) { $ean13 = "0".$upc; }
 	if(strlen($upc)==13) { $ean13 = $upc; }
 	return $ean13; }
@@ -63,6 +65,7 @@ function convert_ean13_to_itf14($upc) {
 	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }
 	if(strlen($upc)==12) { $upc = "0".$upc; }
 	if(strlen($upc)>14||strlen($upc)<13) { return false; }
+	if(validate_ean13($upc)===false) { return false; }
 	if(strlen($upc)==13) { $itf14 = "0".$upc; }
 	if(strlen($upc)==14) { $itf14 = $upc; }
 	return $itf14; }
@@ -76,6 +79,7 @@ function convert_ean13_to_upca($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==12) { $upc = "0".$upc; }
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
+	if(validate_ean13($upc)===false) { return false; }
 	if(!preg_match("/^0(\d{12})/", $upc, $upc_matches)) {
 	return false; }
 	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) {
@@ -85,6 +89,7 @@ function convert_itf14_to_ean13($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==13) { $upc = "0".$upc; }
 	if(strlen($upc)>14||strlen($upc)<14) { return false; }
+	if(validate_itf14($upc)===false) { return false; }
 	if(!preg_match("/^(\d{1})(\d{12})(\d{1})/", $upc, $upc_matches)) {
 	return false; }
 	if(preg_match("/^(\d{1})(\d{12})(\d{1})/", $upc, $upc_matches)) {
@@ -94,6 +99,7 @@ function convert_upca_to_upce($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }
 	if(strlen($upc)>12||strlen($upc)<12) { return false; }
+	if(validate_upca($upc)===false) { return false; }
 	if(!preg_match("/0(\d{11})/", $upc)) { return false; }
 	$upce = null;
 	if(preg_match("/0(\d{2})00000(\d{3})(\d{1})/", $upc, $upc_matches)) {
@@ -135,37 +141,66 @@ function convert_itf14_to_upca($upc) {
 function convert_itf14_to_upce($upc) {
 	return convert_upca_to_upce(convert_itf14_to_upca($upc)); }
 function convert_any_to_upca($upc) {
-	if(strlen($barcode)==8) { 
-	return convert_upce_to_upca($barcode)."\n"; }
-	if(strlen($barcode)==13) { 
-	return convert_ean13_to_upce($barcode)."\n"; }
-	if(strlen($barcode)==14) { 
-	return convert_itf14_to_upce($barcode)."\n"; }
+	if(strlen($upc)==8) { 
+	return convert_upce_to_upca($upc)."\n"; }
+	if(strlen($upc)==13) { 
+	return convert_ean13_to_upce($upc)."\n"; }
+	if(strlen($upc)==14) { 
+	return convert_itf14_to_upce($upc)."\n"; }
 	return false; }
 function convert_any_to_upce($upc) {
-	if(strlen($barcode)==12) { 
-	return convert_upca_to_upce($barcode)."\n"; }
-	if(strlen($barcode)==13) { 
-	return convert_ean13_to_upca($barcode)."\n"; }
-	if(strlen($barcode)==14) { 
-	return convert_itf14_to_upca($barcode)."\n"; }
+	if(strlen($upc)==12) { 
+	return convert_upca_to_upce($upc)."\n"; }
+	if(strlen($upc)==13) { 
+	return convert_ean13_to_upca($upc)."\n"; }
+	if(strlen($upc)==14) { 
+	return convert_itf14_to_upca($upc)."\n"; }
 	return false; }
 function convert_any_to_ean13($upc) {
-	if(strlen($barcode)==8) { 
-	return convert_upce_to_ean13($barcode)."\n"; }
-	if(strlen($barcode)==12) { 
-	return convert_upca_to_ean13($barcode)."\n"; }
-	if(strlen($barcode)==14) { 
-	return convert_itf14_to_ean13($barcode)."\n"; }
+	if(strlen($upc)==8) { 
+	return convert_upce_to_ean13($upc)."\n"; }
+	if(strlen($upc)==12) { 
+	return convert_upca_to_ean13($upc)."\n"; }
+	if(strlen($upc)==14) { 
+	return convert_itf14_to_ean13($upc)."\n"; }
 	return false; }
 function convert_any_to_itf14($upc) {
-	if(strlen($barcode)==8) { 
-	return convert_upce_to_itf14($barcode)."\n"; }
-	if(strlen($barcode)==12) { 
-	return convert_upca_to_itf14($barcode)."\n"; }
-	if(strlen($barcode)==13) { 
-	return convert_ean13_to_itf14($barcode)."\n"; }
+	if(strlen($upc)==8) { 
+	return convert_upce_to_itf14($upc)."\n"; }
+	if(strlen($upc)==12) { 
+	return convert_upca_to_itf14($upc)."\n"; }
+	if(strlen($upc)==13) { 
+	return convert_ean13_to_itf14($upc)."\n"; }
 	return false; }
+/*
+Changing a EAN-8 code to UPC-A and EAN-13 based on whats used at: 
+http://www.upcdatabase.com/
+*/
+function convert_ean8_to_upca($upc) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==7) { $upc = $upc.validate_ean8($upc,true); }
+	if(strlen($upc)>8||strlen($upc)<8) { return false; }
+	if(validate_ean8($upc)===false) { return false; }
+	$upca = "0000".$upc; 
+	return $upca; }
+function convert_ean8_to_ean13($upc) {
+	return convert_upca_to_ean13(convert_ean8_to_upca($upc)); }
+function convert_ean8_to_itf14($upc) {
+	return convert_ean13_to_itf14(convert_ean8_to_ean13($upc)); }
+function convert_upca_to_ean8($upc) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==11) { $upc = $upc.validate_upca($upc,true); }
+	if(strlen($upc)>12||strlen($upc)<12) { return false; }
+	if(validate_upca($upc)===false) { return false; }
+	if(!preg_match("/^0000(\d{8})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^0000(\d{8})/", $upc, $upc_matches)) {
+	$ean8 = $upc_matches[1]; }
+	return $ean8; }
+function convert_ean13_to_ean8($upc) {
+	return convert_upca_to_ean8(convert_ean13_to_upca($upc)); }
+function convert_itf14_to_ean8($upc) {
+	return convert_ean13_to_ean8(convert_itf14_to_ean13($upc)); }
 /*
 ISSN (International Standard Serial Number)
 http://en.wikipedia.org/wiki/International_Standard_Serial_Number
