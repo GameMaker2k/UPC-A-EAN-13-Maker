@@ -220,30 +220,33 @@ return true; }
   if($url_style==1&&$_GET['resize']>1) { $addresizeimg = ".".urlencode($_GET['resize']); }
   if($url_style==0&&$_GET['resize']>1) { $addresizeimg = "&amp;resize=".urlencode($_GET['resize']); }
   $upca_code = null; $upce_code = null; $ean8_code = null; $ean13_code = null; $itf14_code = null;
-  if(isset($_GET['upc'])&&strlen($_GET['upc'])==14) {
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==14&&validate_itf14($_GET['upc'])===true) {
   $itf14_code = $_GET['upc'];
-  if(preg_match("/^0(\d{13})/", $itf14_code, $upc_matches)) {
+  if(preg_match("/^(\d{1})(\d{12})(\d{1})$/", $itf14_code, $upc_matches)) {
   $ean13_code = convert_itf14_to_ean13($_GET['upc']);
   $upca_code = convert_itf14_to_upca($_GET['upc']);
   $upce_code = convert_itf14_to_upce($_GET['upc']); } }
-  if(isset($_GET['upc'])&&strlen($_GET['upc'])==8) {
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==8&&validate_upce($_GET['upc'])===true) {
   $upce_code = $_GET['upc']; 
   $upca_code = convert_upce_to_upca($_GET['upc']);
   $ean13_code = convert_upce_to_ean13($_GET['upc']); 
   $itf14_code =  convert_ean13_to_itf14($ean13_code); }
-  if(isset($_GET['upc'])&&strlen($_GET['upc'])==12) {
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==12&&validate_upca($_GET['upc'])===true) {
   $upca_code = $_GET['upc'];
   $upce_code = convert_upca_to_upce($_GET['upc']);
   $ean13_code = convert_upca_to_ean13($_GET['upc']); 
   $itf14_code =  convert_ean13_to_itf14($ean13_code); }
-  if(isset($_GET['upc'])&&strlen($_GET['upc'])==13) {
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==13&&validate_ean13($_GET['upc'])===true) {
   $ean13_code = $_GET['upc']; 
   if(preg_match("/^0(\d{12})/", $ean13_code, $upc_matches)&&$upca_code==null) {
   $upca_code = convert_ean13_to_upca($_GET['upc']);
   $upce_code = convert_ean13_to_upce($_GET['upc']); } 
   $itf14_code =  convert_ean13_to_itf14($ean13_code); }
-  if(isset($upce_code)&&strlen($upce_code)==8) {
-  $ean8_code = $upce_code; }
+  $ean8_code = $_GET['upc'];
+  if(strlen($_GET['upc'])>8||strlen($_GET['upc'])<8&&validate_ean8($upce_code)) {
+  $ean8_code = $upce_code; } 
+  //if(isset($upce_code)&&strlen($upce_code)==8&&validate_ean8($upce_code)===true) {
+  //$ean8_code = $upce_code; }
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==14) {
   $itf14_code = $_GET['upc']; }
   if(isset($ean8_code)&&$ean8_code!="") { $ean8location = get_gs1_prefix($ean8_code); }

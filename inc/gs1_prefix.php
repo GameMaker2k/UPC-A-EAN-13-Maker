@@ -23,11 +23,11 @@ if ($File3Name=="gs1_prefix.php"||$File3Name=="/gs1_prefix.php") {
 // Get GS1 Prefix for EAN-13 EAN-9 barcodes
 // Source: http://en.wikipedia.org/wiki/List_of_GS1_country_codes
 function get_gs1_prefix($upc) {
-	if(preg_match("/^([0-9]{12})$/", $upc, $fix_ean)) { $upc = "0".$upc; }
-	if(preg_match("/^0([0-9]{3}[0-9]{10})$/", $upc, $fix_ean)) { $upc = $fix_ean[1]; }
-	if(!preg_match("/^([0-9]{3}[0-9]{5}|[0-9]{3}[0-9]{10})$/", $upc)) { return false; }
-	if(preg_match("/^([0-9]{3}[0-9]{10})$/", $upc)&&validate_ean13($upc)===false) { return false; }
-	if(preg_match("/^([0-9]{3}[0-9]{5})$/", $upc)&&validate_ean8($upc)===false) { return false; }
+	if(preg_match("/^(\d{12})$/", $upc, $fix_ean)) { $upc = "0".$upc; }
+	if(preg_match("/^0(\d{3}\d{10})$/", $upc, $fix_ean)) { $upc = $fix_ean[1]; }
+	if(!preg_match("/^(\d{3}\d{5}|\d{3}\d{10})$/", $upc)) { return false; }
+	if(preg_match("/^(\d{3}\d{10})$/", $upc)&&validate_ean13($upc)===false) { return false; }
+	if(preg_match("/^(\d{3}\d{5})$/", $upc)&&validate_ean8($upc)===false) { return false; }
 	if(preg_match("/^(0[0-1][0-9])/", $upc)) { return "United States and Canada"; }
 	if(preg_match("/^(02[0-9])/", $upc)) { return "Restricted distribution"; }
 	if(preg_match("/^(03[0-9])/", $upc)) { return "United States drugs"; }
@@ -199,7 +199,7 @@ function get_gs1_prefix($upc) {
 // Source: http://www.computalabel.com/aboutupc.htm
 function get_upca_ns($upc) {
 	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) { $upc = $upc_matches[1]; }
-	if(!preg_match("/^([0-9]{12})$/", $upc, $fix_ean)) { return false; }
+	if(!preg_match("/^(\d{12})$/", $upc, $fix_ean)) { return false; }
 	if(preg_match("/^(0)/", $upc)) { return "Regular UPC"; }
 	if(preg_match("/^(1)/", $upc)) { return "Reserved"; }
 	if(preg_match("/^(2)/", $upc)) { return "Variable Weight Items"; }
@@ -210,5 +210,21 @@ function get_upca_ns($upc) {
 	if(preg_match("/^(7)/", $upc)) { return "Regular UPC"; }
 	if(preg_match("/^(8)/", $upc)) { return "Reserved"; }
 	if(preg_match("/^(9)/", $upc)) { return "Reserved"; }
+	return false; }
+// Get ITF-14 Packaging Indicator
+// Source: http://www.mecsw.com/specs/itf_14.html
+// Source: http://www.qed.org/RBTL/chapters/ch3.3.htm
+function get_itf14_type($upc) {
+	if(!preg_match("/^(\d{14})$/", $upc, $fix_ean)) { return false; }
+	if(preg_match("/^(0)/", $upc)) { return "UPC code of contents differs from case code"; }
+	if(preg_match("/^(1)/", $upc)) { return "More than each and below inner packs"; }
+	if(preg_match("/^(2)/", $upc)) { return "More than each and below inner packs"; }
+	if(preg_match("/^(3)/", $upc)) { return "Inner packs"; }
+	if(preg_match("/^(4)/", $upc)) { return "Inner packs"; }
+	if(preg_match("/^(5)/", $upc)) { return "Shipping containers (cartons)"; }
+	if(preg_match("/^(6)/", $upc)) { return "Shipping containers (cartons)"; }
+	if(preg_match("/^(7)/", $upc)) { return "Pallet"; }
+	if(preg_match("/^(8)/", $upc)) { return "Reserved"; }
+	if(preg_match("/^(9)/", $upc)) { return "Variable quantity content"; }
 	return false; }
 ?>

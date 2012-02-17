@@ -85,10 +85,10 @@ function convert_itf14_to_ean13($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==13) { $upc = "0".$upc; }
 	if(strlen($upc)>14||strlen($upc)<14) { return false; }
-	if(!preg_match("/^0(\d{13})/", $upc, $upc_matches)) {
+	if(!preg_match("/^(\d{1})(\d{12})(\d{1})/", $upc, $upc_matches)) {
 	return false; }
-	if(preg_match("/^0(\d{13})/", $upc, $upc_matches)) {
-	$ean13 = $upc_matches[1]; }
+	if(preg_match("/^(\d{1})(\d{12})(\d{1})/", $upc, $upc_matches)) {
+	$ean13 = $upc_matches[2].validate_ean13($upc_matches[2], true); }
 	return $ean13; }
 function convert_upca_to_upce($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
