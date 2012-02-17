@@ -246,8 +246,13 @@ return true; }
   $upce_code = convert_ean13_to_upce($_GET['upc']); } 
   $itf14_code =  convert_ean13_to_itf14($ean13_code); }
   $ean8_code = $_GET['upc'];
-  if(strlen($_GET['upc'])>8||strlen($_GET['upc'])<8&&validate_ean8($upce_code)) {
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==8&&validate_ean8($upce_code)===true) {
   $ean8_code = $upce_code; } 
+  if(isset($_GET['upc'])&&strlen($_GET['upc'])==8&&
+  validate_upce($_GET['upc'])===false&&validate_ean8($_GET['upc'])===true) {
+  $upca_code = convert_ean8_to_upca($_GET['upc']);
+  $ean13_code = convert_ean8_to_ean13($_GET['upc']); 
+  $itf14_code =  convert_ean8_to_itf14($_GET['upc']); }
   //if(isset($upce_code)&&strlen($upce_code)==8&&validate_ean8($upce_code)===true) {
   //$ean8_code = $upce_code; }
   if(isset($_GET['upc'])&&strlen($_GET['upc'])==14) {
