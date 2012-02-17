@@ -81,6 +81,9 @@ if(validate_upca($_GET['upc'])===false&&
 if(validate_ean13($_GET['upc'])===false&&
 	strlen($_GET['upc'])==13) { preg_match("/^(\d{12})/", $_GET['upc'], $pre_matches); 
 	$_GET['upc'] = $pre_matches[1].validate_ean13($pre_matches[1],true); }
+if(validate_itf14($_GET['upc'])===false&&
+	strlen($_GET['upc'])==14) { preg_match("/^(\d{13})/", $_GET['upc'], $pre_matches); 
+	$_GET['upc'] = $pre_matches[1].validate_itf14($pre_matches[1],true); }
 if($_GET['act']=="view") {
 if(isset($_GET['upc'])&&!is_numeric($_GET['upc'])) {
   $_GET['upc'] = cuecat_decode($_GET['upc']); }
