@@ -172,6 +172,14 @@ function convert_any_to_itf14($upc) {
 	if(strlen($upc)==13) { 
 	return convert_ean13_to_itf14($upc)."\n"; }
 	return false; }
+function convert_any_to_ean8($upc) {
+	if(strlen($upc)==12) { 
+	return convert_upca_to_ean8($upc)."\n"; }
+	if(strlen($upc)==13) { 
+	return convert_ean13_to_ean8($upc)."\n"; }
+	if(strlen($upc)==14) { 
+	return convert_itf14_to_ean8($upc)."\n"; }
+	return false; }
 /*
 Changing a EAN-8 code to UPC-A and EAN-13 based on whats used at: 
 http://www.upcdatabase.com/
