@@ -57,6 +57,7 @@ function str_split($text, $split = 1){
     return $array;
 } }
 
+$upcfunctions = array();
 // Code for validating UPC/EAN by Kazuki Przyborowski
 require("./inc/validate.php");
 // Code for converting UPC/EAN by Kazuki Przyborowski
@@ -85,6 +86,9 @@ require("./inc/code39.php");
 require("./inc/code93.php");
 // Code for decoding CueCat codes by Neil McNab
 require("./inc/cuecat.php");
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "validate_barcode", "create_barcode");
 // Shortcut Codes by Kazuki Przyborowski
 function validate_barcode($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }

@@ -62,6 +62,9 @@ if ($File3Name=="cuecat.php"||$File3Name=="/cuecat.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "cuecat_decode", "cuecat_decode_block");
 function cuecat_decode($ccstr) {
 	$ccparts = explode(".", $ccstr);
 	$upcstr = "";

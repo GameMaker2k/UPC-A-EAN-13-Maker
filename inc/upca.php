@@ -20,6 +20,9 @@ if ($File3Name=="upca.php"||$File3Name=="/upca.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "create_upca");
 function create_upca($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)) { return false; }
 	$upc_pieces = null; $supplement = null;

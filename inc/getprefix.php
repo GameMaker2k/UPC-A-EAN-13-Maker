@@ -20,6 +20,9 @@ if ($File3Name=="getprefix.php"||$File3Name=="/getprefix.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "get_gs1_prefix", "get_upca_ns", "get_itf14_type", "get_upca_vw_info", "get_upca_vw_code", "get_upca_vw_price", "get_upca_vw_pricecs");
 // Get GS1 Prefix for EAN-13 EAN-9 barcodes
 // Source: http://en.wikipedia.org/wiki/List_of_GS1_country_codes
 function get_gs1_prefix($upc) {

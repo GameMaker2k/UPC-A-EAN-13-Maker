@@ -20,6 +20,9 @@ if ($File3Name=="ean13.php"||$File3Name=="/ean13.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "create_ean13");
 function create_ean13($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)) { return false; }
 	$upc_pieces = null; $supplement = null;

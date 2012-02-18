@@ -20,6 +20,9 @@ if ($File3Name=="ean5.php"||$File3Name=="/ean5.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "create_ean5");
 function create_ean5($upc,$offsetadd,$imgres) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>5||strlen($upc)<5) { return false; }

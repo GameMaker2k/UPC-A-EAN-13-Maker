@@ -20,6 +20,9 @@ if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "validate_upca", "fix_upca_checksum", "validate_ean13", "fix_ean13_checksum", "validate_itf14", "fix_itf14_checksum", "validate_ean8", "validate_ean8", "validate_upce", "fix_upce_checksum", "validate_issn8", "fix_issn8_checksum", "validate_issn13", "fix_issn13_checksum", "validate_isbn10", "fix_isbn10_checksum", "validate_isbn13", "fix_isbn13_checksum", "validate_ismn10", "fix_ismn10_checksum", "validate_ismn13", "fix_ismn13_checksum");
 function validate_upca($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>12) { preg_match("/^(\d{12})/", $upc, $fix_matches); $upc = $fix_matches[1]; }

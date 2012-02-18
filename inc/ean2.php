@@ -20,6 +20,9 @@ if ($File3Name=="ean2.php"||$File3Name=="/ean2.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "create_ean2");
 function create_ean2($upc,$offsetadd,$imgres) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>2||strlen($upc)<2) { return false; }

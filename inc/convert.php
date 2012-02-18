@@ -20,6 +20,9 @@ if ($File3Name=="convert.php"||$File3Name=="/convert.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "convert_upce_to_upca", "convert_upca_to_ean13", "convert_ean13_to_itf14", "convert_upce_to_ean13", "convert_upce_to_itf14", "convert_upca_to_itf14", "convert_ean13_to_upca", "convert_itf14_to_ean13", "convert_upca_to_upce", "convert_ean13_to_upce", "convert_itf14_to_upca", "convert_itf14_to_upce", "convert_any_to_upca", "convert_any_to_upce", "convert_any_to_ean13", "convert_any_to_itf14", "convert_any_to_ean8", "convert_ean8_to_upca", "convert_ean8_to_ean13", "convert_ean8_to_itf14", "convert_upca_to_ean8", "convert_ean13_to_ean8", "convert_itf14_to_ean8", "convert_issn8_to_issn13", "convert_issn13_to_issn8", "print_issn8", "print_issn13", "print_convert_issn8_to_issn13", "print_convert_issn13_to_issn8", "convert_isbn10_to_isbn13", "convert_isbn13_to_isbn10", "convert_isbn10_to_ean13", "convert_ean13_to_isbn10", "convert_isbn10_to_itf14", "convert_itf14_to_isbn10", "print_isbn10", "print_isbn13", "print_convert_isbn10_to_isbn13", "print_convert_isbn13_to_isbn10", "convert_ismn10_to_ismn13", "convert_ismn13_to_ismn10", "convert_ismn10_to_ean13", "convert_ean13_to_ismn10", "convert_ismn10_to_itf14", "convert_itf14_to_ismn10", "print_ismn10", "print_ismn13", "print_convert_ismn10_to_ismn13", "print_convert_ismn13_to_ismn10");
 function convert_upce_to_upca($upc) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)==7) { $upc = $upc.validate_upce($upc,true); }

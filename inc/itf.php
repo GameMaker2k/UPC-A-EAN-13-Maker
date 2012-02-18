@@ -20,6 +20,9 @@ if ($File3Name=="itf.php"||$File3Name=="/itf.php") {
 	require("./upc.php");
 	exit(); }
 
+if(!isset($upcfunctions)) { $upcfunctions = array(); }
+if(!is_array($upcfunctions)) { $upcfunctions = array(); }
+array_push($upcfunctions, "create_itf");
 function create_itf($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc) % 2) { return false; }
