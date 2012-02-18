@@ -88,7 +88,7 @@ require("./inc/code93.php");
 require("./inc/cuecat.php");
 if(!isset($upcfunctions)) { $upcfunctions = array(); }
 if(!is_array($upcfunctions)) { $upcfunctions = array(); }
-array_push($upcfunctions, "validate_barcode", "create_barcode");
+array_push($upcfunctions, "validate_barcode", "fix_barcode_checksum", "create_barcode");
 // Shortcut Codes by Kazuki Przyborowski
 function validate_barcode($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
@@ -97,6 +97,15 @@ function validate_barcode($upc,$return_check=false) {
 	if(strlen($upc)==13) { return validate_ean13($upc,$return_check); } 
 	if(strlen($upc)==14) { return validate_itf14($upc,$return_check); } 
 	return false; }
+function fix_barcode_checksum($upc) {
+	if(!isset($upc)||!is_numeric($upc)) { return false; }
+	if(strlen($upc)==7) { return $upc.validate_upce($upc,true); }
+	if(strlen($upc)==11) { return $upc.validate_upca($upc,true); }
+	if(strlen($upc)==12) { return $upc.validate_ean13($upc,true); } 
+	if(strlen($upc)==13) { return $upc.validate_itf14($upc,true); } 
+	return false; }
+	if(strlen($upc)>13) { preg_match("/^(\d{13})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	return $upc.validate_itf14($upc,true); }
 function create_barcode($upc,$imgtype="png",$outputimage=true,$resize=1,$resizetype="resize",$outfile=NULL,$hidecd=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(!isset($resize)||!preg_match("/^([0-9]*[\.]?[0-9])/", $resize)||$resize<1) { $resize = 1; }
