@@ -275,7 +275,7 @@ return true; }
   </table>
   <?php } ?>
   <div>&nbsp;<br />&nbsp;</div>
-  <address><?php echo "<a href=\"".$appmakerurl."\" title=\"".$appname." by ".$appmaker."\">".$appname."</a> Ver. ".$appver[0].".".$appver[1].".".$appver[2]." ".$appver[3]; ?></address>
+  <address><?php echo "<a href=\"".$appmakerurl."\" title=\"".$appname." by ".$appmaker."\">".$appname."</a> ver. ".$appver[0].".".$appver[1].".".$appver[2]." ".$appver[3]; ?></address>
  </body>
 </html>
 <?php } ?>

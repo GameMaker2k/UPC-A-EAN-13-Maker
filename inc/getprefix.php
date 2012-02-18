@@ -199,23 +199,23 @@ function get_gs1_prefix($upc) {
 // Source: http://www.computalabel.com/aboutupc.htm
 function get_upca_ns($upc) {
 	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) { $upc = $upc_matches[1]; }
-	if(!preg_match("/^(\d{12})$/", $upc, $fix_ean)) { return false; }
+	if(!preg_match("/^(\d{12})$/", $upc)) { return false; }
 	if(preg_match("/^(0)/", $upc)) { return "Regular UPC"; }
-	if(preg_match("/^(1)/", $upc)) { return "Reserved"; }
+	if(preg_match("/^(1)/", $upc)) { return "Regular UPC"; }
 	if(preg_match("/^(2)/", $upc)) { return "Variable Weight Items"; }
 	if(preg_match("/^(3)/", $upc)) { return "Drug/Health Items"; }
 	if(preg_match("/^(4)/", $upc)) { return "In-store use"; }
 	if(preg_match("/^(5)/", $upc)) { return "Coupons"; }
 	if(preg_match("/^(6)/", $upc)) { return "Regular UPC"; }
 	if(preg_match("/^(7)/", $upc)) { return "Regular UPC"; }
-	if(preg_match("/^(8)/", $upc)) { return "Reserved"; }
-	if(preg_match("/^(9)/", $upc)) { return "Reserved"; }
+	if(preg_match("/^(8)/", $upc)) { return "Regular UPC"; }
+	if(preg_match("/^(9)/", $upc)) { return "Coupons"; }
 	return false; }
 // Get ITF-14 Packaging Indicator
 // Source: http://www.mecsw.com/specs/itf_14.html
 // Source: http://www.qed.org/RBTL/chapters/ch3.3.htm
 function get_itf14_type($upc) {
-	if(!preg_match("/^(\d{14})$/", $upc, $fix_ean)) { return false; }
+	if(!preg_match("/^(\d{14})$/", $upc)) { return false; }
 	if(preg_match("/^(0)/", $upc)) { return "UPC code of contents differs from case code"; }
 	if(preg_match("/^(1)/", $upc)) { return "More than each and below inner packs"; }
 	if(preg_match("/^(2)/", $upc)) { return "More than each and below inner packs"; }
@@ -227,4 +227,28 @@ function get_itf14_type($upc) {
 	if(preg_match("/^(8)/", $upc)) { return "Reserved"; }
 	if(preg_match("/^(9)/", $upc)) { return "Variable quantity content"; }
 	return false; }
+// Get variable weight info
+// Source: http://wiki.answers.com/Q/How_does_a_price_embedded_bar_code_work
+// Source: http://en.wikipedia.org/wiki/Universal_Product_Code#Prefixes
+function get_upca_vw_info($upc) {
+	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) { $upc = $upc_matches[1]; }
+	if(!preg_match("/^(\d{12})$/", $upc)) { return false; }
+	if(!preg_match("/^2(\d{11})/", $upc)) { return false; }
+	preg_match("/^2(\d{5})(\d{1})(\d{4})(\d{1})/", $upc, $upc_matches);
+	$product['code'] = $upc_matches[1];
+	$product['pricecs'] = $upc_matches[2];
+	$product['price'] = $upc_matches[3];
+	return $product; }
+function get_upca_vw_code($upc) {
+	$product = get_upca_vw_info($upc);
+	if($product===false) { return false; }
+	return $product['code']; }
+function get_upca_vw_price($upc) {
+	$product = get_upca_vw_info($upc);
+	if($product===false) { return false; }
+	return $product['price']; }
+function get_upca_vw_pricecs($upc) {
+	$product = get_upca_vw_info($upc);
+	if($product===false) { return false; }
+	return $product['pricecs']; }
 ?>
