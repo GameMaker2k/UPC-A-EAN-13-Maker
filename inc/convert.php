@@ -302,15 +302,54 @@ function print_convert_isbn13_to_isbn10($upc) {
 /*
 ISMN (International Standard Music Number)
 http://en.wikipedia.org/wiki/International_Standard_Music_Number
+http://www.ismn-international.org/whatis.html
+http://www.ismn-international.org/manual_1998/chapter2.html
 */
+function convert_ismn10_to_ismn13($upc) {
+	$upc = str_replace("M", "", $upc);
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	if(validate_ismn10($upc)===false) { return false; }
+	if(strlen($upc)>8) { preg_match("/^(\d{8})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
+	$ismn13 = "9790".$upc.validate_ean13("9790".$upc,true); 
+	return $ismn13; }
+function convert_ismn13_to_ismn10($upc) {
+	$upc = str_replace("M", "", $upc);
+	$upc = str_replace("-", "", $upc);
+	$upc = str_replace(" ", "", $upc);
+	if(validate_ean13($upc)===false) { return false; }
+	if(!preg_match("/^9790(\d{8})/", $upc, $upc_matches)) {
+	return false; }
+	if(preg_match("/^9790(\d{8})/", $upc, $upc_matches)) {
+	$ismn10 = $upc_matches[1].validate_ismn10($upc_matches[1],true); }
+	return $ismn10; }
+function convert_ismn10_to_ean13($upc) {
+	return convert_ismn10_to_ismn13($upc); }
+function convert_ean13_to_ismn10($upc) {
+	return convert_ismn13_to_ismn10($upc); }
+function convert_ismn10_to_itf14($upc) {
+	return convert_ean13_to_itf14(convert_ismn10_to_ismn13($upc)); }
+function convert_itf14_to_ismn10($upc) {
+	return convert_itf14_to_ean13(convert_ismn13_to_ismn10($upc)); }
+function print_ismn10($upc) {
+	$upc = str_replace("M", "", $upc);
+	if(strlen($upc)>9) { preg_match("/^(\d{9})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>9||strlen($upc)<9) { return false; }
+	if(!preg_match("/^(\d{4})(\d{4})(\d{1})/", $upc, $ismn_matches)) {
+	return false; }
+	$ismn10 = "M-".$ismn_matches[1]."-".$ismn_matches[2]."-".$ismn_matches[3];
+	return $ismn10; }
 function print_ismn13($upc) {
-	if(!preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
-	return false; }
-	if(preg_match("/^979(\d{9})/", $upc, $upc_matches)) {
-	if(strlen($upc)>13) { preg_match("/^(\d{13})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
+	if(strlen($upc)>13) { preg_match("/^(\d{3})/", $upc, $fix_matches); $upc = $fix_matches[1].$fix_matches[2]; }
 	if(strlen($upc)>13||strlen($upc)<13) { return false; }
-	if(!preg_match("/^(\d{3})(\d{1})(\d{4})(\d{4})(\d{1})/", $upc, $issn_matches)) {
+	if(!preg_match("/^(\d{3})(\d{1})(\d{4})(\d{4})(\d{1})/", $upc, $ismn_matches)) {
 	return false; }
-	$ismn13 = $issn_matches[1]."-".$issn_matches[2]."-".$issn_matches[3]."-".$issn_matches[4]."-".$issn_matches[5];
-	return $ismn13; } }
+	$ismn13 = $ismn_matches[1]."-".$ismn_matches[2]."-".$ismn_matches[3]."-".$ismn_matches[4]."-".$ismn_matches[5];
+	return $ismn13; }
+function print_convert_ismn10_to_ismn13($upc) {
+	$ismn13 = print_ismn13(convert_ismn10_to_ismn13($upc));
+	return $ismn13; }
+function print_convert_ismn13_to_ismn10($upc) {
+	$ismn10 = print_ismn10(convert_ismn13_to_ismn10($upc));
+	return $ismn10; }
 ?>
