@@ -22,7 +22,7 @@ if ($File3Name=="getprefix.php"||$File3Name=="/getprefix.php") {
 
 if(!isset($upcfunctions)) { $upcfunctions = array(); }
 if(!is_array($upcfunctions)) { $upcfunctions = array(); }
-array_push($upcfunctions, "get_gs1_prefix", "get_upca_ns", "get_itf14_type", "get_upca_vw_info", "get_upca_vw_code", "get_upca_vw_price", "get_upca_vw_pricecs");
+array_push($upcfunctions, "get_gs1_prefix", "get_upca_ns", "get_itf14_type", "get_upca_vw_info", "get_upca_vw_code", "get_upca_vw_price", "get_upca_vw_pricecs", "get_upca_coupon_info", "get_upca_coupon_manufacturer", "get_upca_coupon_family", "get_upca_coupon_value");
 // Get GS1 Prefix for EAN-13 EAN-9 barcodes
 // Source: http://en.wikipedia.org/wiki/List_of_GS1_country_codes
 function get_gs1_prefix($upc) {
@@ -254,4 +254,27 @@ function get_upca_vw_pricecs($upc) {
 	$product = get_upca_vw_info($upc);
 	if($product===false) { return false; }
 	return $product['pricecs']; }
+// Get coupon info
+// Source: http://divagirlusa-ivil.tripod.com/austinitecouponers/id29.html
+function get_upca_coupon_info($upc) {
+	if(preg_match("/^0(\d{12})/", $upc, $upc_matches)) { $upc = $upc_matches[1]; }
+	if(!preg_match("/^(\d{12})$/", $upc)) { return false; }
+	if(!preg_match("/^(5|9)(\d{11})/", $upc)) { return false; }
+	preg_match("/^(5|9)(\d{5})(\d{3})(\d{2})(\d{1})/", $upc, $upc_matches);
+	$product['manufacturer'] = $upc_matches[2];
+	$product['family'] = $upc_matches[3];
+	$product['value'] = $upc_matches[4];
+	return $product; }
+function get_upca_coupon_manufacturer($upc) {
+	$product = get_upca_coupon_info($upc);
+	if($product===false) { return false; }
+	return $product['manufacturer']; }
+function get_upca_coupon_family($upc) {
+	$product = get_upca_coupon_info($upc);
+	if($product===false) { return false; }
+	return $product['family']; }
+function get_upca_coupon_value($upc) {
+	$product = get_upca_coupon_info($upc);
+	if($product===false) { return false; }
+	return $product['value']; }
 ?>
