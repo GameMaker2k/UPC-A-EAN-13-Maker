@@ -380,10 +380,10 @@ function make_coupon_upca($numbersystem, $manufacturer, $family, $value) {
 	$couponupca = $numbersystem.$manufacturer.$family.$value;
 	$couponupca = $couponupca.validate_upca($couponupca, true);
 	return $couponupca; }
-function make_coupon_to_ean13($code, $price) {
+function make_coupon_to_ean13($numbersystem, $manufacturer, $family, $value) {
 	$couponean13 = convert_upca_to_ean13(make_coupon_upca($numbersystem, $manufacturer, $family, $value));
 	return $couponean13; }
-function make_coupon_to_itf14($code, $price) {
+function make_coupon_to_itf14($numbersystem, $manufacturer, $family, $value) {
 	$couponitf14 = convert_upca_to_itf14(make_coupon_upca($numbersystem, $manufacturer, $family, $value));
 	return $couponitf14; }
 ?>
