@@ -22,7 +22,7 @@ if ($File3Name=="validate.php"||$File3Name=="/validate.php") {
 
 if(!isset($upcfunctions)) { $upcfunctions = array(); }
 if(!is_array($upcfunctions)) { $upcfunctions = array(); }
-array_push($upcfunctions, "validate_upca", "fix_upca_checksum", "validate_ean13", "fix_ean13_checksum", "validate_itf14", "fix_itf14_checksum", "validate_ean8", "validate_ean8", "validate_upce", "fix_upce_checksum", "validate_issn8", "fix_issn8_checksum", "validate_issn13", "fix_issn13_checksum", "validate_isbn10", "fix_isbn10_checksum", "validate_isbn13", "fix_isbn13_checksum", "validate_ismn10", "fix_ismn10_checksum", "validate_ismn13", "fix_ismn13_checksum");
+array_push($upcfunctions, "validate_upca", "fix_upca_checksum", "validate_ean13", "fix_ean13_checksum", "validate_itf14", "fix_itf14_checksum", "validate_ean8", "validate_ean8", "validate_upce", "fix_upce_checksum", "validate_issn8", "fix_issn8_checksum", "validate_issn13", "fix_issn13_checksum", "validate_isbn10", "fix_isbn10_checksum", "validate_isbn13", "fix_isbn13_checksum", "validate_ismn10", "fix_ismn10_checksum", "validate_ismn13", "fix_ismn13_checksum", "get_vw_price_checksum", "fix_vw_price_checksum");
 function validate_upca($upc,$return_check=false) {
 	if(!isset($upc)||!is_numeric($upc)) { return false; }
 	if(strlen($upc)>12) { preg_match("/^(\d{12})/", $upc, $fix_matches); $upc = $fix_matches[1]; }
@@ -285,4 +285,40 @@ function fix_ismn13_checksum($upc) {
 	return false; }
 	if(preg_match("/^9790(\d{8})/", $upc, $upc_matches)) {
 	return fix_ean13_checksum($upc); } }
+// Get variable weight price checksum
+// Source: http://wiki.answers.com/Q/How_does_a_price_embedded_bar_code_work
+// Source: http://en.wikipedia.org/wiki/Universal_Product_Code#Prefixes
+// Source: http://barcodes.gs1us.org/GS1%20US%20BarCodes%20and%20eCom%20-%20The%20Global%20Language%20of%20Business.htm
+function get_vw_price_checksum($price,$return_check=false) {
+	if(strlen($price)==1) { $price = "000".$price; }
+	if(strlen($price)==2) { $price = "00".$price; }
+	if(strlen($price)==3) { $price = "0".$price; }
+	if(strlen($price)>5) {
+	if(preg_match("/^(\d{5})/", $price, $price_matches)) { $price = $price_matches[1]; } }
+	$price_split = str_split($price);
+	$numrep1 = array(0 => 0, 1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 9, 6 => 1, 7 => 3, 8 => 5, 9 => 7);
+	$numrep2 = array(0 => 0, 1 => 3, 2 => 6, 3 => 9, 4 => 2, 5 => 5, 6 => 8, 7 => 1, 8 => 4, 9 => 7);
+	$numrep3 = array(0 => 0, 1 => 5, 2 => 9, 3 => 4, 4 => 8, 5 => 3, 6 => 7, 7 => 2, 8 => 6, 9 => 1);
+	if(strlen($price)==4) {
+	$price_split[0] = $numrep1[$price_split[0]];
+	$price_split[1] = $numrep1[$price_split[1]];
+	$price_split[2] = $numrep2[$price_split[2]];
+	$price_split[3] = $numrep3[$price_split[3]]; }
+	if(strlen($price)==5) {
+	$price_split[1] = $numrep1[$price_split[1]];
+	$price_split[2] = $numrep1[$price_split[2]];
+	$price_split[3] = $numrep2[$price_split[3]];
+	$price_split[4] = $numrep3[$price_split[4]]; }
+	$price_add = ($price_split[0] + $price_split[1] + $price_split[2] + $price_split[3]) * 3;
+	$CheckSum = $price_add % 10;
+	if($return_check==false&&strlen($price)==5) {
+	if($CheckSum!=$price_split[0]) { return false; }
+	if($CheckSum==$price_split[0]) { return true; } }
+	if($return_check==true) { return $CheckSum; } 
+	if(strlen($price)==4) { return $CheckSum; }
+	return $CheckSum; }
+function fix_vw_price_checksum($price) {
+	if(strlen($price)==5) { preg_match("/^(\d{1})(\d{4})/", $price, $fix_matches); $price = $fix_matches[2]; }
+	if(strlen($price)>4) { preg_match("/^(\d{4})/", $price, $fix_matches); $price = $fix_matches[1]; }
+	return get_vw_price_checksum($price,true).$price; }
 ?>
