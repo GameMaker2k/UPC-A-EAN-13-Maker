@@ -15,7 +15,7 @@
     $FileInfo: upc.php - Last Update: 02/13/2012 Ver. 2.2.5 RC 1 - Author: cooldude2k $
 */
 
-@ob_start();
+@ob_start("ob_gzhandler");
 $website_url = "http://localhost/upc/";
 $url_style = 0;
 $url_file = "upc.php";
